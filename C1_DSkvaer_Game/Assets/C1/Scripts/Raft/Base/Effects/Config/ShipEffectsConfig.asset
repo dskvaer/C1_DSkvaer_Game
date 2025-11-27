@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f29c3395e83124a9cf4b394beb2946, type: 3}
+  m_Name: ShipEffectsConfig
+  m_EditorClassIdentifier: Assembly-CSharp::ShipEffectsConfig
+  waveParticleSpeed: 2
+  waveParticleSize: 0.2
+  waveEmissionRate: 20
+  waveParticleColor: {r: 1, g: 1, b: 1, a: 0.8}
+  waveParticleLifetime: 1
+  waveMinSpeed: 5.4
+  trailTime: 0
+  trailStartWidth: 0
+  trailEndWidth: 0
+  trailStartColor: {r: 1, g: 1, b: 1, a: 0.8}
+  trailEndColor: {r: 0.48867923, g: 0.8580638, b: 1, a: 0}
+  trailMinSpeed: 0

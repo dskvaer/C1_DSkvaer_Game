@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\raft\\base\\effects\\gun\\projectileeffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\base\\effects\\gun\\projectileeffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProjectileEffects.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\Effects\\Gun\\ProjectileEffects.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\Base\\Effects\\Gun\\ProjectileEffects.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\Effects\\Gun\\ProjectileEffects.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\Base\\Effects\\Gun\\ProjectileEffects.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAswJwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T03:43:53.607Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
