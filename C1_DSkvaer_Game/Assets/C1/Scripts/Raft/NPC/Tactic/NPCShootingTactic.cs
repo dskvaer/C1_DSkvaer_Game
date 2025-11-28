@@ -1,133 +1,125 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace Ship
-{
+namespace Ship {
     /// <summary>
-    /// Тактика стрельбы NPC:
-    /// • Одна круглая зона детекции (CircleCollider2D)
-    /// • ГИБКАЯ СКОРОСТЬ ПОВОРОТА: от 10°/с до 1000°/с
-    /// • Плавный переход: медленный → быстрый
-    /// • Пресеты в инспекторе
+    /// Тактика стрельбы с использованием ScriptableObject настроек (NPCShootingConfig).
+    /// Реализует гибридное наведение (Упреждение + Прямой огонь).
     /// </summary>
     [RequireComponent(typeof(CircleCollider2D))]
-    public class NPCShootingTactic : MonoBehaviour, IEnemyTactic
-    {
-        //=====================================================================
-        // Inspector — НАСТРОЙКИ ПОВОРОТА
-        //=====================================================================
+    public class NPCShootingTactic : MonoBehaviour, IEnemyTactic {
+        [Header("Настройки")]
+        [SerializeField] private NPCShootingConfig config; // Ссылка на ScriptableObject
 
-        [Header("ЗОНА ДЕТЕКЦИИ И СТРЕЛЬБЫ")]
+        [Header("Компоненты")]
         [SerializeField] private CircleCollider2D detectionCollider;
         [SerializeField] private LayerMask targetLayer = -1;
+        [SerializeField] private GameObject[] allGunObjects;
 
-        [Header("Пушки")]
-        [SerializeField] private GameObject[] leftGuns;
-        [SerializeField] private GameObject[] rightGuns;
-
-        [Header("ГИБКАЯ СКОРОСТЬ ПОВОРОТА")]
-        [Tooltip("Минимальная скорость поворота (°/с). При угле > 90°")]
-        [SerializeField, Range(10f, 500f)] private float minTurnSpeed = 60f;
-
-        [Tooltip("Максимальная скорость поворота (°/с). При угле ≤ 90°")]
-        [SerializeField, Range(100f, 1000f)] private float maxTurnSpeed = 360f;
-
-        [Tooltip("Угол, при котором начинается максимальная скорость")]
-        [SerializeField, Range(30f, 120f)] private float fastTurnAngle = 90f;
-
-        [Tooltip("Точность прицеливания (остановка поворота)")]
-        [SerializeField, Range(1f, 30f)] private float aimTolerance = 8f;
-
-        [Tooltip("Частота пересчёта цели")]
-        [SerializeField, Range(0.05f, 1f)] private float retargetInterval = 0.2f;
-
-        //=====================================================================
-        // Private
-        //=====================================================================
-
+        // Приватные поля
         private ShipMovement shipMovement;
-        private Transform target;
         private ShipID shipID;
 
+        // Кэшированные данные цели
+        private Transform target;
+        private Rigidbody2D targetRb;
         private bool hasAcquiredTarget = false;
         private float targetLostTime = 0f;
-        private const float TARGET_LOST_THRESHOLD = 0.5f;
+        private const float TARGET_LOST_THRESHOLD = 1.0f;
 
-        private float targetAngle = 0f;
-        private float retargetTimer = 0f;
-        private bool useLeftSide = true;
-
-        private int leftGunIndex = 0;
-        private int rightGunIndex = 0;
-
-        private float lastLogTime = 0f;
-        private const float LOG_INTERVAL = 0.5f;
-
+        private List<GunWeaponSystem> activeGuns = new List<GunWeaponSystem>();
+        private float calculatedAvgProjectileSpeed = 20f;
         private readonly Collider2D[] overlapResults = new Collider2D[4];
 
+        private float lastLogTime;
+        private const float LOG_INTERVAL = 1f;
+
         //=====================================================================
-        // Awake
+        // Unity: Awake / Start
         //=====================================================================
 
         private void Awake()
         {
             shipID = GetComponentInParent<ShipID>();
             shipMovement = GetComponentInParent<ShipMovement>();
+            detectionCollider = GetComponentInChildren<CircleCollider2D>();
 
-            if (shipID == null || shipMovement == null)
+            if (config == null)
             {
-                LogError("ShipID или ShipMovement не найдены!");
-                enabled = false;
-                return;
+                Debug.LogError($"[NPCShoot] НЕТ КОНФИГА NPCShootingConfig у {name}!");
+                enabled = false; return;
             }
 
-            detectionCollider = GetComponentInChildren<CircleCollider2D>();
-            if (detectionCollider == null)
+            if (!shipID || !shipMovement || !detectionCollider)
             {
-                LogError("detectionCollider не найден! ДОБАВЬТЕ ДОЧЕРНИЙ CircleCollider2D (isTrigger=true)");
-                enabled = false;
-                return;
+                Debug.LogError($"[NPCShoot] Ошибка компонентов у {name}");
+                enabled = false; return;
             }
             detectionCollider.isTrigger = true;
+        }
 
-            if ((leftGuns == null || leftGuns.Length == 0) && (rightGuns == null || rightGuns.Length == 0))
+        private void Start()
+        {
+            CollectGunsAndCalculateSpeed();
+        }
+
+        private void CollectGunsAndCalculateSpeed()
+        {
+            activeGuns.Clear();
+            float totalSpeed = 0f;
+            int count = 0;
+
+            if (allGunObjects != null)
             {
-                LogError("Пушки не заданы!");
-                enabled = false;
-                return;
+                foreach (var obj in allGunObjects)
+                {
+                    if (obj == null) continue;
+                    var gun = obj.GetComponent<GunWeaponSystem>();
+                    if (gun != null)
+                    {
+                        activeGuns.Add(gun);
+                        var c = gun.GetProjectileConfig();
+                        if (c != null)
+                        {
+                            totalSpeed += c.ProjectileSpeed;
+                            count++;
+                        }
+                    }
+                }
             }
 
-            LogMessage($"Инициализация OK | Поворот: {minTurnSpeed}-{maxTurnSpeed}°/с | ID: {shipID.ID}");
+            if (count > 0)
+            {
+                calculatedAvgProjectileSpeed = totalSpeed / count;
+                Debug.Log($"[NPCShoot] Найдено {count} пушек. Средняя скорость снаряда: {calculatedAvgProjectileSpeed:F1}");
+            }
+            else
+            {
+                calculatedAvgProjectileSpeed = 20f;
+                Debug.LogWarning("[NPCShoot] Пушки не найдены или нет конфигов. Используем стандартную скорость: 20");
+            }
         }
 
         //=====================================================================
-        // IEnemyTactic
+        // IEnemyTactic Implementation
         //=====================================================================
 
         public bool CanExecute(EnemyAIContext context)
         {
-            if (context == null || context.Player == null)
+            if (context?.Player == null)
             {
                 if (hasAcquiredTarget) ResetTarget();
                 return false;
             }
 
             target = context.Player;
+            if (targetRb == null) targetRb = target.GetComponent<Rigidbody2D>();
 
-            if (target == null || target.gameObject == null)
-            {
-                LogMessage("ЦЕЛЬ УНИЧТОЖЕНА → СБРОС");
-                ResetTarget();
-                return false;
-            }
-
-            bool inZone = IsTargetInZone();
-
-            if (inZone && !hasAcquiredTarget)
+            bool inZone = CheckTargetInZone();
+            if (inZone)
             {
                 hasAcquiredTarget = true;
                 targetLostTime = 0f;
-                retargetTimer = 0f;
-                LogMessage($"ОХОТА НАЧАТА | Дист: {Vector2.Distance(transform.position, target.position):F1}m");
             }
 
             return hasAcquiredTarget || inZone;
@@ -135,32 +127,29 @@ namespace Ship
 
         public void Execute(EnemyAIContext context, float deltaTime)
         {
-            if (context == null || context.Player == null || target == null || target.gameObject == null)
-            {
-                ResetTarget();
-                return;
-            }
+            if (target == null) { ResetTarget(); return; }
 
             UpdateTargetStatus(deltaTime);
             if (!hasAcquiredTarget) return;
 
-            ContinuousTracking(deltaTime);
+            // Используем linearVelocity (Unity 6 / 2023.3+)
+            Vector2 targetVelocity = (targetRb != null) ? targetRb.linearVelocity : Vector2.zero;
+
+            // 1. Вращение корпуса (на упреждение)
+            Vector2 aimPoint = CalculateInterceptPoint(transform.position, target.position, targetVelocity, calculatedAvgProjectileSpeed);
+            RotateShipBody(aimPoint, deltaTime);
+
+            // 2. Стрельба
+            ProcessIndependentGunfire(targetVelocity);
         }
 
         //=====================================================================
-        // UpdateTargetStatus
+        // Логика обнаружения
         //=====================================================================
 
         private void UpdateTargetStatus(float deltaTime)
         {
-            if (target == null || target.gameObject == null)
-            {
-                LogMessage("ЦЕЛЬ УНИЧТОЖЕНА");
-                ResetTarget();
-                return;
-            }
-
-            if (IsTargetInZone())
+            if (CheckTargetInZone())
             {
                 targetLostTime = 0f;
                 hasAcquiredTarget = true;
@@ -168,243 +157,126 @@ namespace Ship
             else
             {
                 targetLostTime += deltaTime;
-                if (targetLostTime >= TARGET_LOST_THRESHOLD)
-                {
-                    LogMessage("ОХОТА ПРЕКРАЩЕНА");
-                    ResetTarget();
-                }
+                if (targetLostTime >= TARGET_LOST_THRESHOLD) ResetTarget();
             }
         }
 
-        //=====================================================================
-        // IsTargetInZone
-        //=====================================================================
-
-        private bool IsTargetInZone()
+        private bool CheckTargetInZone()
         {
-            if (detectionCollider == null || target == null) return false;
-
+            if (!detectionCollider || !target) return false;
             Vector2 center = (Vector2)transform.position + detectionCollider.offset;
-            float radius = detectionCollider.radius;
-
-            var filter = new ContactFilter2D
-            {
-                useLayerMask = true,
-                layerMask = targetLayer
-            };
-
-            int count = Physics2D.OverlapCircle(center, radius, filter, overlapResults);
+            int count = Physics2D.OverlapCircle(center, detectionCollider.radius, new ContactFilter2D { useLayerMask = true, layerMask = targetLayer }, overlapResults);
 
             for (int i = 0; i < count; i++)
-            {
-                if (overlapResults[i] != null && overlapResults[i].transform == target)
-                    return true;
-            }
+                if (overlapResults[i] != null && overlapResults[i].transform == target) return true;
 
             return false;
         }
 
         //=====================================================================
-        // ContinuousTracking
+        // Логика Вращения (Корпус)
         //=====================================================================
 
-        private void ContinuousTracking(float deltaTime)
+        private void RotateShipBody(Vector2 aimPosition, float deltaTime)
         {
-            if (target == null || target.gameObject == null)
-            {
-                ResetTarget();
-                return;
-            }
-
-            retargetTimer += deltaTime;
-            if (retargetTimer >= retargetInterval)
-            {
-                CalculateTargetAngle();
-                retargetTimer = 0f;
-            }
-
-            RotateToTarget(deltaTime);
-            TryFire();
-        }
-
-        //=====================================================================
-        // CalculateTargetAngle
-        //=====================================================================
-
-        private void CalculateTargetAngle()
-        {
-            if (target == null || target.gameObject == null) return;
-
-            Vector2 toTarget = (target.position - transform.position).normalized;
-            targetAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg - 90f;
-            targetAngle = NormalizeAngle(targetAngle);
-
-            float angleFromNose = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
-            useLeftSide = angleFromNose < 0;
-
-            LogMessage($"НАЦЕЛИВАНИЕ | Борт: {(useLeftSide ? "ЛЕВЫЙ" : "ПРАВЫЙ")} | Угол: {targetAngle:F1}°");
-        }
-
-        //=====================================================================
-        // RotateToTarget — ГИБКАЯ СКОРОСТЬ
-        //=====================================================================
-
-        private void RotateToTarget(float deltaTime)
-        {
-            if (target == null || target.gameObject == null)
-            {
-                shipMovement?.ShipRotate(Vector2.zero, 0f);
-                return;
-            }
-
+            Vector2 directionToAim = aimPosition - (Vector2)transform.position;
+            float targetAngle = Mathf.Atan2(directionToAim.y, directionToAim.x) * Mathf.Rad2Deg - 90f;
             float currentAngle = transform.eulerAngles.z;
             float angleDiff = Mathf.DeltaAngle(currentAngle, targetAngle);
             float absDiff = Mathf.Abs(angleDiff);
 
-            // Остановка при прицеле
-            if (absDiff < aimTolerance)
+            if (absDiff < config.RotationAimTolerance)
             {
                 shipMovement.ShipRotate(Vector2.zero, 0f);
                 return;
             }
 
-            // ГИБКАЯ СКОРОСТЬ: от min до max
-            float speedRatio = Mathf.InverseLerp(fastTurnAngle, 0f, absDiff); // 1 при малом угле
-            float turnSpeed = Mathf.Lerp(minTurnSpeed, maxTurnSpeed, speedRatio);
+            // Используем настройки из КОНФИГА
+            float speedRatio = Mathf.InverseLerp(config.FastTurnAngle, 0f, absDiff);
+            float currentTurnSpeed = Mathf.Lerp(config.MinTurnSpeed, config.MaxTurnSpeed, speedRatio);
 
-            // Input для ShipRotate (-1..1)
-            float maxInputPerFrame = turnSpeed * deltaTime / 90f;
-            float rotationInput = Mathf.Clamp(angleDiff / 90f, -maxInputPerFrame, maxInputPerFrame);
+            float maxInput = currentTurnSpeed * deltaTime / 90f;
+            float input = Mathf.Clamp(angleDiff / 90f, -maxInput, maxInput);
 
-            shipMovement.ShipRotate(new Vector2(rotationInput, 0f), 1f);
-
-            // Лог
-            if (Time.time - lastLogTime > LOG_INTERVAL)
-            {
-                string dir = angleDiff > 0 ? "ВПРАВО" : "ВЛЕВО";
-                LogMessage($"{dir} | Δ={absDiff:F1}° | Скорость={turnSpeed:F0}°/с | Input={rotationInput:F3}");
-                lastLogTime = Time.time;
-            }
+            shipMovement.ShipRotate(new Vector2(input, 0f), 1f);
         }
 
         //=====================================================================
-        // TryFire
+        // Логика "Умных Турелей" (Independent Gunfire)
         //=====================================================================
 
-        private void TryFire()
+        private void ProcessIndependentGunfire(Vector2 targetVelocity)
         {
-            if (target == null || target.gameObject == null) return;
-            if (!IsTargetInZone()) return;
-
-            if (useLeftSide && leftGuns != null && leftGuns.Length > 0)
+            foreach (var gun in activeGuns)
             {
-                FireSide(leftGuns, ref leftGunIndex, "ЛЕВЫЙ");
-            }
-            else if (!useLeftSide && rightGuns != null && rightGuns.Length > 0)
-            {
-                FireSide(rightGuns, ref rightGunIndex, "ПРАВЫЙ");
-            }
-        }
+                if (gun == null || !gun.CanFire()) continue;
+                var c = gun.GetProjectileConfig();
+                if (c == null) continue;
 
-        private void FireSide(GameObject[] guns, ref int index, string side)
-        {
-            int shots = 0;
-            for (int i = 0; i < guns.Length; i++)
-            {
-                int idx = (index + i) % guns.Length;
-                var gun = guns[idx];
-                if (gun == null) continue;
+                Vector2 gunPos = gun.transform.position;
+                Vector2 gunForward = gun.transform.up;
+                bool shouldFire = false;
 
-                var weapon = gun.GetComponent<GunWeaponSystem>();
-                if (weapon != null && weapon.IsReadyToFire())
+                // 1. Упреждение
+                Vector2 intercept = CalculateInterceptPoint(gunPos, target.position, targetVelocity, c.ProjectileSpeed);
+                if (Vector2.Distance(gunPos, intercept) <= c.Range)
                 {
-                    weapon.Fire();
-                    shots++;
-
-                    if (target == null || target.gameObject == null)
-                    {
-                        LogMessage($"ЦЕЛЬ УНИЧТОЖЕНА ПОСЛЕ ВЫСТРЕЛА!");
-                        ResetTarget();
-                        return;
-                    }
-
-                    if (shots == 1)
-                        index = (idx + 1) % guns.Length;
+                    // Используем порог из конфига
+                    if (Vector2.Angle(gunForward, (intercept - gunPos).normalized) <= config.FiringAngleThreshold)
+                        shouldFire = true;
                 }
-            }
 
-            if (shots > 0)
-                LogMessage($"ВЫСТРЕЛ {side} x{shots}");
+                // 2. Прямой огонь (если упреждение не сработало)
+                if (!shouldFire && Vector2.Distance(gunPos, target.position) <= c.Range)
+                {
+                    if (Vector2.Angle(gunForward, ((Vector2)target.position - gunPos).normalized) <= config.FiringAngleThreshold)
+                        shouldFire = true;
+                }
+
+                if (shouldFire) gun.Fire();
+            }
         }
 
-        //=====================================================================
-        // Helpers
-        //=====================================================================
-
-        private float NormalizeAngle(float angle)
+        private Vector2 CalculateInterceptPoint(Vector2 shooterPos, Vector2 targetPos, Vector2 targetVel, float projectileSpeed)
         {
-            angle %= 360f;
-            if (angle > 180f) angle -= 360f;
-            if (angle < -180f) angle += 360f;
-            return angle;
+            Vector2 toTarget = targetPos - shooterPos;
+            float time = toTarget.magnitude / Mathf.Max(0.001f, projectileSpeed);
+            return targetPos + (targetVel * time);
         }
 
         private void ResetTarget()
         {
-            if (hasAcquiredTarget)
-            {
-                LogMessage("ОХОТА ПРЕКРАЩЕНА → СБРОС");
-            }
-
             hasAcquiredTarget = false;
             target = null;
+            targetRb = null;
             targetLostTime = 0f;
-            retargetTimer = 0f;
-
             shipMovement?.ShipRotate(Vector2.zero, 0f);
         }
 
-        private void LogMessage(string message)
-        {
-            if (string.IsNullOrEmpty(message)) return;
-            if (Time.time - lastLogTime < LOG_INTERVAL) return;
-
-            Debug.Log($"[NPCShoot #{shipID?.ID}] {message}");
-            lastLogTime = Time.time;
-        }
-
-        private void LogError(string message)
-        {
-            Debug.LogError($"[NPCShoot #{shipID?.ID}] {message}", this);
-        }
-
-        //=====================================================================
-        // Gizmos
-        //=====================================================================
-
         private void OnDrawGizmosSelected()
         {
-            if (detectionCollider == null) return;
-
-            Vector2 center = (Vector2)transform.position + detectionCollider.offset;
-            float radius = detectionCollider.radius;
-
-            Gizmos.color = hasAcquiredTarget ? Color.yellow : Color.gray;
-            Gizmos.DrawWireSphere(center, radius);
-
-            if (target != null)
+            if (detectionCollider != null)
             {
-                float angleDiff = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle));
-                Gizmos.color = angleDiff <= aimTolerance ? Color.green : Color.red;
-                Gizmos.DrawLine(transform.position, target.position);
-
-                Vector3 targetDir = Quaternion.Euler(0, 0, targetAngle) * Vector3.up * 5f;
-                Gizmos.color = Color.blue;
-                Gizmos.DrawRay(transform.position, targetDir);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere((Vector2)transform.position + detectionCollider.offset, detectionCollider.radius);
             }
 
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, transform.up * 4f);
+            if (target != null && activeGuns.Count > 0)
+            {
+                var gun = activeGuns[0];
+                if (gun != null && gun.GetProjectileConfig() != null)
+                {
+                    Vector2 targetVel = (targetRb != null) ? targetRb.linearVelocity : Vector2.zero;
+
+                    Vector2 aim = CalculateInterceptPoint(gun.transform.position, target.position, targetVel, gun.GetProjectileConfig().ProjectileSpeed);
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(gun.transform.position, aim);
+                    Gizmos.DrawSphere(aim, 0.5f);
+
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(gun.transform.position, target.position);
+                }
+            }
         }
     }
 }

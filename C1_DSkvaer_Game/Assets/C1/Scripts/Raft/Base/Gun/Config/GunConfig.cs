@@ -5,7 +5,7 @@
 using UnityEngine;
 
 namespace Ship {
-    [CreateAssetMenu(fileName = "GunConfig", menuName = "ShipConfigs/GunConfig")]
+    [CreateAssetMenu(fileName = "GunConfig", menuName = "ShipConfigs/Gun/GunConfig")]
     public sealed class GunConfig : ScriptableObject {
         [Header("Fire")]
         [SerializeField, Min(0.01f)] private float fireRate = 2f;

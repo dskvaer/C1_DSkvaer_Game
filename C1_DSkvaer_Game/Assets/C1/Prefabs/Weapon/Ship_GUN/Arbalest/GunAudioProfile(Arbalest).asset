@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d96f2ea3aa5c94fb2eb36b2c22d278, type: 3}
+  m_Name: GunAudioProfile(Arbalest)
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.GunAudioProfile
+  ShotClip: {fileID: 8300000, guid: 2942a6a82e5ed554a91adcfa8c707c2f, type: 3}
+  ShotPitch: 1
+  ShotVolume: 0.086
+  ReloadClip: {fileID: 8300000, guid: 8bad5724e988c8c44816240c2293231f, type: 3}
+  ReloadPitch: 1.3299999
+  ReloadVolume: 0.21

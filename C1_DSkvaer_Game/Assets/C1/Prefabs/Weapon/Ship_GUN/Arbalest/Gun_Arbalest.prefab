@@ -122,8 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab22c9ce8d5a87419e1aefee2c5d973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship.GunSound
-  shotSound: {fileID: 8300000, guid: 2942a6a82e5ed554a91adcfa8c707c2f, type: 3}
-  reloadSound: {fileID: 8300000, guid: 8bad5724e988c8c44816240c2293231f, type: 3}
+  audioProfile: {fileID: 11400000, guid: 7e180e10ebd272449ba7d0c7695888ed, type: 2}
 --- !u!114 &9152166262324158292
 MonoBehaviour:
   m_ObjectHideFlags: 0

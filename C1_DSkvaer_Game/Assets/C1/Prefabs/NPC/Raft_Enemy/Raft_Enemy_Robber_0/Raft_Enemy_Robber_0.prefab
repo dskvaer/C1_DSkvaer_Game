@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5669377793112992761}
   - component: {fileID: 285306078676636342}
-  - component: {fileID: 2759191549144854561}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: AttackArea
@@ -27,11 +26,11 @@ Transform:
   m_GameObject: {fileID: 319906034540382270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 3.11, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 6.65804, y: 11.138671, z: 0}
+  m_LocalScale: {x: 0.42000005, y: 0.42000005, z: 0.42000005}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3328631455614018744}
+  m_Father: {fileID: 8710334376482303976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &285306078676636342
 BoxCollider2D:
@@ -79,20 +78,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.13, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2759191549144854561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319906034540382270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b1adc534bf848840a04d633c7839d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ship.ShipRamAttack
-  ramConfig: {fileID: 11400000, guid: 3f4a6fdf17b2ec4419cde223ec7023d5, type: 2}
-  upgradeConfig: {fileID: 11400000, guid: 97510fbc9e0a7f84b8bfd315cd0e3693, type: 2}
 --- !u!1 &592531158788779230
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +109,7 @@ Transform:
   m_Children:
   - {fileID: 7590935988799192684}
   - {fileID: 9115898310341147792}
+  - {fileID: 8710334376482303976}
   m_Father: {fileID: 3328631455614018744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1097521088845508132
@@ -135,9 +121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9115898310341147792}
-  - component: {fileID: 8203065754245314392}
+  - component: {fileID: 6091890480788654777}
   m_Layer: 0
-  m_Name: Patrol
+  m_Name: FortressMovement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +144,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5040571685101389814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8203065754245314392
+--- !u!114 &6091890480788654777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,10 +153,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 1097521088845508132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c358bcec244a18542b325854c460f472, type: 3}
+  m_Script: {fileID: 11500000, guid: 20521ab608f3648498864062fb8a905b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ship.PatrolTactic
-  config: {fileID: 11400000, guid: 5fe494e8160cee2409d1728af30c8670, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.FortressDriftTactic
+  config: {fileID: 11400000, guid: 7350e4d7ce359d347b0ab5d763fb7f15, type: 2}
+--- !u!1 &1505823243525510763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8710334376482303976}
+  - component: {fileID: 3667656669772810932}
+  m_Layer: 0
+  m_Name: KamikazeRammingTactic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8710334376482303976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505823243525510763}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.528531, y: 2.8291209, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5669377793112992761}
+  m_Father: {fileID: 5040571685101389814}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3667656669772810932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505823243525510763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f588efeee9db9b74ab7be1669f14c77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.KamikazeRammingTactic
+  config: {fileID: 11400000, guid: f059d25ac9cac034d8fc48ee3841afc2, type: 2}
+  ramZone: {fileID: 285306078676636342}
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1801624484031263836
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,18 +252,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e58854ad8e5095419c3cf5c941b37e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship.NPCShootingTactic
+  config: {fileID: 11400000, guid: dc403ae6016cf464d839c476abbd4388, type: 2}
   detectionCollider: {fileID: 4552594004984294072}
   targetLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  leftGuns:
+  allGunObjects:
   - {fileID: 5061614582362925730}
-  rightGuns: []
-  minTurnSpeed: 32.4
-  maxTurnSpeed: 360
-  fastTurnAngle: 90
-  aimTolerance: 8
-  retargetInterval: 0.3
+  - {fileID: 6938687913026173392}
+  - {fileID: 6265563641863054247}
+  - {fileID: 6035238955172742799}
+  - {fileID: 4405167655431139064}
+  - {fileID: 4206656730032459963}
 --- !u!58 &2649669987025303239
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10685,7 +10721,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7703262370805387408}
-  - {fileID: 5669377793112992761}
   - {fileID: 7159043778165308515}
   - {fileID: 6318752140236997380}
   - {fileID: 5040571685101389814}
@@ -10793,8 +10828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1fbe57af9520d4ea5b1de919ad3011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship.ShipWeaponSystem
-  leftGuns:
-  - {fileID: 5061614582362925730}
+  leftGuns: []
   rightGuns: []
 --- !u!114 &1957817548103241657
 MonoBehaviour:
@@ -10814,7 +10848,7 @@ MonoBehaviour:
   ramConfig: {fileID: 11400000, guid: 3f4a6fdf17b2ec4419cde223ec7023d5, type: 2}
   weaponSystem: {fileID: 8591261862788231907}
   tactics:
-  - {fileID: 8203065754245314392}
+  - {fileID: 0}
   - {fileID: 2865700912467218917}
 --- !u!114 &820955306311042448
 MonoBehaviour:
@@ -11194,6 +11228,11 @@ PrefabInstance:
       addedObject: {fileID: 4953730735642615430}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+--- !u!1 &4206656730032459963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101303043244375144, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+  m_PrefabInstance: {fileID: 4253344831665368275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4297445357766988812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
@@ -11286,6 +11325,11 @@ PrefabInstance:
 --- !u!4 &4386742905525398095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+  m_PrefabInstance: {fileID: 4343064540368097936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4405167655431139064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101303043244375144, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
   m_PrefabInstance: {fileID: 4343064540368097936}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5141300093027276490
@@ -11471,6 +11515,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
   m_PrefabInstance: {fileID: 5955622715851602663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6035238955172742799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101303043244375144, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+  m_PrefabInstance: {fileID: 5955622715851602663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6310711289016917967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11555,6 +11604,11 @@ PrefabInstance:
       addedObject: {fileID: 1944457564104638296}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+--- !u!1 &6265563641863054247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101303043244375144, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+  m_PrefabInstance: {fileID: 6310711289016917967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6282903170504238864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
@@ -11644,6 +11698,11 @@ PrefabInstance:
       addedObject: {fileID: 3788972958339662229}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+--- !u!1 &6938687913026173392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101303043244375144, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
+  m_PrefabInstance: {fileID: 7002197402178782648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7028342406277086567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}

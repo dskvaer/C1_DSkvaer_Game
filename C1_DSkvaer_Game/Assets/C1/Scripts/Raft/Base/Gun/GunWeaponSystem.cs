@@ -1,5 +1,5 @@
 ﻿// ====================================================================================================
-// GunWeaponSystem.cs – ДИАГНОСТИЧЕСКАЯ ВЕРСИЯ + CanFire() + GetProjectileConfig()
+// GunWeaponSystem.cs – ДИАГНОСТИЧЕСКАЯ ВЕРСИЯ + ЗВУК ПЕРЕЗАРЯДКИ
 // ====================================================================================================
 
 using System.Collections;
@@ -13,6 +13,7 @@ namespace Ship {
     /// **ДОБАВЛЕНО:**
     /// • `CanFire()` → проверяет `isReadyToFire`
     /// • `GetProjectileConfig()` → возвращает `projectileConfig` из снаряда-префаба
+    /// • ЗВУК ПЕРЕЗАРЯДКИ в методе Fire()
     /// 
     /// **Inspector:**
     /// • Gun Config – FireRate, Accuracy, Spread
@@ -132,6 +133,10 @@ namespace Ship {
 
             isReadyToFire = false;
             gunVisualStates?.SetReloadingState();
+
+            // ---> ИСПРАВЛЕНИЕ: ДОБАВЛЕН ЗВУК ПЕРЕЗАРЯДКИ <---
+            gunSound?.PlayReloadSound(weaponPoint.position);
+
             float cooldown = 1f / Mathf.Max(0.0001f, gunConfig.FireRate);
             StartCoroutine(UnlockAfter(cooldown));
             Debug.Log($"[GunWeaponSystem] Перезарядка: {cooldown:F3}s", this);

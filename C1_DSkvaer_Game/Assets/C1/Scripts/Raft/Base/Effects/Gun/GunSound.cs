@@ -2,68 +2,82 @@ using UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Компонент для управления звуковыми эффектами пушки (арбалета).
-    /// Используется в GunWeaponSystem для воспроизведения звуков при стрельбе и перезарядке.
+    /// Компонент для управления звуковыми эффектами пушки.
+    /// Использует ScriptableObject (GunAudioProfile) для гибкой настройки.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - ShotSound: Звук выстрела (AudioClip).
-    /// - ReloadSound: Звук перезарядки (AudioClip).
-    /// Настройка сцены:
-    /// - Привязать к объекту пушки или дочернему объекту (например, Player_Ship/ArbalestGun/Sound).
-    /// - ShotSound: AudioClip с коротким звуком выстрела арбалета (длина ~0.5с).
-    /// - ReloadSound: AudioClip с звуком перезарядки арбалета (длина ~1-2с, в зависимости от FireRate).
-    /// Логика работы:
-    /// - Awake: Проверяет наличие ShotSound и ReloadSound.
-    /// - PlayShotSound: Воспроизводит звук выстрела.
-    /// - PlayReloadSound: Воспроизводит звук перезарядки.
-    /// </remarks>
     public class GunSound : MonoBehaviour {
-        [SerializeField] private AudioClip shotSound; // Звук выстрела
-        [SerializeField] private AudioClip reloadSound; // Звук перезарядки
 
-        // Инициализация при старте
+        [Header("Profile")]
+        [SerializeField] private GunAudioProfile audioProfile; // Ссылка на настройки
+
         private void Awake()
         {
-            if (shotSound == null) // Проверяем наличие звука выстрела
+            if (audioProfile == null)
             {
-                Debug.LogWarning($"ShotSound не привязан для {gameObject.name}!", this); // Логируем предупреждение
+                Debug.LogWarning($"[GunSound] AudioProfile не назначен для {gameObject.name}!", this);
             }
-
-            if (reloadSound == null) // Проверяем наличие звука перезарядки
+            else
             {
-                Debug.LogWarning($"ReloadSound не привязан для {gameObject.name}!", this); // Логируем предупреждение
+                Debug.Log($"[GunSound] Инициализирован с профилем: {audioProfile.name}", this);
             }
-
-            Debug.Log($"GunSound инициализирован для {gameObject.name}"); // Логируем инициализацию
         }
 
         // Воспроизведение звука выстрела
         public void PlayShotSound(Vector3 position)
         {
-            if (shotSound != null) // Проверяем наличие звука
+            if (CanPlay(audioProfile?.ShotClip))
             {
-                AudioSource.PlayClipAtPoint(shotSound, position); // Проигрываем звук выстрела
-                Debug.Log($"Воспроизведён ShotSound для {gameObject.name} на позиции {position}"); // Логируем воспроизведение
-            }
-            else
-            {
-                Debug.LogWarning($"ShotSound отсутствует для {gameObject.name}!", this); // Логируем предупреждение
+                PlayClipWithPitch(audioProfile.ShotClip, position, audioProfile.ShotPitch, audioProfile.ShotVolume);
+                // Debug.Log удалил, чтобы не спамить в консоль при частой стрельбе
             }
         }
 
         // Воспроизведение звука перезарядки
         public void PlayReloadSound(Vector3 position)
         {
-            if (reloadSound != null) // Проверяем наличие звука
+            if (CanPlay(audioProfile?.ReloadClip))
             {
-                AudioSource.PlayClipAtPoint(reloadSound, position); // Проигрываем звук перезарядки
-                Debug.Log($"Воспроизведён ReloadSound для {gameObject.name} на позиции {position}"); // Логируем воспроизведение
+                PlayClipWithPitch(audioProfile.ReloadClip, position, audioProfile.ReloadPitch, audioProfile.ReloadVolume);
+                Debug.Log($"[GunSound] Перезарядка...", this);
             }
-            else
-            {
-                Debug.LogWarning($"ReloadSound отсутствует для {gameObject.name}!", this); // Логируем предупреждение
-            }
+        }
+
+        // Проверка на валидность данных
+        private bool CanPlay(AudioClip clip)
+        {
+            if (audioProfile == null) return false;
+            if (clip == null) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Кастомный метод воспроизведения, так как AudioSource.PlayClipAtPoint не поддерживает Pitch.
+        /// Создает временный объект, проигрывает звук и удаляет объект.
+        /// </summary>
+        private void PlayClipWithPitch(AudioClip clip, Vector3 position, float pitch, float volume)
+        {
+            // 1. Создаем временный GameObject
+            GameObject tempGO = new GameObject("TempAudio_" + clip.name);
+            tempGO.transform.position = position;
+
+            // 2. Добавляем и настраиваем AudioSource
+            AudioSource source = tempGO.AddComponent<AudioSource>();
+            source.clip = clip;
+            source.pitch = pitch;
+            source.volume = volume;
+
+            // Настройки 3D звука (чтобы затухал с расстоянием)
+            source.spatialBlend = 1f; // 1 = полностью 3D
+            source.minDistance = 5f;
+            source.maxDistance = 50f;
+            source.rolloffMode = AudioRolloffMode.Linear;
+
+            // 3. Играем
+            source.Play();
+
+            // 4. Уничтожаем объект, когда клип закончится (с учетом скорости!)
+            float duration = clip.length / Mathf.Max(0.01f, pitch); // Если pitch=2, звук играет в 2 раза быстрее
+            Destroy(tempGO, duration + 0.1f);
         }
     }
 }

@@ -1,163 +1,174 @@
-﻿// ====================================================================================================
-// ProjectileEffects.cs – ФИНАЛЬНАЯ ВЕРСИЯ (БЕЗ ОШИБОК, ЧИСТАЯ СЦЕНА)
-// ====================================================================================================
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 namespace Ship {
+    // [RequireComponent] — это защита от ошибок. 
+    // Если ты повесишь этот скрипт на пустой объект, Unity сама добавит SpriteRenderer.
+    // Это гарантирует, что GetComponent<SpriteRenderer>() никогда не вернет null.
     [RequireComponent(typeof(SpriteRenderer))]
     public class ProjectileEffects : MonoBehaviour {
-        [Header("Trail")]
+
+        // [Header] создает красивый заголовок в Инспекторе Unity для удобства.
+        [Header("Trail (След)")]
+        // TrailRenderer рисует шлейф за объектом.
         [SerializeField] private TrailRenderer trailEffect;
 
-        [Header("Hit Effects")]
+        [Header("Hit Effects (Попадание)")]
+        // ParticleSystem — это система частиц (искры, дым, щепки).
         [SerializeField] private ParticleSystem hitSplinterEffect;
         [SerializeField] private AudioClip hitSound;
 
-        [Header("Miss Effects")]
+        [Header("Miss Effects (Промах/Вода)")]
         [SerializeField] private ParticleSystem waterSplashEffect;
         [SerializeField] private AudioClip waterSplashSound;
 
-        [Header("УНИЧТОЖЕНИЕ")]
-        [SerializeField] private float destroyAfterMiss = 2.0f;
+        [Header("Настройки")]
         [SerializeField] private float destroySplashDelay = 0.1f;
 
+        // [Range] создает ползунок в инспекторе от 0 до 1.
+        // Spatial Blend: 0 = 2D звук (громкость везде одинаковая), 1 = 3D звук (затухает с расстоянием).
+        // 0.8f — идеальный баланс для Top-Down, чтобы звук был объемным, но слышным издалека.
+        [Range(0f, 1f)][SerializeField] private float soundSpatialBlend = 0.8f;
+
+        // Приватные переменные для хранения ссылок на компоненты
         private SpriteRenderer spriteRenderer;
         private AudioSource audioSource;
-        private Coroutine destroyCoroutine;
+        private Collider2D col;
 
+        // Флаг защиты. Если стрела попадет одновременно в два объекта, 
+        // скрипт сработает только один раз благодаря этой переменной.
+        private bool isFinished = false;
+
+        // Awake вызывается СРАЗУ при создании объекта (раньше Start).
+        // Идеальное место для настройки ссылок (GetComponent).
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-            if (!spriteRenderer)
-            {
-                Debug.LogError("[ProjectileEffects] Нет SpriteRenderer!", this);
-                Destroy(gameObject);
-                return;
-            }
 
+            // Пытаемся найти коллайдер (физическую оболочку), чтобы отключить его при ударе.
+            col = GetComponent<Collider2D>();
+
+            // ПРОГРАММНОЕ СОЗДАНИЕ КОМПОНЕНТА
+            // Вместо того чтобы просить тебя добавлять AudioSource руками в префаб,
+            // мы создаем его прямо в коде. Это удобно и уменьшает рутину.
             audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.playOnAwake = false;
-            audioSource.spatialBlend = 1f;
-
-            if (trailEffect) trailEffect.emitting = false;
-            if (hitSplinterEffect) hitSplinterEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            if (waterSplashEffect) waterSplashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            audioSource.playOnAwake = false; // Не играть звук при рождении
+            audioSource.spatialBlend = soundSpatialBlend;
+            audioSource.minDistance = 5f;  // Звук слышен на 100% громкости в радиусе 5 метров
+            audioSource.maxDistance = 50f; // Звук полностью исчезает через 50 метров
         }
 
-        // ВСПОМОГАТЕЛЬНЫЙ МЕТОД — ОБЪЯВЛЕН ВЫШЕ
-        private void DetachAndPlay(ParticleSystem ps, Vector3 pos)
+        // Start вызывается перед первым кадром обновления.
+        // Здесь мы сбрасываем эффекты в исходное состояние (нужно для пулинга объектов в будущем).
+        private void Start()
         {
-            if (ps == null) return;
-
-            GameObject obj = ps.gameObject;
-            obj.transform.SetParent(null, true);
-            obj.transform.position = pos;
-
-            ps.Clear();
-            ps.Play();
-
-            // УНИЧТОЖЕНИЕ ЭФФЕКТА ПОСЛЕ ОКОНЧАНИЯ
-            float duration = ps.main.duration;
-            Destroy(obj, duration + destroySplashDelay);
+            // Убрали отсюда автозапуск trailEffect, так как он теперь вызывается через PlayTrailEffect()
+            if (hitSplinterEffect) hitSplinterEffect.Stop(); // Останавливаем частицы, если они играли
+            if (waterSplashEffect) waterSplashEffect.Stop();
         }
 
+        // ==========================================
+        // ПУБЛИЧНЫЕ МЕТОДЫ
+        // Их вызывает скрипт Projectile.cs и GunEffects.cs
+        // ==========================================
+
+        // ИСПРАВЛЕНИЕ: Добавлен метод, который требовали другие скрипты
         public void PlayTrailEffect()
         {
             if (trailEffect)
             {
-                trailEffect.emitting = true;
-                trailEffect.Clear();
+                trailEffect.Clear(); // Очищаем старый хвост (важно при переиспользовании стрел)
+                trailEffect.emitting = true; // Включаем генерацию следа
             }
         }
 
         public void PlayHitEffect(Vector3 position)
         {
-            DetachAndPlay(hitSplinterEffect, position);
-
-            if (hitSound && audioSource)
-            {
-                audioSource.transform.position = position;
-                audioSource.PlayOneShot(hitSound);
-            }
+            if (isFinished) return; // Если уже сработали — выходим
+            HandleImpact(hitSplinterEffect, hitSound, position);
         }
 
         public void PlayMissEffect(Vector3 position)
         {
-            if (destroyCoroutine != null)
-                StopCoroutine(destroyCoroutine);
-
-            // БРЫЗГИ
-            DetachAndPlay(waterSplashEffect, position);
-
-            // ЗВУК
-            if (waterSplashSound && audioSource)
-            {
-                audioSource.transform.position = position;
-                audioSource.PlayOneShot(waterSplashSound);
-            }
-
-            // СНАРЯД: ЗАТУХАНИЕ + УДАЛЕНИЕ
-            destroyCoroutine = StartCoroutine(DestroyProjectileAfterMiss());
+            if (isFinished) return;
+            HandleImpact(waterSplashEffect, waterSplashSound, position);
         }
 
-        private IEnumerator DestroyProjectileAfterMiss()
+        // ==========================================
+        // ВНУТРЕННЯЯ ЛОГИКА (ГЛАВНАЯ МАГИЯ)
+        // ==========================================
+
+        // Универсальный метод обработки удара (неважно, вода это или корабль)
+        private void HandleImpact(ParticleSystem effect, AudioClip clip, Vector3 position)
         {
-            yield return StartCoroutine(FadeOut());
+            isFinished = true; // Блокируем повторные вызовы
 
-            float timer = 0f;
-            while (timer < destroyAfterMiss)
-            {
-                if (!this || !gameObject) yield break;
-                timer += Time.unscaledDeltaTime;
-                yield return null;
-            }
+            // ШАГ 1: Частицы
+            // Мы должны "отцепить" частицы от стрелы. Иначе, когда стрела исчезнет, частицы исчезнут вместе с ней.
+            DetachAndPlayParticles(effect, position);
 
-            if (this && gameObject)
+            // ШАГ 2: Маскировка
+            // Мы не удаляем объект сразу, потому что ему нужно доиграть звук.
+            // Вместо этого мы делаем его невидимым и бесплотным.
+            HideProjectile();
+
+            // ШАГ 3: Звук и Смерть
+            // Запускаем Корутину (процесс, растянутый во времени).
+            StartCoroutine(PlaySoundAndDestroy(clip));
+        }
+
+        private void DetachAndPlayParticles(ParticleSystem ps, Vector3 pos)
+        {
+            if (ps == null) return;
+
+            // ВАЖНЫЙ ТРЮК UNITY:
+            // transform.SetParent(null) делает объект частиц независимым.
+            // Теперь он не "ребенок" стрелы, а самостоятельный объект в мире.
+            ps.transform.SetParent(null);
+            ps.transform.position = pos;
+            ps.Play();
+
+            // Мы уничтожаем объект частиц отдельно, с задержкой.
+            // ps.main.duration — это длительность анимации частиц.
+            Destroy(ps.gameObject, ps.main.duration + destroySplashDelay);
+        }
+
+        private void HideProjectile()
+        {
+            // Выключаем картинку (игрок думает, что стрела исчезла)
+            if (spriteRenderer) spriteRenderer.enabled = false;
+
+            // Выключаем генерацию следа
+            if (trailEffect) trailEffect.emitting = false;
+
+            // Выключаем физику, чтобы невидимая стрела никого не ударила
+            if (col) col.enabled = false;
+        }
+
+        // IEnumerator — это тип возвращаемого значения для Корутин.
+        // Корутины позволяют ставить выполнение кода "на паузу" (yield).
+        private IEnumerator PlaySoundAndDestroy(AudioClip clip)
+        {
+            // Если звука нет, удаляем объект сразу, ждать нечего
+            if (clip == null)
             {
-                Debug.Log($"[ProjectileEffects] СНАРЯД УДАЛЁН: {name}");
                 Destroy(gameObject);
-            }
-        }
-
-        private IEnumerator FadeOut()
-        {
-            if (!spriteRenderer) yield break;
-
-            float duration = 0.5f;
-            float timer = 0f;
-            Color start = spriteRenderer.color;
-
-            while (timer < duration)
-            {
-                if (!spriteRenderer) yield break;
-                timer += Time.unscaledDeltaTime;
-                float alpha = Mathf.Lerp(1f, 0f, timer / duration);
-                spriteRenderer.color = new Color(start.r, start.g, start.b, alpha);
-                yield return null;
+                yield break; // Досрочный выход из корутины
             }
 
-            if (spriteRenderer)
-                spriteRenderer.color = new Color(start.r, start.g, start.b, 0f);
-        }
+            // Перемещаем источник звука в точку удара
+            audioSource.transform.position = transform.position;
+            // PlayOneShot позволяет проиграть звук, не прерывая другие звуки на этом же источнике
+            audioSource.PlayOneShot(clip);
 
-        // ФАЛЛБЭК
-        private void OnEnable() => Invoke(nameof(ForceDestroy), destroyAfterMiss + 1f);
-        private void OnDisable() => CancelInvoke(nameof(ForceDestroy));
-        private void ForceDestroy()
-        {
-            if (this && gameObject)
-            {
-                Debug.LogWarning($"[ProjectileEffects] ФОРС-УДАЛЕНИЕ: {name}");
-                Destroy(gameObject);
-            }
-        }
+            // МАГИЯ КОРУТИНЫ:
+            // WaitForSeconds говорит Unity: "Останови выполнение этого метода здесь,
+            // подожди N секунд, и потом продолжи со следующей строки".
+            // Это не вешает игру (в отличие от Thread.Sleep).
+            yield return new WaitForSeconds(clip.length);
 
-        private void OnDestroy()
-        {
-            CancelInvoke(nameof(ForceDestroy));
-            if (destroyCoroutine != null)
-                StopCoroutine(destroyCoroutine);
+            // Звук доиграл. Теперь можно безопасно удалить пустой объект стрелы.
+            Destroy(gameObject);
         }
     }
 }
