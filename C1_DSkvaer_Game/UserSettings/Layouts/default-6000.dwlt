@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2048
     height: 1068.8
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 87
+  controlID: 118
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 58
+  controlID: 59
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -246,15 +246,15 @@ MonoBehaviour:
     y: 0
     width: 1214.3999
     height: 357.60004
-  m_MinSize: {x: 102, y: 126}
-  m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 232, y: 276}
+  m_MaxSize: {x: 10002, y: 10026}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 18}
   - {fileID: 12}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -319,7 +319,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 48706
+  m_LastSelectedObjectID: -1484
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -341,10 +341,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Animator\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 7.2000003
-    y: 86.4
-    width: 1613.4
-    height: 620.4
+    x: 0
+    y: 79.200005
+    width: 1522.2
+    height: 629.2
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -413,8 +413,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 308.80002
-    y: 734.4
+    x: 309.8
+    y: 24
     width: 1212.3999
     height: 331.60004
   m_SerializedDataModeController:
@@ -439,7 +439,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/C1/Scripts/Raft/NPC/Config/Tactic
+    - Assets/C1/Scripts/UI/Menu_Journal
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -449,16 +449,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/C1/Scripts/Raft/NPC/Config/Tactic
+  - Assets/C1/Scripts/UI/Menu_Journal
   m_LastFoldersGridSize: 16
   m_LastProjectPath: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1064.3999}
-    m_SelectedIDs: e0c30000
-    m_LastClickedID: 50144
-    m_ExpandedIDs: 0000000086c1000088c100008ac100008cc100008ec1000090c1000092c1000094c1000096c1000098c100009ac100009cc100009ec10000a0c10000a2c10000a4c10000a6c10000a8c10000aac10000acc10000aec10000b0c10000b2c10000b4c10000b6c10000b8c10000bac10000bcc10000bec10000c0c10000c2c10000c4c10000c6c10000c8c10000cac10000ccc10000cec10000d0c10000d2c10000d4c10000d6c10000d8c10000dac10000dcc10000dec10000e0c10000e2c10000e4c1000076c3000000ca9a3b
+    scrollPos: {x: 0, y: 671}
+    m_SelectedIDs: 24c40000
+    m_LastClickedID: 50212
+    m_ExpandedIDs: 000000001ec4000020c4000022c4000024c4000026c4000028c400002ac400002cc400002ec4000030c4000032c4000034c4000036c4000038c400003ac400003cc400003ec4000040c4000042c4000044c4000046c4000048c400004ac400004cc400004ec4000050c4000052c4000054c4000056c4000058c400005ac400005cc400005ec4000060c4000062c40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -487,7 +487,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000086c1000088c100008ac100008cc100008ec1000090c1000092c1000094c1000096c1000098c100009ac100009cc100009ec10000a0c10000a2c10000a4c10000a6c10000a8c10000aac10000acc10000aec10000b0c10000b2c10000b4c10000b6c10000b8c10000bac10000bcc10000bec10000c0c10000c2c10000c4c10000c6c10000c8c10000cac10000ccc10000cec10000d0c10000d2c10000d4c10000d6c10000d8c10000dac10000dcc10000dec10000e0c10000e2c10000e4c10000
+    m_ExpandedIDs: 000000001ec4000020c4000022c4000024c4000026c4000028c400002ac400002cc400002ec4000030c4000032c4000034c4000036c4000038c400003ac400003cc400003ec4000040c4000042c4000044c4000046c4000048c400004ac400004cc400004ec4000050c4000052c4000054c4000056c4000058c400005ac400005cc400005ec4000060c4000062c40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -513,24 +513,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d46cfeff
-    m_LastClickedInstanceID: -103212
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c623000014b400003cb00000b6b60000f4b500006abb0000a4b900009eb50000a4b80000f4b8000032b80000e6ba0000f6c2000092c2000020be000062be0000b0be000098be0000dcda0000000300000000000052b90000cabc000066c1000064c10000
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c623000014b400003cb00000b6b60000f4b500006abb0000a4b900009eb50000a4b80000f4b8000032b80000e6ba0000f6c2000092c2000020be000062be0000b0be000098be0000dcda00000003000052b90000cabc000066c1000064c10000a2c00000d0c70000cec0000000000000a6bf0000a2bf0000a4bf0000d0320100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: NPCShootingConfig
-      m_OriginalName: NPCShootingConfig
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 67598
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 10}
@@ -1012,9 +1012,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 3.4512124, y: 12.9283085, z: 0.114229806}
+    m_Target: {x: -1.7134793, y: 0.0024537966, z: 1487.7367}
     speed: 2
-    m_Value: {x: 3.4512124, y: 12.9283085, z: 0.114229806}
+    m_Value: {x: -1.7134793, y: 0.0024537966, z: 1487.7367}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1064,9 +1064,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.720673
+    m_Target: 7.36083
     speed: 2
-    m_Value: 6.720673
+    m_Value: 7.36083
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79.200005
+    y: 24
     width: 1522.2
     height: 629.2
   m_SerializedDataModeController:
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_UseMipMap: 0
   m_SimulatorState:
     controlPanelVisible: 0
-    controlPanelWidth: 0
+    controlPanelWidth: NaN
     controlPanelFoldoutKeys:
     - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
     controlPanelFoldoutValues: 00
@@ -1162,7 +1162,7 @@ MonoBehaviour:
     pluginStates:
     - '{}'
     - '{}'
-    scale: 49
+    scale: 35
     fitToScreenEnabled: 0
     rotationDegree: 90
     highlightSafeAreaEnabled: 0
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 734.4
+    y: 24
     width: 307.8
     height: 331.60004
   m_SerializedDataModeController:
@@ -1209,9 +1209,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d46cfeff
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2af9fffffefaffff42be00007ebe000094be0000
+      m_ExpandedIDs: fefaffff78be00009ebe0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1293,8 +1293,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1523.2001
-    y: 79.200005
+    x: 1524.2
+    y: 24
     width: 523.80005
     height: 986.80005
   m_SerializedDataModeController:
