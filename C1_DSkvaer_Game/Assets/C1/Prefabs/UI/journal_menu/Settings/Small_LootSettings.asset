@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7037c3f32b03b34b9627db86ea6f8aa, type: 3}
+  m_Name: Small_LootSettings
+  m_EditorClassIdentifier: Assembly-CSharp::LootSettings
+  minItems: 1
+  maxItems: 3
+  possibleLoot:
+  - itemData: {fileID: 11400000, guid: 53fba1b105ee21345a581e694a5ae5e9, type: 2}
+    dropChance: 95.2
+  - itemData: {fileID: 11400000, guid: 1ca201e0085c30946a2fc82c4c0c6cf6, type: 2}
+    dropChance: 5

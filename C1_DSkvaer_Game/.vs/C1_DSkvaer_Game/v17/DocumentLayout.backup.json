@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslotui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslotui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventorytab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventorytab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\simpleinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\simpleinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +35,61 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "LootWindowManager.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAIwMIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T23:05:31.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InventorySlot.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T22:56:53.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SimpleInventory.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T21:54:41.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InventoryTab.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T11:28:34.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "InventorySlotUI.cs",
               "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
               "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
               "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
               "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-30T11:27:31.286Z",
               "EditorCaption": ""
