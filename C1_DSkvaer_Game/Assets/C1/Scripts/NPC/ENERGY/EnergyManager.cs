@@ -1,15 +1,22 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
 namespace NPC.Characters.Player.Energy {
     [DisallowMultipleComponent]
     public class EnergyManager : MonoBehaviour, IEnergy, Player.IEnergy {
-        [Header("Configuration")]
+        [Header("Настройки энергии")]
+        [InspectorLabel("Конфиг энергии")]
+        [Tooltip("ScriptableObject с максимальной энергией, регенерацией и порогом низкой энергии.")]
         [SerializeField] private EnergyConfigSO config;
+
+        [InspectorLabel("Стоимость действий")]
+        [Tooltip("ScriptableObject с расходом энергии на блок, движение, толкание, атаку и прыжок.")]
         [SerializeField] private ActionCostSO actionCost;
 
-        [Header("Debug")]
+        [Header("Отладка")]
+        [InspectorLabel("Включить логи")]
+        [Tooltip("Если включено, менеджер энергии пишет отладочные сообщения в консоль.")]
         [SerializeField] private bool enableDebugLogs = false;
 
         private EnergyCore energyCore;
@@ -46,13 +53,13 @@ namespace NPC.Characters.Player.Energy {
         {
             if (config == null)
             {
-                Debug.LogError("EnergyManager: EnergyConfigSO not assigned!", this);
+                Debug.LogError("EnergyManager: EnergyConfigSO не назначен!", this);
                 return false;
             }
 
             if (actionCost == null)
             {
-                Debug.LogError("EnergyManager: ActionCostSO not assigned!", this);
+                Debug.LogError("EnergyManager: ActionCostSO не назначен!", this);
                 return false;
             }
 
@@ -65,7 +72,7 @@ namespace NPC.Characters.Player.Energy {
             regenerator = new EnergyRegenerator(config);
 
             if (enableDebugLogs)
-                Debug.Log($"EnergyManager: Systems initialized with MaxEnergy={MaxEnergy}", this);
+                Debug.Log($"EnergyManager: системы инициализированы, MaxEnergy={MaxEnergy}", this);
         }
 
         private void RegisterDefaultConsumers()

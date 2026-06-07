@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: ShootingConfig
   m_EditorClassIdentifier: Assembly-CSharp::Ship.NPCShootingConfig
   FiringAngleThreshold: 15
-  FastTurnAngle: 1800
+  ShotSpreadAngle: 6
+  SequentialGunDelay: 0.15
+  SideSwitchAngleThreshold: 30
+  TargetMemoryTime: 0.75
+  FastTurnAngle: 48
   RotationAimTolerance: 10
-  MinTurnSpeed: 2498
-  MinTurnSpeedMultiplier: 32.4
-  MaxTurnSpeed: 2931
-  MaxTurnSpeedMultiplier: 100
+  MinTurnSpeed: 10
+  MinTurnSpeedMultiplier: 1
+  MaxTurnSpeed: 13
+  MaxTurnSpeedMultiplier: 1

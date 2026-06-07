@@ -1,88 +1,170 @@
-using UnityEngine;
-using UnityEngine.Tilemaps;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Тактика побега для NPC.
-    /// Заставляет NPC отходить от игрока при низком здоровье.
+    /// РџРѕР±РµРі NPC РїСЂРё РЅРёР·РєРѕРј Р·РґРѕСЂРѕРІСЊРµ: Рє СЃРѕСЋР·РЅРёРєР°Рј, Р»РёР±Рѕ СЃ РїРѕСЃС‚РµРїРµРЅРЅРѕР№ РїРѕС‚РµСЂРµР№ СЃРєРѕСЂРѕСЃС‚Рё Рё РїРѕСЃР»РµРґРЅРёРј СѓРґР°СЂРѕРј.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - Привязать к объекту Enemy_Ship как дочерний компонент NPCAI.
-    /// - FleeTacticConfig: Настройки побега (FleeSpeed, FleeDistance, HealthThreshold, SmoothTurnSpeed).
-    /// - Требуется NPCAI на родительском объекте.
-    /// Настройка сцены:
-    /// - Убедитесь, что объект Enemy_Ship имеет компоненты NPCAI, ShipHealth, ShipMovement, ShipHitArea (на HitArea).
-    /// - Требуется Rigidbody2D на Enemy_Ship и Tilemap для WaterTilemap в NPCAI.
-    /// - FleeTacticConfig должен быть создан через Assets > Create > ShipConfigs > TacticConfigs > FleeTacticConfig.
-    /// Логика работы:
-    /// - CanExecute: Проверяет, что игрок обнаружен (context.Player != null) и здоровье ниже HealthThreshold.
-    /// - Execute: Двигается от игрока на FleeDistance с FleeSpeed, корректируя направление с SmoothTurnSpeed.
-    /// - GetRandomPatrolPoint: Выбирает случайную точку в пределах WaterTilemap, если игрок не обнаружен.
-    /// </remarks>
     public class FleeTactic : MonoBehaviour, IEnemyTactic {
-        [SerializeField] private FleeTacticConfig config; // Настройки побега
-        private Vector2 targetPosition; // Целевая позиция побега
-        private NPCAI npcAI; // Компонент NPCAI
+        [Header("РќР°СЃС‚СЂРѕР№РєРё Р±РµРіСЃС‚РІР°")]
+        [InspectorLabel("РљРѕРЅС„РёРі Р±РµРіСЃС‚РІР°")]
+        [Tooltip("ScriptableObject СЃ РїРѕСЂРѕРіРѕРј Р·РґРѕСЂРѕРІСЊСЏ, РїРѕРёСЃРєРѕРј СЃРѕСЋР·РЅРёРєРѕРІ, СѓСЃС‚Р°Р»РѕСЃС‚СЊСЋ Рё РїРѕСЃР»РµРґРЅРёРј СѓРґР°СЂРѕРј.")]
+        [SerializeField] private FleeTacticConfig config;
 
-        // Инициализация при старте
+        private readonly Collider2D[] allyResults = new Collider2D[24];
+        private NPCAI npcAI;
+        private float fleeTime;
+        private bool lastStandStarted;
+        private bool lastStandFinished;
+        private bool lastStandDamageApplied;
+        private float lastStandTimer;
+        private Vector2 lastStandDirection;
+
         private void Awake()
         {
-            if (config == null) // Проверяем наличие конфига
-            {
-                Debug.LogError($"FleeTacticConfig не привязан для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                enabled = false; // Отключаем компонент
+            if (config == null) {
+                Debug.LogError($"FleeTacticConfig РЅРµ РЅР°Р·РЅР°С‡РµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this);
+                enabled = false;
                 return;
             }
-            npcAI = GetComponentInParent<NPCAI>(); // Получаем NPCAI
-            if (npcAI == null) // Проверяем наличие NPCAI
-            {
-                Debug.LogError($"NPCAI не найден для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                enabled = false; // Отключаем компонент
-                return;
+
+            npcAI = GetComponentInParent<NPCAI>();
+            if (npcAI == null) {
+                Debug.LogError($"NPCAI РЅРµ РЅР°Р№РґРµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this);
+                enabled = false;
             }
-            Debug.Log($"FleeTactic инициализирован для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})"); // Логируем инициализацию
         }
 
-        // Проверка возможности выполнения тактики
         public bool CanExecute(EnemyAIContext context)
         {
-            bool canExecute = context.Player != null && context.ShipHealth.GetCurrentShipHealth() <= context.ShipHealth.GetMaxShipHealth() * config.HealthThreshold; // Проверяем игрока и здоровье
-            Debug.Log($"FleeTactic CanExecute для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}): {canExecute}, Player={(context.Player != null ? "Detected" : "Not Detected")}, Health={context.ShipHealth.GetCurrentShipHealth()}/{context.ShipHealth.GetMaxShipHealth()}"); // Логируем проверку
-            return canExecute;
+            return !lastStandFinished
+                && context.Player != null
+                && context.ShipHealth.GetCurrentShipHealth() <= context.ShipHealth.GetMaxShipHealth() * config.HealthThreshold;
         }
 
-        // Выполнение тактики
         public void Execute(EnemyAIContext context, float deltaTime)
         {
-            if (context.Player == null) // Проверяем наличие игрока
-            {
-                targetPosition = GetRandomPatrolPoint(context); // Получаем случайную точку
-                npcAI.MoveToSmooth(context, targetPosition, config.FleeSpeed, config.SmoothTurnSpeed); // Двигаемся к точке
+            if (context.Player == null) {
                 return;
             }
 
-            Vector2 fleeDirection = (context.Rigidbody.position - (Vector2)context.Player.position).normalized; // Направление побега
-            targetPosition = context.Rigidbody.position + fleeDirection * config.FleeDistance; // Рассчитываем целевую позицию
-            targetPosition = npcAI.ClampToTilemapBounds(context, targetPosition); // Ограничиваем позицию
-            npcAI.MoveToSmooth(context, targetPosition, config.FleeSpeed, config.SmoothTurnSpeed); // Двигаемся к цели
-            Debug.Log($"FleeTactic: {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}) убегает к {targetPosition}"); // Логируем побег
+            if (lastStandStarted) {
+                ExecuteLastStandRam(context, deltaTime);
+                return;
+            }
+
+            fleeTime += deltaTime;
+            Transform ally = FindNearestAlly(context);
+            bool hasAlly = ally != null;
+            float currentSpeed = hasAlly ? config.FleeSpeed : GetExhaustedSpeed();
+            Vector2 targetPosition = hasAlly
+                ? (Vector2)ally.position
+                : GetPointAwayFromPlayer(context);
+
+            npcAI.MoveToSmooth(context, npcAI.ClampToTilemapBounds(context, targetPosition), currentSpeed, config.SmoothTurnSpeed);
+
+            if (CanStartLastStandRam(context, currentSpeed)) {
+                StartLastStandRam(context);
+            }
         }
 
-        // Получение случайной точки патрулирования
-        private Vector2 GetRandomPatrolPoint(EnemyAIContext context)
+        private float GetExhaustedSpeed()
         {
-            if (context.WaterTilemap == null) // Проверяем наличие тайлмапа
-            {
-                Debug.LogError($"WaterTilemap не найден для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                return context.Rigidbody.position; // Возвращаем текущую позицию
+            float t = Mathf.Clamp01(fleeTime / Mathf.Max(0.1f, config.ExhaustionTime));
+            float multiplier = Mathf.Lerp(1f, config.ExhaustedSpeedMultiplier, t);
+            return config.FleeSpeed * multiplier;
+        }
+
+        private Vector2 GetPointAwayFromPlayer(EnemyAIContext context)
+        {
+            Vector2 fromPlayer = ((Vector2)context.Rigidbody.position - (Vector2)context.Player.position).normalized;
+            if (fromPlayer.sqrMagnitude <= 0.001f) {
+                fromPlayer = context.Rigidbody.transform.up;
             }
-            Bounds bounds = context.WaterTilemap.localBounds; // Получаем границы тайлмапа
-            Vector2 randomPoint = new Vector2(
-                Random.Range(bounds.min.x, bounds.max.x), // Случайная X-координата
-                Random.Range(bounds.min.y, bounds.max.y) // Случайная Y-координата
-            );
-            return context.WaterTilemap.transform.TransformPoint(randomPoint); // Преобразуем в мировые координаты
+
+            return context.Rigidbody.position + fromPlayer * config.FleeDistance;
+        }
+
+        private Transform FindNearestAlly(EnemyAIContext context)
+        {
+            var filter = new ContactFilter2D {
+                useLayerMask = true,
+                layerMask = config.AllyLayer,
+                useTriggers = true
+            };
+
+            int count = Physics2D.OverlapCircle(context.Rigidbody.position, config.AllySearchRadius, filter, allyResults);
+            Transform best = null;
+            float bestDistance = float.MaxValue;
+            Transform selfRoot = transform.root;
+
+            for (int i = 0; i < count; i++) {
+                Collider2D hit = allyResults[i];
+                if (hit == null || hit.transform == selfRoot || hit.transform.IsChildOf(selfRoot)) {
+                    continue;
+                }
+
+                Transform candidate = ResolveAllyRoot(hit);
+                if (candidate == null || candidate == selfRoot) {
+                    continue;
+                }
+
+                float distance = ((Vector2)candidate.position - context.Rigidbody.position).sqrMagnitude;
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    best = candidate;
+                }
+            }
+
+            return best;
+        }
+
+        private static Transform ResolveAllyRoot(Collider2D hit)
+        {
+            IShipHealth health = hit.GetComponentInParent<IShipHealth>();
+            if (health is Component healthComponent && healthComponent.CompareTag("Enemy")) {
+                return healthComponent.transform;
+            }
+
+            Transform root = hit.transform.root;
+            return root.CompareTag("Enemy") ? root : null;
+        }
+
+        private bool CanStartLastStandRam(EnemyAIContext context, float currentSpeed)
+        {
+            if (!config.AllowLastStandRam || lastStandStarted || lastStandFinished || context.PlayerHealth == null) {
+                return false;
+            }
+
+            bool exhausted = currentSpeed <= config.FleeSpeed * (config.ExhaustedSpeedMultiplier + 0.01f);
+            bool playerWeak = context.PlayerHealth.GetCurrentShipHealth() <= context.PlayerHealth.GetMaxShipHealth() * config.PlayerLastStandHealthThreshold;
+            return exhausted && playerWeak;
+        }
+
+        private void StartLastStandRam(EnemyAIContext context)
+        {
+            lastStandStarted = true;
+            lastStandTimer = config.LastStandRamDuration;
+            lastStandDirection = ((Vector2)context.Player.position - context.Rigidbody.position).normalized;
+            if (lastStandDirection.sqrMagnitude <= 0.001f) {
+                lastStandDirection = context.Rigidbody.transform.up;
+            }
+        }
+
+        private void ExecuteLastStandRam(EnemyAIContext context, float deltaTime)
+        {
+            lastStandTimer -= deltaTime;
+            context.Rigidbody.transform.up = lastStandDirection;
+            context.ShipMovement.ShipRotate(Vector2.zero, 0f);
+            context.ShipMovement.ShipMove(new Vector2(0f, 1f), config.LastStandRamSpeed);
+
+            if (!lastStandDamageApplied && Vector2.Distance(context.Rigidbody.position, context.Player.position) <= config.LastStandContactDistance) {
+                context.PlayerHealth?.TakeShipDamage(config.LastStandDamage, isRam: true);
+                lastStandDamageApplied = true;
+            }
+
+            if (lastStandTimer <= 0f) {
+                lastStandFinished = true;
+            }
         }
     }
 }

@@ -1,24 +1,28 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Menu_Journal {
     public class ShipInventory : MonoBehaviour, IItemContainer {
-        [Header("Settings")]
-        [SerializeField] private int _slotCount = 20; // Размер трюма
-        [SerializeField] private float _maxWeight = 100f; // Грузоподъемность
+        [Header("РќР°СЃС‚СЂРѕР№РєРё С‚СЂСЋРјР°")]
+        [InspectorLabel("РљРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕС‚РѕРІ")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ СЏС‡РµРµРє РґРѕСЃС‚СѓРїРЅРѕ РІ РёРЅРІРµРЅС‚Р°СЂРµ РєРѕСЂР°Р±Р»СЏ РёР»Рё СЋРЅРёС‚Р°.")]
+        [SerializeField] private int _slotCount = 20;
 
-        [Header("Debug / Starting Items")]
-        [SerializeField] private List<InventorySlot> _slots; // Список ячеек
+        [InspectorLabel("РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІРµСЃ")]
+        [Tooltip("РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РіСЂСѓР·РѕРїРѕРґСЉРµРјРЅРѕСЃС‚СЊ РёРЅРІРµРЅС‚Р°СЂСЏ РІ РєРёР»РѕРіСЂР°РјРјР°С….")]
+        [SerializeField] private float _maxWeight = 100f;
 
-        // Реализация события интерфейса
+        [Header("РћС‚Р»Р°РґРєР° Рё СЃС‚Р°СЂС‚РѕРІС‹Рµ РїСЂРµРґРјРµС‚С‹")]
+        [InspectorLabel("РЇС‡РµР№РєРё")]
+        [Tooltip("РўРµРєСѓС‰РёР№ СЃРїРёСЃРѕРє СЏС‡РµРµРє РёРЅРІРµРЅС‚Р°СЂСЏ. РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ СЃС‚Р°СЂС‚РѕРІРѕРіРѕ РЅР°РїРѕР»РЅРµРЅРёСЏ РІ СЂРµРґР°РєС‚РѕСЂРµ.")]
+        [SerializeField] private List<InventorySlot> _slots;
+
         public event Action OnInventoryUpdated;
 
-        // Реализация свойств интерфейса
         public int SlotCount => _slots.Count;
         public float MaxWeight => _maxWeight;
 
-        // Вычисляем текущий вес динамически, проходясь по всем предметам
         public float CurrentWeight
         {
             get
@@ -35,7 +39,6 @@ namespace Menu_Journal {
 
         private void Awake()
         {
-            // Инициализация пустых слотов при старте
             if (_slots == null || _slots.Count != _slotCount)
             {
                 _slots = new List<InventorySlot>();
@@ -46,16 +49,11 @@ namespace Menu_Journal {
             }
         }
 
-        // --- ЛОГИКА ДОБАВЛЕНИЯ ПРЕДМЕТА ---
         public bool CanAddItem(ItemDataSO item, int amount)
         {
-            // 1. Проверка веса
             float newWeight = CurrentWeight + (item.Weight * amount);
             if (newWeight > MaxWeight) return false;
 
-            // 2. Проверка места (есть ли пустой слот или слот с тем же предметом, где есть место)
-            // Упрощенная проверка: считаем, что место есть, если вес позволяет 
-            // (В идеале нужно проверять StackSize, но для начала хватит веса)
             return true;
         }
 
@@ -63,12 +61,10 @@ namespace Menu_Journal {
         {
             if (!CanAddItem(item, amount)) return false;
 
-            // Шаг 1: Ищем существующий стак этого предмета
             foreach (var slot in _slots)
             {
                 if (!slot.IsEmpty && slot.Item.ID == item.ID)
                 {
-                    // Проверяем, влезает ли в стак
                     int spaceInStack = item.MaxStackSize - slot.Quantity;
                     if (spaceInStack > 0)
                     {
@@ -85,7 +81,6 @@ namespace Menu_Journal {
                 }
             }
 
-            // Шаг 2: Если осталось что добавить, ищем пустой слот
             while (amount > 0)
             {
                 InventorySlot emptySlot = GetEmptySlot();
@@ -97,8 +92,6 @@ namespace Menu_Journal {
                 }
                 else
                 {
-                    // Слоты кончились, а предметы еще остались (вернем false или true с оговоркой)
-                    // Для простоты считаем, что операция частично удалась
                     break;
                 }
             }
@@ -107,7 +100,6 @@ namespace Menu_Journal {
             return true;
         }
 
-        // --- ЛОГИКА УДАЛЕНИЯ ПРЕДМЕТА ---
         public void RemoveItem(ItemDataSO item, int amount)
         {
             foreach (var slot in _slots)

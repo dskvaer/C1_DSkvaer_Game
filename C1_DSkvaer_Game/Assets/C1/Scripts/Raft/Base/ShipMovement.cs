@@ -1,4 +1,4 @@
-﻿using Ship;
+using Ship;
 using System;
 using UnityEngine;
 
@@ -9,8 +9,15 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
     // Событие, вызываемое при изменении ввода движения (активен/неактивен).
     public event Action<bool> OnMoveInputChanged;
 
-    [SerializeField] private ShipMovementConfig config; // Настройки движения
-    [SerializeField] private SpriteRenderer shipSpriteRenderer; // SpriteRenderer на дочернем ShipVisual для визуализации.
+    [Header("Настройки движения")]
+    [InspectorLabel("Конфиг движения")]
+    [Tooltip("ScriptableObject со скоростью, ускорением, торможением, поворотом и ступенями гребли.")]
+    [SerializeField] private ShipMovementConfig config;
+
+    [Header("Визуал")]
+    [InspectorLabel("Спрайт корабля")]
+    [Tooltip("SpriteRenderer дочернего визуала корабля. Используется для настройки слоя отображения.")]
+    [SerializeField] private SpriteRenderer shipSpriteRenderer;
     private Rigidbody2D rb; // Физический компонент для управления движением.
     private Vector2 raftVelocity; // Текущая скорость корабля в мировых координатах.
     private Vector2 knockbackVelocity; // Скорость отбрасывания от столкновений.
@@ -34,7 +41,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
         }
         else
         {
-            Debug.LogWarning($"SpriteRenderer не привязан в ShipMovement для {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}). Убедитесь, что он прикреплён к ShipVisual.");
+            ;
         }
 
         // Инициализируем скорости и параметры.
@@ -46,7 +53,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
         targetSpeedRatio = 0f;
         lastMoveInputActive = false;
         lastMoveInput = 0f;
-        Debug.Log($"ShipMovement: Initialized for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}), Velocity={rb.linearVelocity}, Position={transform.position}");
+        ;
     }
 
     // Перемещает корабль в заданном направлении.
@@ -58,8 +65,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
             return;
         }
 
-        Debug.Log($"ShipMovement: Move for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}): X={inputDirection.x}, Y={inputDirection.y}, Strength={inputStrength}");
-
+        ;
         Vector2 forwardDirection = transform.up; // Нос корабля смотрит вверх.
         float moveInput = inputDirection.y; // Y управляет движением вперёд/назад.
 
@@ -69,7 +75,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
         {
             lastMoveInputActive = isMoveInputActive;
             OnMoveInputChanged?.Invoke(isMoveInputActive);
-            Debug.Log($"ShipMovement: Move input for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}): {(isMoveInputActive ? "active" : "inactive")}");
+            ;
         }
 
         // Обновляем уровень гребка.
@@ -80,7 +86,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
             {
                 currentRowingStep = 0;
                 rowingTimer = 0f;
-                Debug.Log($"ShipMovement: Direction changed for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}), rowing steps reset");
+                ;
             }
 
             if (moveInput > 0f)
@@ -146,7 +152,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
         }
 
         lastMoveInput = moveInput;
-        Debug.Log($"ShipMovement: Velocity for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}): {rb.linearVelocity}, Direction={forwardDirection}, RowingStep={currentRowingStep}");
+        ;
     }
 
     // Поворачивает корабль.
@@ -164,7 +170,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
             float rotationSpeed = config.TurnSpeed * inputStrength;
             float rotationDelta = -rotationInput * rotationSpeed * Time.fixedDeltaTime;
             transform.Rotate(0, 0, rotationDelta);
-            Debug.Log($"ShipMovement: Rotate for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}): Angle={transform.eulerAngles.z}, Delta={rotationDelta}");
+            ;
         }
     }
 
@@ -175,7 +181,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
     public void ApplyShipKnockback(Vector2 force)
     {
         knockbackVelocity += force;
-        Debug.Log($"ShipMovement: Knockback for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"}): {force}");
+        ;
     }
 
     // Наносит урон (реализация IShipDamageable, перенаправляет в ShipHealth).
@@ -185,7 +191,7 @@ public class ShipMovement : MonoBehaviour, IShipMovable, IShipDamageable {
         if (health != null)
         {
             health.TakeShipDamage(amount);
-            Debug.Log($"ShipMovement: Redirected damage {amount} to ShipHealth for {gameObject.name} (ID={GetComponent<ShipID>()?.ID ?? "Unknown"})");
+            ;
         }
     }
 }

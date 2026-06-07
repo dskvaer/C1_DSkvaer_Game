@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7337442862172767801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5850588687050613757}
+  - component: {fileID: 3576454837550690432}
+  m_Layer: 0
+  m_Name: Spawner_Bandits_Junior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5850588687050613757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337442862172767801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.37601, y: 12.41204, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3576454837550690432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337442862172767801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24285fc2c77a7db4fa0efa226867468d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.EnemySpawner
+  config: {fileID: 11400000, guid: a1444f0dcedbb174897f3237a3f985e9, type: 2}
+  idConfig: {fileID: 11400000, guid: c907ebc174eb4c649801c35844ab8d7f, type: 2}
+  enemyPrefab: {fileID: 8740437001971820305, guid: 508ed574458c5c74b8361fdb9926d8c4, type: 3}
+  waterTilemap: {fileID: 0}
+  healthBarCanvas: {fileID: 0}
+  healthBarPrefab: {fileID: 6983250064481219105, guid: 835781f3aa5dab5469198ea0aec7137f, type: 3}

@@ -1,0 +1,22 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.3/staging' branch; Version is '6000.3.14f1 (d68c3f99a318) revision 14060607'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'ru' Physical Memory: 32677 MB
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-DSkvaer" at "2026-06-05T12:11:09.3506133Z"
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-06-05T12:11:09Z
+
+COMMAND LINE ARGUMENTS:
+H:\Unity\6.1\6000.3.14f1\Editor\Unity.exe
+-batchmode
+-projectPath
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game
+-executeMethod
+C1.Platformer.EditorTools.PlatformerCharacterSetupTool.CreateDefaultMovementProfileAsset
+-quit
+-logFile
+H:\Unity\Project\C1_DSkvaer_Game\unity-platformer-profile.log
+Successfully changed project path to: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game
+H:/Unity/Project/C1_DSkvaer_Game/C1_DSkvaer_Game
+Exiting without the bug reporter. Application will terminate with return code 1

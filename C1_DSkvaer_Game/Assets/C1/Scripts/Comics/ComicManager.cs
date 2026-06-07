@@ -110,10 +110,10 @@ public class ComicManager : MonoBehaviour {
 
     void NextPanel()
     {
-        // Если это последняя панель, переходим к Game_scene_0
+        // Если это последняя панель, переходим к DEMO_SEA
         if (currentPanelIndex >= comicPanels.Length - 1)
         {
-            SceneManager.LoadScene("Game_scene_0");
+            SceneManager.LoadScene("DEMO_SEA");
             return;
         }
 

@@ -3,24 +3,60 @@
   "WorkspaceRootPath": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\raft\\npc\\config\\bandits\\banditenemytypeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\npc\\config\\bandits\\banditenemytypeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslotui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslotui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\raft\\id\\shipid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\id\\shipid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventorytab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventorytab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\raft\\npc\\config\\tactic\\fleetacticconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\npc\\config\\tactic\\fleetacticconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\raft\\npc\\config\\tactic\\npcshootingconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\npc\\config\\tactic\\npcshootingconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\simpleinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\simpleinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|h:\\unity\\project\\c1_dskvaer_game\\c1_dskvaer_game\\assets\\c1\\scripts\\inspectorlabelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\inspectorlabelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\raft\\base\\shiphealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\base\\shiphealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\so\\containerthemedatabaseso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\so\\containerthemedatabaseso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\raft\\base\\shipmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\base\\shipmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\raft\\npc\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\raft\\npc\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\so\\lootprofileso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\so\\lootprofileso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootwindowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootdropper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4F29871-1FA8-3AAA-D07F-8DF950B6B3BF}|Assembly-CSharp.csproj|solutionrelative:assets\\c1\\scripts\\ui\\menu_journal\\inventory\\loot\\lootdropper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,64 +71,175 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LootWindowManager.cs",
-              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
-              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
-              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
-              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\LootWindowManager.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAIwMIAAAABAAAAAAAAAA==",
+              "Title": "BanditEnemyTypeConfig.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Bandits\\BanditEnemyTypeConfig.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Bandits\\BanditEnemyTypeConfig.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Bandits\\BanditEnemyTypeConfig.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Bandits\\BanditEnemyTypeConfig.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAxwLIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T23:05:31.55Z",
+              "WhenOpened": "2026-05-28T18:37:42.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ShipID.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\ID\\ShipID.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\ID\\ShipID.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\ID\\ShipID.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\ID\\ShipID.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T18:35:13.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "InspectorLabelAttribute.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\InspectorLabelAttribute.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\InspectorLabelAttribute.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\InspectorLabelAttribute.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\InspectorLabelAttribute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T18:20:11.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FleeTacticConfig.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\FleeTacticConfig.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\FleeTacticConfig.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\FleeTacticConfig.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\FleeTacticConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T18:16:27.865Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "InventorySlot.cs",
-              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
-              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
-              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
-              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
+              "Title": "NPCShootingConfig.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\NPCShootingConfig.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\NPCShootingConfig.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\NPCShootingConfig.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\NPC\\Config\\Tactic\\NPCShootingConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T22:56:53.676Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SimpleInventory.cs",
-              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
-              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
-              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
-              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SimpleInventory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T21:54:41.858Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "InventoryTab.cs",
-              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
-              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
-              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
-              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventoryTab.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-30T11:28:34.822Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "InventorySlotUI.cs",
-              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
-              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
-              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
-              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\InventorySlotUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-30T11:27:31.286Z",
+              "WhenOpened": "2026-05-28T18:07:14.439Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ShipHealth.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\ShipHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\Base\\ShipHealth.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\ShipHealth.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\Base\\ShipHealth.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T08:45:31.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ContainerThemeDatabaseSO.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\ContainerThemeDatabaseSO.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\ContainerThemeDatabaseSO.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\ContainerThemeDatabaseSO.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\ContainerThemeDatabaseSO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAB8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T20:39:42.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ShipMovement.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\ShipMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\Base\\ShipMovement.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\Base\\ShipMovement.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\Base\\ShipMovement.cs",
+              "ViewState": "AgIAAJgAAAAAAAAAAAA3wLcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T20:19:10.175Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EnemySpawner.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\EnemySpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\Raft\\NPC\\EnemySpawner.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\Raft\\NPC\\EnemySpawner.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\Raft\\NPC\\EnemySpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T01:19:42.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LootContainer.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootContainer.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootContainer.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootContainer.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootContainer.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAADwv70AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:56:09.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LootWindowManager.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootWindowManager.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootWindowManager.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootWindowManager.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootWindowManager.cs",
+              "ViewState": "AgIAAF0BAAAAAAAAAADwv7IBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:19:04.839Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LootDropper.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootDropper.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootDropper.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootDropper.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootDropper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:09:48.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LootSpawner.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootSpawner.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootSpawner.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\Loot\\LootSpawner.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAwwFsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:09:11.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LootProfileSO.cs",
+              "DocumentMoniker": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\LootProfileSO.cs",
+              "RelativeDocumentMoniker": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\LootProfileSO.cs",
+              "ToolTip": "H:\\Unity\\Project\\C1_DSkvaer_Game\\C1_DSkvaer_Game\\Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\LootProfileSO.cs",
+              "RelativeToolTip": "Assets\\C1\\Scripts\\UI\\Menu_Journal\\Inventory\\SO\\LootProfileSO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T00:08:16.367Z"
             }
           ]
         }

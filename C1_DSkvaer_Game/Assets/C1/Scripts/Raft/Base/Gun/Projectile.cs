@@ -11,11 +11,15 @@ namespace Ship {
         // =================================================================================
 
         [Header("Конфигурация")]
-        [SerializeField, Tooltip("Файл настроек (ScriptableObject) с уроном, скоростью и т.д.")]
+        [InspectorLabel("Конфиг снаряда")]
+        [Tooltip("ScriptableObject с уроном, дальностью, скоростью и радиусом AOE.")]
+        [SerializeField]
         public ProjectileConfig config;
 
         [Header("Ссылки")]
-        [SerializeField, Tooltip("Ссылка на наш скрипт визуальных эффектов")]
+        [InspectorLabel("Эффекты снаряда")]
+        [Tooltip("Компонент визуальных эффектов попадания, промаха и следа.")]
+        [SerializeField]
         private ProjectileEffects projectileEffects;
 
         // =================================================================================
@@ -23,6 +27,9 @@ namespace Ship {
         // =================================================================================
 
         private Rigidbody2D rb;
+        private Collider2D projectileCollider;
+        private Transform ownerRoot;
+        private IShipHealth ownerHealth;
         private float lifetime;      // Таймер жизни снаряда
         private bool hasHit = false; // Флаг: "Мы уже во что-то попали?". Нужен, чтобы не нанести урон дважды за 1 кадр.
 
@@ -35,6 +42,7 @@ namespace Ship {
         {
             // 1. Получаем ссылку на физическое тело
             rb = GetComponent<Rigidbody2D>();
+            projectileCollider = GetComponent<Collider2D>();
 
             // 2. Проверяем, есть ли конфиг. Если нет - стрела бесполезна, удаляем её.
             if (config == null)
@@ -50,7 +58,7 @@ namespace Ship {
             // Включаем более точную проверку контактов
             rb.useFullKinematicContacts = true;
             // Делаем коллайдер триггером (чтобы он проходил сквозь объекты, вызывая событие, а не отскакивал)
-            GetComponent<Collider2D>().isTrigger = true;
+            projectileCollider.isTrigger = true;
 
             // 4. Рассчитываем время жизни: Расстояние / Скорость
             // Mathf.Max защищает от деления на ноль (если скорость случайно 0)
@@ -97,7 +105,7 @@ namespace Ship {
             // 1. Не реагируем, если уже попали
             // 2. Не реагируем на null
             // 3. Не реагируем на другие снаряды (чтобы стрелы не взрывались друг об друга)
-            if (hasHit || other == null || other.CompareTag("Projectile")) return;
+            if (hasHit || other == null || other.CompareTag("Projectile") || IsOwnedCollider(other)) return;
 
             // СЦЕНАРИЙ: ПОПАДАНИЕ В ЗОНУ УРОНА КОРАБЛЯ
             if (other.CompareTag("HitArea"))
@@ -121,6 +129,20 @@ namespace Ship {
         // Обработка попадания в корабль
         private void HandleShipHit(Collider2D hitCollider)
         {
+            var destructibleZone = hitCollider.GetComponent<DestructibleHitZone>();
+            if (destructibleZone != null)
+            {
+                HandleDestructibleZoneHit(hitCollider, destructibleZone);
+                return;
+            }
+
+            var coreHitZone = hitCollider.GetComponent<BanditCoreHitZone>();
+            if (coreHitZone != null)
+            {
+                HandleCoreHit(hitCollider, coreHitZone);
+                return;
+            }
+
             // Пытаемся получить компонент зоны попадания
             var hitArea = hitCollider.GetComponent<ShipHitArea>();
             if (hitArea == null) return;
@@ -163,6 +185,58 @@ namespace Ship {
             this.enabled = false;
         }
 
+        private void HandleDestructibleZoneHit(Collider2D hitCollider, DestructibleHitZone destructibleZone)
+        {
+            if (destructibleZone.IsDestroyed) return;
+
+            hasHit = true;
+
+            float finalDamage = config.Damage * destructibleZone.DamageMultiplier;
+            destructibleZone.ApplyDamage(Mathf.RoundToInt(finalDamage), isRam: false);
+
+            if (config.AreaOfEffectRadius > 0f)
+            {
+                ApplyAreaDamage(hitCollider, finalDamage);
+            }
+
+            if (projectileEffects)
+            {
+                projectileEffects.PlayHitEffect(transform.position);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            this.enabled = false;
+        }
+
+        private void HandleCoreHit(Collider2D hitCollider, BanditCoreHitZone coreHitZone)
+        {
+            if (coreHitZone.IsDestroyed) return;
+
+            hasHit = true;
+
+            float finalDamage = config.Damage * coreHitZone.DamageMultiplier;
+            coreHitZone.ApplyDamage(Mathf.RoundToInt(finalDamage), isRam: false);
+
+            if (config.AreaOfEffectRadius > 0f)
+            {
+                ApplyAreaDamage(hitCollider, finalDamage);
+            }
+
+            if (projectileEffects)
+            {
+                projectileEffects.PlayHitEffect(transform.position);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            this.enabled = false;
+        }
+
         // Логика AOE (взрыва)
         private void ApplyAreaDamage(Collider2D directHitTarget, float damage)
         {
@@ -175,8 +249,24 @@ namespace Ship {
 
             foreach (var h in hits)
             {
+                if (IsOwnedCollider(h)) continue;
+
                 // Не наносим урон тому, в кого и так попали прямым выстрелом (чтобы не дублировать)
                 if (h == directHitTarget) continue;
+
+                var destructibleZone = h.GetComponent<DestructibleHitZone>();
+                if (destructibleZone != null && !destructibleZone.IsDestroyed)
+                {
+                    destructibleZone.ApplyDamage(Mathf.RoundToInt(damage * destructibleZone.DamageMultiplier), isRam: false);
+                    continue;
+                }
+
+                var coreHitZone = h.GetComponent<BanditCoreHitZone>();
+                if (coreHitZone != null && !coreHitZone.IsDestroyed)
+                {
+                    coreHitZone.ApplyDamage(Mathf.RoundToInt(damage * coreHitZone.DamageMultiplier), isRam: false);
+                    continue;
+                }
 
                 var hh = h.GetComponentInParent<IShipHealth>();
                 if (hh != null && !hh.IsDead)
@@ -223,6 +313,48 @@ namespace Ship {
         public ProjectileConfig GetProjectileConfig()
         {
             return config;
+        }
+
+        public void SetOwner(Transform root, IShipHealth health)
+        {
+            ownerRoot = root;
+            ownerHealth = health;
+            IgnoreOwnerColliders();
+        }
+
+        private bool IsOwnedCollider(Collider2D other)
+        {
+            if (other == null) {
+                return false;
+            }
+
+            if (ownerRoot != null && (other.transform == ownerRoot || other.transform.IsChildOf(ownerRoot))) {
+                return true;
+            }
+
+            if (ownerHealth != null) {
+                IShipHealth hitHealth = other.GetComponentInParent<IShipHealth>();
+                if (ReferenceEquals(hitHealth, ownerHealth)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void IgnoreOwnerColliders()
+        {
+            if (projectileCollider == null || ownerRoot == null) {
+                return;
+            }
+
+            Collider2D[] ownerColliders = ownerRoot.GetComponentsInChildren<Collider2D>(true);
+            for (int i = 0; i < ownerColliders.Length; i++) {
+                Collider2D ownerCollider = ownerColliders[i];
+                if (ownerCollider != null && ownerCollider != projectileCollider) {
+                    Physics2D.IgnoreCollision(projectileCollider, ownerCollider, true);
+                }
+            }
         }
     }
 }

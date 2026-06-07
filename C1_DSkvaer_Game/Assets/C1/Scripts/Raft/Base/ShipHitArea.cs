@@ -1,70 +1,58 @@
-using Ship;
-using UnityEngine;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Компонент для обработки урона в зоне попадания (HitArea).
-    /// Применяет множитель урона из ShipRamConfig.
+    /// Р—РѕРЅР° РєРѕСЂРїСѓСЃР°, РєРѕС‚РѕСЂР°СЏ РїСЂРёРЅРёРјР°РµС‚ СѓСЂРѕРЅ РѕС‚ С‚Р°СЂР°РЅР° РёР»Рё РґСЂСѓРіРёС… РїРѕРїР°РґР°РЅРёР№.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - HealthComponent: Компонент ShipHealth (IShipHealth).
-    /// - RamConfig: Настройки тарана для множителя урона (ShipRamConfig, опционально).
-    /// Настройка сцены:
-    /// - Объект HitArea (дочерний для корабля) должен иметь Collider2D (isTrigger=true, Layer=Default, Tag=HitArea).
-    /// - HealthComponent должен ссылаться на ShipHealth на родительском объекте.
-    /// Логика работы:
-    /// - Awake: Инициализирует IShipHealth и Collider2D.
-    /// - OnTriggerEnter2D: Обрабатывает столкновение с AttackArea, применяет урон.
-    /// - DamageMultiplier: Возвращает множитель урона из ShipRamConfig.
-    /// </remarks>
     [RequireComponent(typeof(Collider2D))]
     public class ShipHitArea : MonoBehaviour {
-        [SerializeField] private MonoBehaviour healthComponent; // Компонент здоровья
-        [SerializeField] private ShipRamConfig ramConfig; // Настройки тарана
-        private IShipHealth shipHealth; // Интерфейс здоровья
+        [Header("РЎРІСЏР·Рё Р·РѕРЅС‹ СѓСЂРѕРЅР°")]
+        [InspectorLabel("РљРѕРјРїРѕРЅРµРЅС‚ Р·РґРѕСЂРѕРІСЊСЏ")]
+        [Tooltip("РљРѕРјРїРѕРЅРµРЅС‚ РєРѕСЂР°Р±Р»СЏ, РєРѕС‚РѕСЂС‹Р№ СЂРµР°Р»РёР·СѓРµС‚ IShipHealth. РћР±С‹С‡РЅРѕ СЌС‚Рѕ ShipHealth РЅР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РѕР±СЉРµРєС‚Рµ.")]
+        [SerializeField] private MonoBehaviour healthComponent;
 
-        // Возвращает множитель урона
-        public float DamageMultiplier => ramConfig != null ? ramConfig.DamageMultiplier : 1.0f; // Множитель из конфига или 1.0
+        [InspectorLabel("РљРѕРЅС„РёРі С‚Р°СЂР°РЅР°")]
+        [Tooltip("РќР°СЃС‚СЂРѕР№РєРё РјРЅРѕР¶РёС‚РµР»СЏ СѓСЂРѕРЅР° РґР»СЏ СЌС‚РѕР№ Р·РѕРЅС‹. Р•СЃР»Рё РїСѓСЃС‚Рѕ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РјРЅРѕР¶РёС‚РµР»СЊ 1.")]
+        [SerializeField] private ShipRamConfig ramConfig;
 
-        // Инициализация при старте
+        private IShipHealth shipHealth;
+
+        public float DamageMultiplier => ramConfig != null ? ramConfig.DamageMultiplier : 1.0f;
+
         private void Awake()
         {
-            shipHealth = healthComponent as IShipHealth; // Приводим к IShipHealth
-            if (shipHealth == null && healthComponent != null) // Проверяем возможность получения
+            shipHealth = healthComponent as IShipHealth;
+            if (shipHealth == null && healthComponent != null)
             {
-                shipHealth = healthComponent.GetComponent<IShipHealth>(); // Пытаемся получить IShipHealth
+                shipHealth = healthComponent.GetComponent<IShipHealth>();
             }
-            if (shipHealth == null) // Проверяем успешность получения
+
+            if (shipHealth == null)
             {
-                Debug.LogError($"IShipHealth не привязан для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                enabled = false; // Отключаем компонент
+                Debug.LogError($"IShipHealth РЅРµ РЅР°Р№РґРµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this);
+                enabled = false;
                 return;
             }
 
-            Collider2D collider = GetComponent<Collider2D>(); // Получаем Collider2D
-            collider.isTrigger = true; // Устанавливаем триггер
-            collider.gameObject.layer = LayerMask.NameToLayer("Default"); // Устанавливаем слой
-            Debug.Log($"ShipHitArea инициализирован для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}), Множитель урона={DamageMultiplier:F2}"); // Логируем инициализацию
+            Collider2D collider = GetComponent<Collider2D>();
+            collider.isTrigger = true;
+            collider.gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
-        // Обрабатывает столкновение
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("AttackArea")) // Проверяем столкновение с AttackArea
+            if (other.CompareTag("AttackArea"))
             {
-                if (ramConfig == null) // Проверяем наличие конфигурации
+                if (ramConfig == null)
                 {
-                    Debug.LogWarning($"ShipRamConfig не привязан для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}). Множитель урона=1.0.", this); // Логируем предупреждение
+                    ;
                 }
 
-                ShipRamAttack attackerCollision = other.GetComponentInParent<ShipRamAttack>(); // Получаем ShipRamAttack
-                if (attackerCollision != null && shipHealth != null) // Проверяем наличие компонентов
+                ShipRamAttack attacker = other.GetComponentInParent<ShipRamAttack>();
+                if (attacker != null)
                 {
-                    float damage = attackerCollision.CalculateDamage(); // Рассчитываем базовый урон
-                    float finalDamage = damage * DamageMultiplier; // Применяем множитель
-                    shipHealth.TakeShipDamage(Mathf.RoundToInt(finalDamage), isRam: true); // Наносим урон
-                    Debug.Log($"ShipHitArea: {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}) получил урон: Базовый={damage:F2}, Итоговый={finalDamage:F2}, Здоровье={shipHealth.GetCurrentShipHealth()}"); // Логируем урон
+                    float damage = attacker.CalculateDamage() * DamageMultiplier;
+                    shipHealth.TakeShipDamage(Mathf.RoundToInt(damage), true);
                 }
             }
         }

@@ -1,24 +1,15 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Настройки здоровья корабля.
-    /// Универсальны для игрока, врагов и торговцев.
+    /// Р‘Р°Р·РѕРІС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё Р·РґРѕСЂРѕРІСЊСЏ РєРѕСЂР°Р±Р»СЏ.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - Привязать к компоненту ShipHealth на объекте корабля (Player_Ship, Enemy_Ship, Trader_Ship).
-    /// - Устанавливает базовое максимальное здоровье корабля.
-    /// Настройка сцены:
-    /// - Создайте ScriptableObject через меню (File > Create > ShipConfigs > ShipHealthConfig).
-    /// </remarks>
     [CreateAssetMenu(fileName = "ShipHealthConfig", menuName = "ShipConfigs/ShipHealthConfig", order = 2)]
     public class ShipHealthConfig : ScriptableObject {
-        [SerializeField] private int maxHealth = 100; // Максимальное здоровье
-        /// <summary>
-        /// Максимальное здоровье корабля.
-        /// Используется в ShipHealth для инициализации здоровья.
-        /// </summary>
+        [Header("Р—РґРѕСЂРѕРІСЊРµ")]
+        [InspectorLabel("РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РґРѕСЂРѕРІСЊРµ")]
+        [Tooltip("Р‘Р°Р·РѕРІС‹Р№ Р·Р°РїР°СЃ РїСЂРѕС‡РЅРѕСЃС‚Рё РєРѕСЂР°Р±Р»СЏ РґРѕ СѓС‡РµС‚Р° СѓР»СѓС‡С€РµРЅРёР№ Рё РІСЂРµРјРµРЅРЅС‹С… РјРѕРґРёС„РёРєР°С‚РѕСЂРѕРІ.")]
+        [SerializeField] private int maxHealth = 100;
         public int MaxHealth => maxHealth;
     }
 }

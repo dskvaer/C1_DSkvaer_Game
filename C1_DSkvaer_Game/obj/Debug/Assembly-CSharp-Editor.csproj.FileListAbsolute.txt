@@ -1,0 +1,8 @@
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp-Editor.dll
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp.pdb
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp-Editor.csproj.AssemblyReference.cache
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp-Editor.csproj.CoreCompileInputs.cache
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly.1F1299F3.Up2Date
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp-Editor.dll
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp-Editor.pdb

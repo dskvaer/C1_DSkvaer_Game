@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ff551d5c4355747a73b2e9c3f58911, type: 3}
+  m_Name: Bandit_Senior_Ambusher_Base_BanditType
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.BanditEnemyTypeConfig
+  typeId: senior_ambusher
+  displayName: Senior Ambusher
+  rank: 2
+  idPrefix: RB
+  randomizeInstanceId: 1
+  fixedInstanceNumber: 0
+  baseShipHealth: 220
+  zoneHealthMultiplier: 1
+  coreDamageMultiplier: 1
+  coreLocalPosition: {x: 0, y: 0}
+  coreLocalSize: {x: 1.1, y: 1.7}
+  armorSlots:
+  - zoneId: armor_1
+    displayName: Armor 1
+    maxHealth: 25
+    damageMultiplier: 1
+    zonePrefab: {fileID: 0}
+    localPosition: {x: -1.7249999, y: 0}
+    localSize: {x: 1.2, y: 1.4}
+    disableColliderWhenDestroyed: 1
+    disableVisualsWhenDestroyed: 1
+  - zoneId: armor_2
+    displayName: Armor 2
+    maxHealth: 37
+    damageMultiplier: 1
+    zonePrefab: {fileID: 0}
+    localPosition: {x: -0.5749999, y: 0}
+    localSize: {x: 1.2, y: 1.4}
+    disableColliderWhenDestroyed: 1
+    disableVisualsWhenDestroyed: 1
+  - zoneId: armor_3
+    displayName: Armor 3
+    maxHealth: 49
+    damageMultiplier: 1
+    zonePrefab: {fileID: 0}
+    localPosition: {x: 0.57500005, y: 0}
+    localSize: {x: 1.2, y: 1.4}
+    disableColliderWhenDestroyed: 1
+    disableVisualsWhenDestroyed: 1
+  - zoneId: armor_4
+    displayName: Armor 4
+    maxHealth: 61
+    damageMultiplier: 1
+    zonePrefab: {fileID: 0}
+    localPosition: {x: 1.725, y: 0}
+    localSize: {x: 1.2, y: 1.4}
+    disableColliderWhenDestroyed: 1
+    disableVisualsWhenDestroyed: 1

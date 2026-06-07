@@ -1,30 +1,20 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Настройки покачивания корабля.
+    /// РќР°СЃС‚СЂРѕР№РєРё Р»РµРіРєРѕРіРѕ РїРѕРєР°С‡РёРІР°РЅРёСЏ РІРёР·СѓР°Р»Р° РєРѕСЂР°Р±Р»СЏ.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - Привязать к компоненту ShipSway на визуальном объекте корабля.
-    /// Настройка сцены:
-    /// - Создайте ScriptableObject через меню (File > Create > ShipConfigs/EffectsConfigs > ShipSwayConfig).
-    /// - Убедитесь, что значения SwayAmplitude и SwayPeriod сбалансированы для реалистичного эффекта.
-    /// </remarks>
     [CreateAssetMenu(fileName = "ShipSwayConfig", menuName = "ShipConfigs/EffectsConfigs/ShipSwayConfig", order = 3)]
     public class ShipSwayConfig : ScriptableObject {
-        [SerializeField] private float swayAmplitude = 0.2f; // Амплитуда смещения
-        /// <summary>
-        /// Амплитуда смещения для покачивания (в единицах Unity, влево-вправо).
-        /// Используется в ShipSway для анимации.
-        /// </summary>
+        [Header("РџРѕРєР°С‡РёРІР°РЅРёРµ")]
+        [InspectorLabel("РђРјРїР»РёС‚СѓРґР°")]
+        [Tooltip("РќР°СЃРєРѕР»СЊРєРѕ СЃРёР»СЊРЅРѕ РІРёР·СѓР°Р» РєРѕСЂР°Р±Р»СЏ СЃРјРµС‰Р°РµС‚СЃСЏ РІРІРµСЂС… Рё РІРЅРёР·.")]
+        [SerializeField] private float swayAmplitude = 0.2f;
         public float SwayAmplitude => swayAmplitude;
 
-        [SerializeField] private float swayPeriod = 1f; // Период покачивания
-        /// <summary>
-        /// Период покачивания (в секундах).
-        /// Используется в ShipSway для анимации.
-        /// </summary>
+        [InspectorLabel("РџРµСЂРёРѕРґ")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р·Р°РЅРёРјР°РµС‚ РїРѕР»РЅС‹Р№ С†РёРєР» РїРѕРєР°С‡РёРІР°РЅРёСЏ.")]
+        [SerializeField] private float swayPeriod = 1f;
         public float SwayPeriod => swayPeriod;
     }
 }

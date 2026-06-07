@@ -1,100 +1,71 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Настройки визуальных эффектов корабля (волны, след).
+    /// РќР°СЃС‚СЂРѕР№РєРё РІРёР·СѓР°Р»СЊРЅС‹С… СЌС„С„РµРєС‚РѕРІ РґРІРёР¶РµРЅРёСЏ РєРѕСЂР°Р±Р»СЏ: РІРѕР»РЅС‹ Рё СЃР»РµРґ РЅР° РІРѕРґРµ.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - Привязать к компоненту ShipEffects на объекте с ParticleSystem и TrailRenderer.
-    /// Настройка сцены:
-    /// - Создайте ScriptableObject через меню (File > Create > ShipConfigs/EffectsConfigs > ShipEffectsConfig).
-    /// - Убедитесь, что значения WaveParticleSpeed, WaveParticleSize, WaveEmissionRate, WaveParticleLifetime, WaveMinSpeed, TrailTime, TrailStartWidth, TrailEndWidth, TrailStartColor, TrailEndColor, TrailMinSpeed сбалансированы для реалистичного эффекта.
-    /// </remarks>
     [CreateAssetMenu(fileName = "ShipEffectsConfig", menuName = "ShipConfigs/EffectsConfigs/ShipEffectsConfig", order = 2)]
     public class ShipEffectsConfig : ScriptableObject {
-        [SerializeField] private float waveParticleSpeed = 2f; // Скорость частиц волн
-        /// <summary>
-        /// Скорость частиц волн (в единицах Unity/сек).
-        /// Используется в ShipEffects для настройки ParticleSystem.
-        /// </summary>
+        [Header("Р’РѕР»РЅС‹")]
+        [InspectorLabel("РЎРєРѕСЂРѕСЃС‚СЊ С‡Р°СЃС‚РёС† РІРѕР»РЅ")]
+        [Tooltip("РЎРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ С‡Р°СЃС‚РёС† РІРѕР»РЅС‹ РІ РµРґРёРЅРёС†Р°С… Unity РІ СЃРµРєСѓРЅРґСѓ.")]
+        [SerializeField] private float waveParticleSpeed = 2f;
         public float WaveParticleSpeed => waveParticleSpeed;
 
-        [SerializeField] private float waveParticleSize = 0.2f; // Размер частиц волн
-        /// <summary>
-        /// Размер частиц волн (в единицах Unity).
-        /// Используется в ShipEffects для настройки ParticleSystem.
-        /// </summary>
+        [InspectorLabel("Р Р°Р·РјРµСЂ С‡Р°СЃС‚РёС† РІРѕР»РЅ")]
+        [Tooltip("Р Р°Р·РјРµСЂ РѕС‚РґРµР»СЊРЅС‹С… С‡Р°СЃС‚РёС† РІРѕР»РЅС‹.")]
+        [SerializeField] private float waveParticleSize = 0.2f;
         public float WaveParticleSize => waveParticleSize;
 
-        [SerializeField] private float waveEmissionRate = 20f; // Частота эмиссии волн
-        /// <summary>
-        /// Количество частиц в секунду (частота появления).
-        /// Используется в ShipEffects для настройки ParticleSystem.
-        /// </summary>
+        [InspectorLabel("Р§Р°СЃС‚РѕС‚Р° РІРѕР»РЅ")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ С‡Р°СЃС‚РёС† РІРѕР»РЅС‹ РёСЃРїСѓСЃРєР°РµС‚СЃСЏ РІ СЃРµРєСѓРЅРґСѓ РїСЂРё Р°РєС‚РёРІРЅРѕРј РґРІРёР¶РµРЅРёРё.")]
+        [SerializeField] private float waveEmissionRate = 20f;
         public float WaveEmissionRate => waveEmissionRate;
 
-        [SerializeField] private Color waveParticleColor = new Color(1f, 1f, 1f, 0.8f); // Цвет частиц волн
-        /// <summary>
-        /// Цвет частиц волн.
-        /// Используется в ShipEffects для настройки ParticleSystem.
-        /// </summary>
+        [InspectorLabel("Р¦РІРµС‚ РІРѕР»РЅ")]
+        [Tooltip("Р¦РІРµС‚ С‡Р°СЃС‚РёС† РІРѕР»РЅС‹, РІРєР»СЋС‡Р°СЏ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ.")]
+        [SerializeField] private Color waveParticleColor = new Color(1f, 1f, 1f, 0.8f);
         public Color WaveParticleColor => waveParticleColor;
 
-        [SerializeField] private float waveParticleLifetime = 1f; // Время жизни частиц волн
-        /// <summary>
-        /// Длительность жизни частиц волн (в секундах).
-        /// Используется в ShipEffects для настройки ParticleSystem.
-        /// </summary>
+        [InspectorLabel("Р’СЂРµРјСЏ Р¶РёР·РЅРё РІРѕР»РЅ")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р¶РёРІРµС‚ С‡Р°СЃС‚РёС†Р° РІРѕР»РЅС‹ РїРѕСЃР»Рµ СЃРѕР·РґР°РЅРёСЏ.")]
+        [SerializeField] private float waveParticleLifetime = 1f;
         public float WaveParticleLifetime => waveParticleLifetime;
 
-        [SerializeField] private float waveMinSpeed = 2f; // Минимальная скорость для волн
-        /// <summary>
-        /// Минимальная скорость корабля для активации волн (в морских узлах).
-        /// Используется в ShipEffects для проверки скорости.
-        /// </summary>
+        [InspectorLabel("РњРёРЅРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РґР»СЏ РІРѕР»РЅ")]
+        [Tooltip("РљРѕСЂР°Р±Р»СЊ РґРѕР»Р¶РµРЅ РґРІРёРіР°С‚СЊСЃСЏ Р±С‹СЃС‚СЂРµРµ СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ, С‡С‚РѕР±С‹ РІРєР»СЋС‡Р°Р»РёСЃСЊ С‡Р°СЃС‚РёС†С‹ РІРѕР»РЅ.")]
+        [SerializeField] private float waveMinSpeed = 2f;
         public float WaveMinSpeed => waveMinSpeed;
 
-        [SerializeField] private float trailTime = 2f; // Длительность следа
-        /// <summary>
-        /// Время затухания следа (в секундах).
-        /// Используется в ShipEffects для настройки TrailRenderer.
-        /// </summary>
+        [Header("РЎР»РµРґ РЅР° РІРѕРґРµ")]
+        [InspectorLabel("Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ СЃР»РµРґР°")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ РІРёРґРµРЅ СЃР»РµРґ Р·Р° РєРѕСЂР°Р±Р»РµРј.")]
+        [SerializeField] private float trailTime = 2f;
         public float TrailTime => trailTime;
 
-        [SerializeField] private float trailStartWidth = 0.5f; // Начальная ширина следа
-        /// <summary>
-        /// Ширина следа в начале (в единицах Unity).
-        /// Используется в ShipEffects для настройки TrailRenderer.
-        /// </summary>
+        [InspectorLabel("РќР°С‡Р°Р»СЊРЅР°СЏ С€РёСЂРёРЅР° СЃР»РµРґР°")]
+        [Tooltip("РЁРёСЂРёРЅР° СЃР»РµРґР° Сѓ РєРѕСЂРјС‹ РєРѕСЂР°Р±Р»СЏ.")]
+        [SerializeField] private float trailStartWidth = 0.5f;
         public float TrailStartWidth => trailStartWidth;
 
-        [SerializeField] private float trailEndWidth = 0.1f; // Конечная ширина следа
-        /// <summary>
-        /// Ширина следа в конце (в единицах Unity).
-        /// Используется в ShipEffects для настройки TrailRenderer.
-        /// </summary>
+        [InspectorLabel("РљРѕРЅРµС‡РЅР°СЏ С€РёСЂРёРЅР° СЃР»РµРґР°")]
+        [Tooltip("РЁРёСЂРёРЅР° СЃР»РµРґР° РІ РєРѕРЅС†Рµ Р»РёРЅРёРё Р·Р°С‚СѓС…Р°РЅРёСЏ.")]
+        [SerializeField] private float trailEndWidth = 0.1f;
         public float TrailEndWidth => trailEndWidth;
 
-        [SerializeField] private Color trailStartColor = new Color(1f, 1f, 1f, 0.8f); // Начальный цвет следа
-        /// <summary>
-        /// Цвет следа в начале.
-        /// Используется в ShipEffects для настройки TrailRenderer.
-        /// </summary>
+        [InspectorLabel("РќР°С‡Р°Р»СЊРЅС‹Р№ С†РІРµС‚ СЃР»РµРґР°")]
+        [Tooltip("Р¦РІРµС‚ СЃР»РµРґР° СЂСЏРґРѕРј СЃ РєРѕСЂР°Р±Р»РµРј.")]
+        [SerializeField] private Color trailStartColor = new Color(1f, 1f, 1f, 0.8f);
         public Color TrailStartColor => trailStartColor;
 
-        [SerializeField] private Color trailEndColor = new Color(1f, 1f, 1f, 0f); // Конечный цвет следа
-        /// <summary>
-        /// Цвет следа в конце.
-        /// Используется в ShipEffects для настройки TrailRenderer.
-        /// </summary>
+        [InspectorLabel("РљРѕРЅРµС‡РЅС‹Р№ С†РІРµС‚ СЃР»РµРґР°")]
+        [Tooltip("Р¦РІРµС‚ СЃР»РµРґР° РІ РєРѕРЅС†Рµ Р»РёРЅРёРё. РћР±С‹С‡РЅРѕ РїСЂРѕР·СЂР°С‡РЅС‹Р№.")]
+        [SerializeField] private Color trailEndColor = new Color(1f, 1f, 1f, 0f);
         public Color TrailEndColor => trailEndColor;
 
-        [SerializeField] private float trailMinSpeed = 2f; // Минимальная скорость для следа
-        /// <summary>
-        /// Минимальная скорость корабля для активации следа (в морских узлах).
-        /// Используется в ShipEffects для проверки скорости.
-        /// </summary>
+        [InspectorLabel("РњРёРЅРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РґР»СЏ СЃР»РµРґР°")]
+        [Tooltip("РљРѕСЂР°Р±Р»СЊ РґРѕР»Р¶РµРЅ РґРІРёРіР°С‚СЊСЃСЏ Р±С‹СЃС‚СЂРµРµ СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ, С‡С‚РѕР±С‹ РІРєР»СЋС‡Р°Р»СЃСЏ СЃР»РµРґ.")]
+        [SerializeField] private float trailMinSpeed = 2f;
         public float TrailMinSpeed => trailMinSpeed;
     }
 }

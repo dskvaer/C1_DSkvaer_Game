@@ -1,0 +1,12 @@
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp.dll
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp.pdb
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.dll
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.pdb
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.dll
+C:\Users\CodexSandboxOffline\.codex\.sandbox\cwd\1f31398e46af0477\C1_DSkvaer_Game\obj\Debug\Assembly-CSharp.pdb

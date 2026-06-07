@@ -291,6 +291,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5580531806546362364
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -336,6 +337,7 @@ SpriteRenderer:
   m_SortingLayerID: -960372999
   m_SortingLayer: 3
   m_SortingOrder: 10
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -4552245727442381408, guid: dffd49765a3b2ae4d8f2d9ecf1fbff0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -345,7 +347,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!198 &5214165087589234582
 ParticleSystem:
@@ -5072,7 +5073,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!96 &8911799868713844191
 TrailRenderer:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5118,6 +5119,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Time: 0.58
   m_PreviewTimeScale: 1
   m_Parameters:
@@ -5176,7 +5178,6 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.5
-  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
@@ -5210,7 +5211,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: abd9fbe79ccbcef46972839d0e96b26f, type: 2}
 --- !u!199 &7157071947578939572
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5256,6 +5257,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5287,7 +5289,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &6622288459212464008
 GameObject:
   m_ObjectHideFlags: 0
@@ -10047,7 +10048,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &8365737720125048914
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10093,6 +10094,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -10124,7 +10126,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!114 &2880114221931267522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10240,6 +10241,9 @@ GameObject:
   - component: {fileID: 7601603457402343995}
   - component: {fileID: 8525548361590678008}
   - component: {fileID: 5217585588486992283}
+  - component: {fileID: 2845988053516696651}
+  - component: {fileID: 918702753829993733}
+  - component: {fileID: 2297229468024883076}
   m_Layer: 3
   m_Name: Raft_Player_0
   m_TagString: Player
@@ -10347,7 +10351,6 @@ MonoBehaviour:
   ramConfig: {fileID: 11400000, guid: cb56b510d1509224a80d4851f9268e39, type: 2}
   shipMovement: {fileID: 7601603457402343995}
   shipSpriteRenderer: {fileID: 5580531806546362364}
-  ironNoseSprite: {fileID: 0}
 --- !u!114 &3148907266486379231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10405,6 +10408,65 @@ MonoBehaviour:
   leftGuns:
   - {fileID: 3736558001228161834}
   rightGuns: []
+  defaultSequentialFireDelay: 0.12
+--- !u!114 &2845988053516696651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8715846802434693489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b898ade3d1a4db4d89a1e3f3abb4c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_Journal.ShipInventory
+  _slotCount: 5
+  _maxWeight: 100
+  _slots:
+  - _item: {fileID: 11400000, guid: 1ca201e0085c30946a2fc82c4c0c6cf6, type: 2}
+    _quantity: 10000
+  - _item: {fileID: 0}
+    _quantity: 0
+  - _item: {fileID: 0}
+    _quantity: 0
+  - _item: {fileID: 0}
+    _quantity: 0
+  - _item: {fileID: 0}
+    _quantity: 0
+  - _item: {fileID: 0}
+    _quantity: 0
+--- !u!114 &918702753829993733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8715846802434693489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92089695ceb94b45a6b34d392cba9ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.InventoryLootDropper
+  config: {fileID: 11400000, guid: 5c600cbff5f9c054e9b3cd67299ef94b, type: 2}
+  shipInventory: {fileID: 2845988053516696651}
+  simpleInventory: {fileID: 2297229468024883076}
+  itemDatabase: {fileID: 11400000, guid: 7bed9baf34cb9694ab49c379c1765dc3, type: 2}
+  healthSource: {fileID: 281489083086203787}
+  dropOnDeath: 1
+--- !u!114 &2297229468024883076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8715846802434693489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c8b4077577b764486c5b8ea0271e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_Journal.SimpleInventory
+  slots: []
 --- !u!1001 &3656092906720468802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10427,7 +10489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.42
+      value: -0.514
       objectReference: {fileID: 0}
     - target: {fileID: 46581215480920287, guid: 5730fc491ef2171419cb6e563927fb5b, type: 3}
       propertyPath: m_LocalPosition.y

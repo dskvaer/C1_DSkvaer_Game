@@ -1,25 +1,26 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 namespace Menu_Journal {
-    [Serializable] // Ïîçâîëÿåò âèäåòü ýòîò êëàññ â Èíñïåêòîðå Unity
+    [Serializable]
     public class InventorySlot {
+        [InspectorLabel("ÐŸÑ€ÐµÐ´Ð¼ÐµÑ‚")]
+        [Tooltip("Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ð² ÑÑ‚Ð¾Ð¼ ÑÐ»Ð¾Ñ‚Ðµ.")]
         [SerializeField] private ItemDataSO _item;
+
+        [InspectorLabel("ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾")]
+        [Tooltip("Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ ÐµÐ´Ð¸Ð½Ð¸Ñ† Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑÑ Ð² ÑÑ‚Ð¾Ð¼ ÑÐ»Ð¾Ñ‚Ðµ.")]
         [SerializeField] private int _quantity;
 
-        // Ñâîéñòâà äëÿ ÷òåíèÿ
         public ItemDataSO Item => _item;
         public int Quantity => _quantity;
         public bool IsEmpty => _item == null || _quantity <= 0;
 
-        // Êîíñòðóêòîð
         public InventorySlot(ItemDataSO item, int quantity)
         {
             _item = item;
             _quantity = quantity;
         }
-
-        // --- Ìåòîäû èçìåíåíèÿ ñîñòîÿíèÿ ---
 
         public void AddAmount(int amount)
         {

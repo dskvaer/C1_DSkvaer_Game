@@ -1,28 +1,33 @@
-// ====================================================================================================
-// ProjectileConfig.cs
-// ====================================================================================================
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// ��������� ������� (����, ���������, ��������, AOE).
+    /// Настройки снаряда: урон, дальность, скорость и AOE.
     /// </summary>
     [CreateAssetMenu(fileName = "ProjectileConfig", menuName = "ShipConfigs/ProjectileConfig", order = 1)]
     public sealed class ProjectileConfig : ScriptableObject {
-        [SerializeField, Min(0f), Tooltip("���� �� ���������")]
+        [Header("Параметры снаряда")]
+        [InspectorLabel("Урон")]
+        [Tooltip("Базовый урон за прямое попадание.")]
+        [SerializeField, Min(0f)]
         private float damage = 10f;
         public float Damage => damage;
 
-        [SerializeField, Min(0f), Tooltip("��������� �����")]
+        [InspectorLabel("Дальность")]
+        [Tooltip("Максимальная дальность полета снаряда в единицах Unity.")]
+        [SerializeField, Min(0f)]
         private float range = 50f;
         public float Range => range;
 
-        [SerializeField, Min(0.1f), Tooltip("�������� ������� (��/���)")]
+        [InspectorLabel("Скорость снаряда")]
+        [Tooltip("Скорость движения снаряда в единицах Unity в секунду.")]
+        [SerializeField, Min(0.1f)]
         private float projectileSpeed = 20f;
         public float ProjectileSpeed => projectileSpeed;
 
-        [SerializeField, Min(0f), Tooltip("������ AOE-����� (0 = ���)")]
+        [InspectorLabel("Радиус AOE")]
+        [Tooltip("Радиус урона по площади. 0 означает, что AOE-урона нет.")]
+        [SerializeField, Min(0f)]
         private float areaOfEffectRadius = 0f;
         public float AreaOfEffectRadius => areaOfEffectRadius;
 

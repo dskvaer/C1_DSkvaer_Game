@@ -1,33 +1,39 @@
+п»їusing System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System; // Нужно для Action
 
 namespace Menu_Journal {
     public class InventorySlotUI : MonoBehaviour {
-        [Header("UI Components")]
+        [Header("UI СЃР»РѕС‚Р°")]
+        [InspectorLabel("РРєРѕРЅРєР° РїСЂРµРґРјРµС‚Р°")]
+        [Tooltip("Image, РІ РєРѕС‚РѕСЂРѕРј РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РёРєРѕРЅРєР° РїСЂРµРґРјРµС‚Р°.")]
         [SerializeField] private Image _iconImage;
+
+        [InspectorLabel("РљРѕР»РёС‡РµСЃС‚РІРѕ")]
+        [Tooltip("TMP-С‚РµРєСЃС‚ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј РїСЂРµРґРјРµС‚РѕРІ РІ СЃС‚Р°РєРµ.")]
         [SerializeField] private TextMeshProUGUI _amountText;
+
+        [InspectorLabel("РљРЅРѕРїРєР° СЃР»РѕС‚Р°")]
+        [Tooltip("Button, РїРѕ РЅР°Р¶Р°С‚РёСЋ РЅР° РєРѕС‚РѕСЂС‹Р№ РІС‹Р±РёСЂР°РµС‚СЃСЏ СЌС‚РѕС‚ СЃР»РѕС‚.")]
         [SerializeField] private Button _button;
-        [SerializeField] private Image _selectionFrame; // Рамка выделения (опционально)
+
+        [InspectorLabel("Р Р°РјРєР° РІС‹Р±РѕСЂР°")]
+        [Tooltip("Image СЂР°РјРєРё, РєРѕС‚РѕСЂР°СЏ РІРєР»СЋС‡Р°РµС‚СЃСЏ РґР»СЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЃР»РѕС‚Р°.")]
+        [SerializeField] private Image _selectionFrame;
 
         private InventorySlot _currentSlot;
 
-        // Событие: "Меня кликнули". Передает сам слот.
         public event Action<InventorySlotUI> OnClick;
-
-        // Публичное свойство, чтобы менеджер мог прочитать, какой это слот
         public InventorySlot SlotData => _currentSlot;
 
         private void Start()
         {
-            // Подписываем кнопку на наш метод
             if (_button != null)
             {
                 _button.onClick.AddListener(HandleClick);
             }
 
-            // Скрываем рамку выделения по умолчанию
             if (_selectionFrame) _selectionFrame.enabled = false;
         }
 
@@ -50,29 +56,22 @@ namespace Menu_Journal {
             _iconImage.gameObject.SetActive(true);
             _iconImage.sprite = slot.Item.Icon;
             _button.interactable = true;
-
-            if (slot.Quantity > 1)
-                _amountText.text = slot.Quantity.ToString();
-            else
-                _amountText.text = "";
+            _amountText.text = slot.Quantity > 1 ? slot.Quantity.ToString() : string.Empty;
         }
 
         private void ClearSlot()
         {
             _iconImage.gameObject.SetActive(false);
-            _amountText.text = "";
+            _amountText.text = string.Empty;
             _button.interactable = false;
             if (_selectionFrame) _selectionFrame.enabled = false;
         }
 
-        // Вызывается при нажатии на кнопку Unity Button
         private void HandleClick()
         {
-            // Вызываем событие, чтобы менеджер (Лут или Журнал) узнал о клике
             OnClick?.Invoke(this);
         }
 
-        // Методы для выделения (визуал)
         public void SetSelected(bool isSelected)
         {
             if (_selectionFrame) _selectionFrame.enabled = isSelected;

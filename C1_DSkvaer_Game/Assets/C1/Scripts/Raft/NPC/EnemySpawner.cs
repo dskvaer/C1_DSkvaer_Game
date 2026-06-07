@@ -1,199 +1,331 @@
 using C1.Scripts.UI.Game_play_UI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 namespace Ship {
-    /// <summary>
-    /// Спавнер NPC (врагов или торговцев). Создаёт объекты с заданным ID, полосами здоровья и управляет их удалением.
-    /// Поддерживает интервальный и случайный спавн с возможностью ограничения по условиям.
-    /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - EnemySpawnerConfig: Настройки спавна (SpawnInterval, MaxEnemies, MinSpawnCount, MaxSpawnCount, RestrictSpawnUntilCondition, UseRandomSpawn).
-    /// - ShipIDConfig: Конфигурация ID для NPC (например, префикс "RE" для врагов, "RT" для торговцев).
-    /// - EnemyPrefab: Префаб NPC (Enemy_Ship или Trader_Ship) с компонентами ShipHealth, ShipMovement, ShipID.
-    /// - WaterTilemap: Tilemap воды для определения области спавна.
-    /// - HealthBarCanvas: Canvas (Screen Space - Camera) для полос здоровья.
-    /// - HealthBarPrefab: Префаб полосы здоровья с компонентами HealthBar и FollowTarget.
-    /// Настройка сцены:
-    /// - Убедитесь, что EnemyPrefab не содержит ShipPlayerInputHandler (только для игрока).
-    /// - WaterTilemap должен быть настроен с корректными границами (localBounds).
-    /// - HealthBarCanvas: Screen Space - Camera, привязка к Main Camera, Scale With Screen Size.
-    /// - HealthBarPrefab: Должен иметь HealthBar (для отображения здоровья) и FollowTarget (для слежения за NPC).
-    /// Логика работы:
-    /// - Awake: Проверяет наличие компонентов и отключает спавнер, если они не привязаны.
-    /// - Update: Управляет интервальным или случайным спавном в зависимости от EnemySpawnerConfig.
-    /// - SpawnEnemy: Создаёт NPC и полосу здоровья, регистрирует их в словаре, подписывается на событие смерти.
-    /// - RemoveEntity: Удаляет NPC и полосу здоровья при смерти.
-    /// </remarks>
     public class EnemySpawner : MonoBehaviour {
-        [SerializeField] private EnemySpawnerConfig config; // Настройки спавнера
-        [SerializeField] private ShipIDConfig idConfig; // Конфигурация ID для NPC
-        [SerializeField] private GameObject enemyPrefab; // Префаб NPC
-        [SerializeField] private Tilemap waterTilemap; // Водный тайлмап для спавна
-        [SerializeField] private Canvas healthBarCanvas; // Canvas для полос здоровья
-        [SerializeField] private GameObject healthBarPrefab; // Префаб полосы здоровья
-        private float spawnTimer; // Таймер для интервального спавна
-        private readonly Dictionary<string, (GameObject enemy, GameObject healthBar, ShipHealth shipHealth)> spawnedEntities = new(); // Отслеживание NPC
-        private bool isRandomSpawnTriggered; // Флаг случайного спавна
-        private System.Func<bool> canSpawnCondition; // Условие для спавна
+        [Header("РќР°СЃС‚СЂРѕР№РєРё СЃРїР°РІРЅР°")]
+        [InspectorLabel("РљРѕРЅС„РёРі СЃРїР°РІРЅРµСЂР°")]
+        [Tooltip("ScriptableObject СЃ РїСЂР°РІРёР»Р°РјРё СЃРїР°РІРЅР°: РёРЅС‚РµСЂРІР°Р», Р»РёРјРёС‚ РІСЂР°РіРѕРІ, СЃР»СѓС‡Р°Р№РЅР°СЏ РІРѕР»РЅР° Рё prefab РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.")]
+        [SerializeField] private EnemySpawnerConfig config;
 
-        // Инициализация при старте
+        [InspectorLabel("РљРѕРЅС„РёРі ID")]
+        [Tooltip("РќР°СЃС‚СЂРѕР№РєРё РіРµРЅРµСЂР°С†РёРё ID РґР»СЏ СЃРѕР·РґР°РЅРЅС‹С… РІСЂР°РіРѕРІ. РњРѕР¶РЅРѕ РЅРµ Р·Р°РґР°РІР°С‚СЊ, РµСЃР»Рё prefab РёРјРµРµС‚ СЃРІРѕР№ IShipIdProvider.")]
+        [SerializeField] private ShipIDConfig idConfig;
+
+        [InspectorLabel("РџСЂРµС„Р°Р± РІСЂР°РіР°")]
+        [Tooltip("РџСЂРµС„Р°Р±, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ СЃРѕР·РґР°РЅ СЃРїР°РІРЅРµСЂРѕРј. Р•СЃР»Рё РїСѓСЃС‚Рѕ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ prefab РёР· РєРѕРЅС„РёРіР° СЃРїР°РІРЅРµСЂР°.")]
+        [SerializeField] private GameObject enemyPrefab;
+
+        [InspectorLabel("Р—РѕРЅР° СЃРїР°РІРЅР°")]
+        [Tooltip("Р—РѕРЅР°, РІРЅСѓС‚СЂРё РєРѕС‚РѕСЂРѕР№ РїРѕСЏРІР»СЏСЋС‚СЃСЏ РІСЂР°РіРё Рё РєРѕС‚РѕСЂР°СЏ РїРµСЂРµРґР°РµС‚СЃСЏ РёРј РєР°Рє Р·РѕРЅР° РїР°С‚СЂСѓР»СЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.")]
+        [SerializeField] private NPCPatrolZone spawnZone;
+
+        [InspectorLabel("Tilemap РІРѕРґС‹")]
+        [Tooltip("Tilemap РІРѕРґС‹, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РІС‹Р±РёСЂР°СЋС‚СЃСЏ РґРѕРїСѓСЃС‚РёРјС‹Рµ С‚РѕС‡РєРё СЃРїР°РІРЅР° Рё РїР°С‚СЂСѓР»СЏ.")]
+        [SerializeField] private Tilemap waterTilemap;
+
+        [Header("РџРѕР»РѕСЃРєРё Р·РґРѕСЂРѕРІСЊСЏ")]
+        [InspectorLabel("Canvas Р·РґРѕСЂРѕРІСЊСЏ")]
+        [Tooltip("Canvas, РІ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґСѓС‚ РґРѕР±Р°РІР»СЏС‚СЊСЃСЏ РїРѕР»РѕСЃРєРё Р·РґРѕСЂРѕРІСЊСЏ СЃРѕР·РґР°РЅРЅС‹С… РІСЂР°РіРѕРІ.")]
+        [SerializeField] private Canvas healthBarCanvas;
+
+        [InspectorLabel("РџСЂРµС„Р°Р± РїРѕР»РѕСЃРєРё Р·РґРѕСЂРѕРІСЊСЏ")]
+        [Tooltip("UI prefab РїРѕР»РѕСЃРєРё Р·РґРѕСЂРѕРІСЊСЏ, РєРѕС‚РѕСЂС‹Р№ РїСЂРёРІСЏР·С‹РІР°РµС‚СЃСЏ Рє РєР°Р¶РґРѕРјСѓ СЃРѕР·РґР°РЅРЅРѕРјСѓ РІСЂР°РіСѓ.")]
+        [SerializeField] private GameObject healthBarPrefab;
+        [SerializeField] private bool createHealthBarsForSceneEnemies = true;
+
+        private readonly Dictionary<string, SpawnedEntity> spawnedEntities = new();
+        private float spawnTimer;
+        private bool isRandomSpawnTriggered;
+        private System.Func<bool> canSpawnCondition;
+
+        private sealed class SpawnedEntity {
+            public GameObject Enemy;
+            public GameObject HealthBar;
+            public ShipHealth ShipHealth;
+            public UnityAction OnDeath;
+        }
+
         private void Awake()
         {
-            if (config == null) // Проверяем наличие конфига
-            {
-                Debug.LogWarning($"EnemySpawnerConfig не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (idConfig == null) // Проверяем наличие ID конфига
-            {
-                Debug.LogWarning($"ShipIDConfig не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (enemyPrefab == null) // Проверяем наличие префаба
-            {
-                Debug.LogWarning($"EnemyPrefab не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (waterTilemap == null) // Проверяем наличие тайлмапа
-            {
-                Debug.LogWarning($"WaterTilemap не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (healthBarCanvas == null) // Проверяем наличие Canvas
-            {
-                Debug.LogWarning($"HealthBarCanvas не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (healthBarPrefab == null) // Проверяем наличие префаба полосы здоровья
-            {
-                Debug.LogWarning($"HealthBarPrefab не привязан для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
-                return;
-            }
-            if (enemyPrefab.GetComponent<ShipPlayerInputHandler>()) // Проверяем отсутствие ShipPlayerInputHandler
-            {
-                Debug.LogWarning($"EnemyPrefab ошибочно ссылается на Player_Ship для {gameObject.name}. Спавнер отключен.", this); // Логируем предупреждение
-                enabled = false; // Отключаем спавнер
+            if (!ValidateSetup()) {
+                enabled = false;
                 return;
             }
 
-            spawnTimer = config.SpawnInterval; // Инициализируем таймер спавна
-            Debug.Log($"Спавнер инициализирован для {gameObject.name}"); // Логируем инициализацию
+            spawnTimer = config.SpawnInterval;
         }
 
-        // Обновление таймера и спавна
+        private void Start()
+        {
+            if (createHealthBarsForSceneEnemies) {
+                CreateHealthBarsForExistingEnemies();
+            }
+        }
+
         private void Update()
         {
-            if (config.RestrictSpawnUntilCondition && canSpawnCondition != null && !canSpawnCondition()) return; // Проверяем условие спавна
-
-            if (config.UseRandomSpawn) // Проверяем режим случайного спавна
-            {
-                if (!isRandomSpawnTriggered && spawnedEntities.Count < config.MaxEnemies) // Проверяем возможность спавна
-                {
-                    TriggerRandomSpawn(); // Запускаем случайный спавн
-                    isRandomSpawnTriggered = true; // Устанавливаем флаг
-                }
+            if (config.RestrictSpawnUntilCondition && canSpawnCondition != null && !canSpawnCondition()) {
+                return;
             }
-            else
-            {
-                spawnTimer -= Time.deltaTime; // Уменьшаем таймер
-                if (spawnTimer <= 0 && spawnedEntities.Count < config.MaxEnemies) // Проверяем возможность спавна
-                {
-                    SpawnEnemy(); // Спавним NPC
-                    spawnTimer = config.SpawnInterval; // Сбрасываем таймер
+
+            if (config.UseRandomSpawn) {
+                if (!isRandomSpawnTriggered && spawnedEntities.Count < config.MaxEnemies) {
+                    TriggerRandomSpawn();
+                    isRandomSpawnTriggered = true;
                 }
+
+                return;
+            }
+
+            spawnTimer -= Time.deltaTime;
+            if (spawnTimer <= 0f && spawnedEntities.Count < config.MaxEnemies) {
+                SpawnEnemy();
+                spawnTimer = config.SpawnInterval;
             }
         }
 
-        // Задаёт условие для спавна
         public void SetSpawnCondition(System.Func<bool> condition)
         {
-            canSpawnCondition = condition; // Устанавливаем условие спавна
-            Debug.Log($"Условие спавна установлено для {gameObject.name}"); // Логируем установку условия
+            canSpawnCondition = condition;
         }
 
-        // Выполняет случайный спавн
+        private bool ValidateSetup()
+        {
+            enemyPrefab = enemyPrefab != null ? enemyPrefab : config != null ? config.EnemyPrefab : null;
+            spawnZone = spawnZone != null ? spawnZone : GetComponent<NPCPatrolZone>();
+
+            if (config == null || enemyPrefab == null || waterTilemap == null || healthBarCanvas == null || healthBarPrefab == null) {
+                return false;
+            }
+
+            if (enemyPrefab.GetComponent<ShipPlayerInputHandler>() != null) {
+                return false;
+            }
+
+            return idConfig != null || GetIdProvider(enemyPrefab) != null;
+        }
+
         private void TriggerRandomSpawn()
         {
-            int spawnCount = Random.Range(config.MinSpawnCount, config.MaxSpawnCount + 1); // Рассчитываем количество NPC
-            for (int i = 0; i < spawnCount && spawnedEntities.Count < config.MaxEnemies; i++) // Спавним NPC
-            {
-                SpawnEnemy(); // Спавним одного NPC
+            int spawnCount = Random.Range(config.MinSpawnCount, config.MaxSpawnCount + 1);
+            for (int i = 0; i < spawnCount && spawnedEntities.Count < config.MaxEnemies; i++) {
+                SpawnEnemy();
             }
-            Debug.Log($"Случайный спавн: {spawnCount} NPC для {gameObject.name}"); // Логируем спавн
         }
 
-        // Создаёт NPC и полосу здоровья
         private void SpawnEnemy()
         {
-            Vector2 spawnPoint; // Точка спавна
-            Transform player = GameObject.FindGameObjectWithTag("Player")?.transform; // Находим игрока
-            do
-            {
-                Bounds bounds = waterTilemap.localBounds; // Получаем границы тайлмапа
-                spawnPoint = new Vector2(
-                    Random.Range(bounds.min.x, bounds.max.x), // Случайная X-координата
-                    Random.Range(bounds.min.y, bounds.max.y) // Случайная Y-координата
-                );
-                spawnPoint = waterTilemap.transform.TransformPoint(spawnPoint); // Преобразуем в мировые координаты
-            } while (player != null && Vector2.Distance(spawnPoint, player.position) < 5f); // Проверяем расстояние до игрока
+            Vector2 spawnPoint = FindSpawnPoint();
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
+            enemy.SetActive(true);
+            AssignPatrolZone(enemy);
 
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity); // Создаём NPC
-            enemy.tag = idConfig.GetID().StartsWith("RE") ? "Enemy" : "Trader"; // Устанавливаем тег (Enemy или Trader)
-            enemy.SetActive(true); // Активируем NPC
+            IShipIdProvider idProvider = GetIdProvider(enemy);
+            string assignedId = ResolveUniqueId(idProvider);
+            string assignedTag = ResolveTag(idProvider, assignedId);
 
-            ShipID shipID = enemy.GetComponent<ShipID>(); // Получаем ShipID
-            if (shipID == null) shipID = enemy.AddComponent<ShipID>(); // Добавляем ShipID, если отсутствует
-            shipID.ID = idConfig.GetID(); // Устанавливаем ID
-            enemy.name = $"{enemy.tag}_Ship_{shipID.ID}"; // Задаём имя NPC
+            TrySetTag(enemy, assignedTag);
 
-            ShipHealth shipHealth = enemy.GetComponent<ShipHealth>(); // Получаем ShipHealth
-            if (shipHealth != null) // Проверяем наличие ShipHealth
-            {
-                shipHealth.ResetHealth(); // Сбрасываем здоровье NPC
-                shipHealth.OnDeath.AddListener(() => RemoveEntity(shipID.ID)); // Подписываемся на событие смерти
-                Debug.Log($"Здоровье инициализировано для {enemy.name}: {shipHealth.CurrentHealth}/{shipHealth.MaxHealth}"); // Логируем здоровье
+            ShipID shipID = enemy.GetComponent<ShipID>();
+            if (shipID == null) {
+                shipID = enemy.AddComponent<ShipID>();
             }
 
-            GameObject healthBar = Instantiate(healthBarPrefab, healthBarCanvas.transform); // Создаём полосу здоровья
-            healthBar.name = $"HealthBar_{shipID.ID}"; // Задаём имя полосы
-            HealthBar healthBarScript = healthBar.GetComponent<HealthBar>(); // Получаем компонент HealthBar
-            FollowTarget followTarget = healthBar.GetComponent<FollowTarget>(); // Получаем компонент FollowTarget
-            if (healthBarScript != null && followTarget != null) // Проверяем наличие компонентов
-            {
-                healthBarScript.SetHealthComponent(shipHealth); // Привязываем здоровье
-                followTarget.SetTarget(enemy.transform); // Устанавливаем цель для слежения
-                Debug.Log($"Полоса здоровья создана: {healthBar.name} для {enemy.name} на позиции {healthBar.transform.position}"); // Логируем создание полосы
+            shipID.ID = assignedId;
+            enemy.name = $"{enemy.tag}_Ship_{assignedId}";
+
+            ShipHealth shipHealth = enemy.GetComponent<ShipHealth>() ?? enemy.GetComponentInChildren<ShipHealth>(true);
+            if (shipHealth != null) {
+                shipHealth.ResetHealth();
             }
 
-            spawnedEntities[shipID.ID] = (enemy, healthBar, shipHealth); // Регистрируем NPC
-            Debug.Log($"Создан NPC: {enemy.name} на позиции {spawnPoint}"); // Логируем спавн
+            GameObject healthBar = CreateHealthBar(assignedId, enemy.transform, shipHealth);
+            if (shipHealth == null) {
+                Debug.LogWarning($"EnemySpawner: spawned enemy {enemy.name} has no ShipHealth, health bar was not created.", enemy);
+            }
+
+            UnityAction onDeath = () => RemoveEntity(assignedId);
+            if (shipHealth != null) {
+                shipHealth.OnDeath.AddListener(onDeath);
+            }
+
+            spawnedEntities[assignedId] = new SpawnedEntity {
+                Enemy = enemy,
+                HealthBar = healthBar,
+                ShipHealth = shipHealth,
+                OnDeath = onDeath
+            };
         }
 
-        // Удаляет NPC и полосу здоровья
-        private void RemoveEntity(string id)
+        private void CreateHealthBarsForExistingEnemies()
         {
-            if (spawnedEntities.TryGetValue(id, out var entity)) // Проверяем наличие NPC
-            {
-                if (entity.shipHealth != null) // Проверяем наличие ShipHealth
-                {
-                    entity.shipHealth.OnDeath.RemoveListener(() => RemoveEntity(id)); // Отписываемся от события смерти
+            ShipHealth[] sceneHealth = FindObjectsByType<ShipHealth>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            for (int i = 0; i < sceneHealth.Length; i++) {
+                ShipHealth shipHealth = sceneHealth[i];
+                if (shipHealth == null || shipHealth.CompareTag("Player")) {
+                    continue;
                 }
 
-                if (entity.enemy != null) Destroy(entity.enemy); // Уничтожаем NPC
-                if (entity.healthBar != null) Destroy(entity.healthBar); // Уничтожаем полосу здоровья
-                spawnedEntities.Remove(id); // Удаляем из словаря
-                isRandomSpawnTriggered = false; // Сбрасываем флаг случайного спавна
-                Debug.Log($"NPC удалён: {id} и его полоса здоровья для {gameObject.name}"); // Логируем удаление
+                IShipIdProvider idProvider = GetIdProvider(shipHealth.gameObject);
+                string assignedId = ResolveUniqueId(idProvider);
+                if (spawnedEntities.ContainsKey(assignedId)) {
+                    continue;
+                }
+
+                ShipID shipID = shipHealth.GetComponent<ShipID>();
+                if (shipID == null) {
+                    shipID = shipHealth.gameObject.AddComponent<ShipID>();
+                }
+
+                shipID.ID = assignedId;
+                GameObject healthBar = CreateHealthBar(assignedId, shipHealth.transform, shipHealth);
+                UnityAction onDeath = () => RemoveEntity(assignedId);
+                shipHealth.OnDeath.AddListener(onDeath);
+
+                spawnedEntities[assignedId] = new SpawnedEntity {
+                    Enemy = shipHealth.gameObject,
+                    HealthBar = healthBar,
+                    ShipHealth = shipHealth,
+                    OnDeath = onDeath
+                };
             }
+        }
+
+        private GameObject CreateHealthBar(string assignedId, Transform target, ShipHealth shipHealth)
+        {
+            if (shipHealth == null || target == null) {
+                return null;
+            }
+
+            GameObject healthBar = Instantiate(healthBarPrefab, healthBarCanvas.transform);
+            healthBar.name = $"HealthBar_{assignedId}";
+
+            HealthBar healthBarScript = healthBar.GetComponent<HealthBar>();
+            FollowTarget followTarget = healthBar.GetComponent<FollowTarget>() ?? healthBar.AddComponent<FollowTarget>();
+            if (healthBarScript != null) {
+                healthBarScript.SetHealthComponent(shipHealth);
+            }
+
+            if (followTarget != null) {
+                followTarget.SetTarget(target);
+            }
+
+            return healthBar;
+        }
+
+        private Vector2 FindSpawnPoint()
+        {
+            Transform player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Vector2 spawnPoint;
+
+            do {
+                if (config.SpawnInsideZone && spawnZone != null) {
+                    spawnPoint = spawnZone.GetRandomPoint(waterTilemap);
+                }
+                else {
+                    Bounds bounds = waterTilemap.localBounds;
+                    spawnPoint = new Vector2(
+                        Random.Range(bounds.min.x, bounds.max.x),
+                        Random.Range(bounds.min.y, bounds.max.y)
+                    );
+                    spawnPoint = waterTilemap.transform.TransformPoint(spawnPoint);
+                }
+            } while (player != null && Vector2.Distance(spawnPoint, player.position) < config.MinDistanceFromPlayer);
+
+            return spawnPoint;
+        }
+
+        private void AssignPatrolZone(GameObject enemy)
+        {
+            if (enemy == null || spawnZone == null) {
+                return;
+            }
+
+            PatrolTactic[] patrols = enemy.GetComponentsInChildren<PatrolTactic>(true);
+            for (int i = 0; i < patrols.Length; i++) {
+                patrols[i]?.SetPatrolZone(spawnZone);
+            }
+        }
+
+        private IShipIdProvider GetIdProvider(GameObject source)
+        {
+            if (source == null) {
+                return null;
+            }
+
+            IShipIdProvider provider = source.GetComponent<IShipIdProvider>();
+            return provider ?? source.GetComponentInChildren<IShipIdProvider>(true);
+        }
+
+        private string ResolveUniqueId(IShipIdProvider idProvider)
+        {
+            string id = idProvider?.CreateId();
+            if (string.IsNullOrWhiteSpace(id) && idConfig != null) {
+                id = idConfig.GetID();
+            }
+
+            if (string.IsNullOrWhiteSpace(id)) {
+                id = $"{enemyPrefab.name}_{Random.Range(1000, 9999)}";
+            }
+
+            string uniqueId = id;
+            int suffix = 1;
+            while (spawnedEntities.ContainsKey(uniqueId)) {
+                uniqueId = $"{id}_{suffix}";
+                suffix++;
+            }
+
+            return uniqueId;
+        }
+
+        private string ResolveTag(IShipIdProvider idProvider, string id)
+        {
+            string tagHint = idProvider?.TagHint;
+            if (!string.IsNullOrWhiteSpace(tagHint)) {
+                return tagHint;
+            }
+
+            if (id.StartsWith("RE") || id.StartsWith("RB")) {
+                return "Enemy";
+            }
+
+            return "Trader";
+        }
+
+        private void TrySetTag(GameObject target, string tagName)
+        {
+            try {
+                target.tag = tagName;
+            }
+            catch (UnityException) {
+                target.tag = "Untagged";
+            }
+        }
+
+        private void RemoveEntity(string id)
+        {
+            if (!spawnedEntities.TryGetValue(id, out SpawnedEntity entity)) {
+                return;
+            }
+
+            if (entity.ShipHealth != null && entity.OnDeath != null) {
+                entity.ShipHealth.OnDeath.RemoveListener(entity.OnDeath);
+            }
+
+            if (entity.Enemy != null) {
+                Destroy(entity.Enemy);
+            }
+
+            if (entity.HealthBar != null) {
+                Destroy(entity.HealthBar);
+            }
+
+            spawnedEntities.Remove(id);
+            isRandomSpawnTriggered = false;
         }
     }
 }

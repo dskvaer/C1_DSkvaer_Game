@@ -1,77 +1,128 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 namespace Menu_Journal {
-    // Этот компонент вешается на тот же объект, что и LootContainer,
-    // или на игрока, чтобы хранить список предметов (строковые ID).
+    /// <summary>
+    /// РџСЂРѕСЃС‚РѕР№ РёРЅРІРµРЅС‚Р°СЂСЊ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РїСЂРµРґРјРµС‚РѕРІ РїРѕ ID Рё РєРѕР»РёС‡РµСЃС‚РІСѓ.
+    /// </summary>
     public class SimpleInventory : MonoBehaviour {
-        [Header("Debug Info")]
-        // Публичный список, чтобы LootContainer мог делать foreach по items
-        public List<string> items = new List<string>();
+        [System.Serializable]
+        public class SimpleSlot {
+            [InspectorLabel("РџСЂРµРґРјРµС‚")]
+            [Tooltip("ScriptableObject РїСЂРµРґРјРµС‚Р°. Р•СЃР»Рё СѓРєР°Р·Р°РЅ, ID Р±РµСЂРµС‚СЃСЏ РёР· РЅРµРіРѕ.")]
+            public ItemDataSO Item;
 
-        /// <summary>
-        /// Добавляет предмет в список.
-        /// </summary>
-        public void AddItem(string itemId, int amount = 1)
-        {
-            for (int i = 0; i < amount; i++)
+            [InspectorLabel("ID РїСЂРµРґРјРµС‚Р°")]
+            [Tooltip("Р РµР·РµСЂРІРЅС‹Р№ СЃРёСЃС‚РµРјРЅС‹Р№ ID РїСЂРµРґРјРµС‚Р° РёР· Р±Р°Р·С‹ ItemDatabaseSO. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ, РµСЃР»Рё Item РЅРµ РЅР°Р·РЅР°С‡РµРЅ.")]
+            public string ItemID;
+
+            [InspectorLabel("РљРѕР»РёС‡РµСЃС‚РІРѕ")]
+            [Tooltip("РЎРєРѕР»СЊРєРѕ РµРґРёРЅРёС† РїСЂРµРґРјРµС‚Р° С…СЂР°РЅРёС‚СЃСЏ РІ СЌС‚РѕРј СЃР»РѕС‚Рµ.")]
+            [Min(0)] public int Amount;
+
+            public string ResolvedItemId => Item != null ? Item.ID : ItemID;
+
+            public SimpleSlot(string id, int amt)
             {
-                items.Add(itemId);
+                ItemID = id;
+                Amount = amt;
+            }
+
+            public SimpleSlot(ItemDataSO item, int amt)
+            {
+                Item = item;
+                ItemID = item != null ? item.ID : string.Empty;
+                Amount = amt;
             }
         }
 
-        /// <summary>
-        /// Удаляет определенное количество предметов по ID.
-        /// Возвращает true, если удалось удалить все запрошенное количество.
-        /// </summary>
+        [Header("РҐСЂР°РЅРёР»РёС‰Рµ")]
+        [InspectorLabel("РЎР»РѕС‚С‹")]
+        [Tooltip("РЎРїРёСЃРѕРє РїСЂРµРґРјРµС‚РѕРІ РІ С„РѕСЂРјР°С‚Рµ ID РїСЂРµРґРјРµС‚Р° + РєРѕР»РёС‡РµСЃС‚РІРѕ. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРѕСЃС‚С‹РјРё РѕРєРЅР°РјРё РёРЅРІРµРЅС‚Р°СЂСЏ Рё Р»СѓС‚Р°.")]
+        public List<SimpleSlot> slots = new List<SimpleSlot>();
+
+        public void AddItem(string itemId, int amount = 1)
+        {
+            if (amount <= 0) return;
+
+            var existingSlot = slots.Find(s => s.ResolvedItemId == itemId);
+            if (existingSlot != null)
+            {
+                existingSlot.Amount += amount;
+            }
+            else
+            {
+                slots.Add(new SimpleSlot(itemId, amount));
+            }
+        }
+
+        public void AddItem(ItemDataSO item, int amount = 1)
+        {
+            if (item == null || amount <= 0) return;
+
+            var existingSlot = slots.Find(s => s.ResolvedItemId == item.ID);
+            if (existingSlot != null)
+            {
+                existingSlot.Item = existingSlot.Item != null ? existingSlot.Item : item;
+                existingSlot.ItemID = item.ID;
+                existingSlot.Amount += amount;
+            }
+            else
+            {
+                slots.Add(new SimpleSlot(item, amount));
+            }
+        }
+
         public bool RemoveItem(string itemId, int amount = 1)
         {
-            // Сначала проверяем, есть ли нужное количество
-            int count = 0;
-            foreach (var i in items) if (i == itemId) count++;
+            if (amount <= 0) return true;
 
-            if (count < amount) return false;
-
-            // Удаляем
-            for (int i = 0; i < amount; i++)
+            var existingSlot = slots.Find(s => s.ResolvedItemId == itemId);
+            if (existingSlot == null || existingSlot.Amount < amount)
             {
-                items.Remove(itemId); // Remove удаляет первое вхождение
+                return false;
             }
+
+            existingSlot.Amount -= amount;
+            if (existingSlot.Amount <= 0)
+            {
+                slots.Remove(existingSlot);
+            }
+
             return true;
         }
 
-        /// <summary>
-        /// Возвращает содержимое, сгруппированное по ID (для UI).
-        /// Key: ItemID, Value: Количество.
-        /// </summary>
         public Dictionary<string, int> GetGroupedItems()
         {
             Dictionary<string, int> grouped = new Dictionary<string, int>();
-            foreach (var id in items)
+            foreach (var slot in slots)
             {
-                if (grouped.ContainsKey(id)) grouped[id]++;
-                else grouped.Add(id, 1);
+                string itemId = slot.ResolvedItemId;
+                if (string.IsNullOrWhiteSpace(itemId) || slot.Amount <= 0) {
+                    continue;
+                }
+
+                if (grouped.ContainsKey(itemId))
+                    grouped[itemId] += slot.Amount;
+                else
+                    grouped.Add(itemId, slot.Amount);
             }
             return grouped;
         }
 
-        /// <summary>
-        /// Очищает инвентарь (нужно для LootContainer после того, как игрок всё забрал).
-        /// </summary>
         public void Clear()
         {
-            items.Clear();
+            slots.Clear();
         }
 
-        /// <summary>
-        /// Возвращает текущий вес (если у ItemDataSO есть вес, тут нужна база данных. 
-        /// Пока возвращаем просто кол-во предметов для примера).
-        /// </summary>
-        public float GetTotalWeight()
+        public int GetTotalCount()
         {
-            // В идеале тут нужен lookup в базу данных предметов по ID, чтобы узнать вес.
-            // Пока считаем 1 предмет = 1 кг.
-            return items.Count;
+            int total = 0;
+            foreach (var slot in slots)
+            {
+                total += slot.Amount;
+            }
+            return total;
         }
     }
 }

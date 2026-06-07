@@ -9,25 +9,39 @@ namespace Ship {
     public class ProjectileEffects : MonoBehaviour {
 
         // [Header] создает красивый заголовок в Инспекторе Unity для удобства.
-        [Header("Trail (След)")]
+        [Header("След снаряда")]
         // TrailRenderer рисует шлейф за объектом.
+        [InspectorLabel("TrailRenderer следа")]
+        [Tooltip("Шлейф, который тянется за снарядом во время полета.")]
         [SerializeField] private TrailRenderer trailEffect;
 
-        [Header("Hit Effects (Попадание)")]
+        [Header("Попадание")]
         // ParticleSystem — это система частиц (искры, дым, щепки).
+        [InspectorLabel("Эффект попадания")]
+        [Tooltip("Частицы щепок, искр или дыма при попадании в цель.")]
         [SerializeField] private ParticleSystem hitSplinterEffect;
+        [InspectorLabel("Звук попадания")]
+        [Tooltip("Звук, который проигрывается при попадании снаряда в цель.")]
         [SerializeField] private AudioClip hitSound;
 
-        [Header("Miss Effects (Промах/Вода)")]
+        [Header("Промах по воде")]
+        [InspectorLabel("Всплеск воды")]
+        [Tooltip("Частицы всплеска, если снаряд попадает в воду или промахивается.")]
         [SerializeField] private ParticleSystem waterSplashEffect;
+        [InspectorLabel("Звук всплеска")]
+        [Tooltip("Звук промаха или попадания снаряда в воду.")]
         [SerializeField] private AudioClip waterSplashSound;
 
         [Header("Настройки")]
+        [InspectorLabel("Задержка удаления всплеска")]
+        [Tooltip("Сколько секунд подождать перед очисткой эффекта всплеска.")]
         [SerializeField] private float destroySplashDelay = 0.1f;
 
         // [Range] создает ползунок в инспекторе от 0 до 1.
         // Spatial Blend: 0 = 2D звук (громкость везде одинаковая), 1 = 3D звук (затухает с расстоянием).
         // 0.8f — идеальный баланс для Top-Down, чтобы звук был объемным, но слышным издалека.
+        [InspectorLabel("Объемность звука")]
+        [Tooltip("0 = 2D звук без затухания, 1 = 3D звук с затуханием по расстоянию.")]
         [Range(0f, 1f)][SerializeField] private float soundSpatialBlend = 0.8f;
 
         // Приватные переменные для хранения ссылок на компоненты

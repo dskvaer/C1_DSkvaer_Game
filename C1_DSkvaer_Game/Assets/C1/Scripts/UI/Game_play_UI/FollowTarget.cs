@@ -1,60 +1,57 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
-// Компонент для слежения полосы здоровья за целью (например, Enemy_Ship) в экранном пространстве.
 public class FollowTarget : MonoBehaviour {
-    [SerializeField] private Transform target; // Цель (Enemy_Ship), за которой следует полоса.
-    [SerializeField] private Vector2 offset = new Vector2(0, 1); // Смещение полосы над целью.
-    private Canvas canvas; // Canvas (Screen Space - Camera) для позиционирования.
-    private RectTransform rectTransform; // RectTransform для полосы здоровья.
+    [SerializeField] private Transform target;
+    [SerializeField] private Vector2 offset = new Vector2(0f, 1f);
 
-    // Инициализация компонента.
+    private Canvas canvas;
+    private RectTransform rectTransform;
+    private Camera mainCamera;
+
     private void Awake()
     {
-        canvas = GetComponentInParent<Canvas>();
-        rectTransform = GetComponent<RectTransform>();
-        if (canvas == null)
-        {
-            Debug.LogError("FollowTarget: Canvas не найден!", this);
-            enabled = false;
-            return;
-        }
-        if (rectTransform == null)
-        {
-            Debug.LogError("FollowTarget: RectTransform не найден!", this);
-            enabled = false;
-            return;
-        }
-        if (target == null)
-        {
-            Debug.LogError("FollowTarget: Target не привязан!", this);
-            enabled = false;
-            return;
-        }
+        CacheReferences();
     }
 
-    // Обновляет позицию полосы в экранном пространстве.
     private void LateUpdate()
     {
-        if (target == null || canvas == null || rectTransform == null) return;
+        if (target == null) return;
+        if (!CacheReferences()) return;
 
-        Vector3 worldPos = target.position + new Vector3(offset.x, offset.y, 0);
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        if (mainCamera == null) {
+            mainCamera = Camera.main;
+        }
+
+        if (mainCamera == null) return;
+
+        Vector3 worldPos = target.position + new Vector3(offset.x, offset.y, 0f);
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.GetComponent<RectTransform>(),
             screenPos,
-            canvas.worldCamera,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
             out Vector2 localPoint
         );
-        rectTransform.localPosition = new Vector3(localPoint.x, localPoint.y, 0);
-        ShipID shipID = target.GetComponent<ShipID>();
-        Debug.Log($"FollowTarget: Position updated for {target.name} (ID={shipID?.ID ?? "Unknown"}) to local={localPoint}, world={worldPos}");
+        rectTransform.localPosition = new Vector3(localPoint.x, localPoint.y, 0f);
     }
 
-    // Устанавливает новую цель для слежения.
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
-        ShipID shipID = newTarget?.GetComponent<ShipID>();
-        Debug.Log($"FollowTarget: Target set to {newTarget.name} (ID={shipID?.ID ?? "Unknown"})");
+        enabled = target != null;
+        LateUpdate();
+    }
+
+    private bool CacheReferences()
+    {
+        if (canvas == null) {
+            canvas = GetComponentInParent<Canvas>();
+        }
+
+        if (rectTransform == null) {
+            rectTransform = GetComponent<RectTransform>();
+        }
+
+        return canvas != null && rectTransform != null;
     }
 }

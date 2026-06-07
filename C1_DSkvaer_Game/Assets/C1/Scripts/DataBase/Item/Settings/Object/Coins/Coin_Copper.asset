@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70778d000660fc042a8f552e1054a920, type: 3}
+  m_Name: Coin_Copper
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_Journal.ItemDataSO
+  _id: Item_CC
+  _itemName: Copper Coin
+  _description: 
+  _icon: {fileID: -8571437415864897970, guid: c9ea5be663052b944bf8672d1c313572, type: 3}
+  _category: {fileID: 11400000, guid: 22db0a9c5da9b07499ee8aa990f5d7d0, type: 2}
+  _rarity: 0
+  _valueCategory: 3
+  _basePrice: 1
+  _isCurrency: 1
+  _weight: 0.001
+  _maxStackSize: 999999999

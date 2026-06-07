@@ -1,9 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using NPC.Characters.Player;
 
 public class HealthManager : MonoBehaviour, IHealth {
+    [Header("ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ð·Ð´Ð¾Ñ€Ð¾Ð²ÑŒÑ")]
+    [InspectorLabel("ÐšÐ¾Ð½Ñ„Ð¸Ð³ Ð·Ð´Ð¾Ñ€Ð¾Ð²ÑŒÑ")]
+    [Tooltip("ScriptableObject Ñ Ð¼Ð°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ñ‹Ð¼ Ð·Ð´Ð¾Ñ€Ð¾Ð²ÑŒÐµÐ¼, Ñ€ÐµÐ³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸ÐµÐ¹ Ð¸ Ð¿Ð¾Ñ€Ð¾Ð³Ð¾Ð¼ ÑƒÑ€Ð¾Ð½Ð°.")]
     [SerializeField] private HealthConfigSO config;
+
     private int currentHealth;
 
     public int CurrentHealth => currentHealth;
@@ -17,24 +21,21 @@ public class HealthManager : MonoBehaviour, IHealth {
     {
         if (config == null)
         {
-            Debug.LogError("HealthManager: HealthConfigSO not assigned!", this);
+            Debug.LogError("HealthManager: HealthConfigSO Ð½Ðµ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½!", this);
             enabled = false;
             return;
         }
 
         currentHealth = MaxHealth;
-        Debug.Log("HealthManager: Initialized with maxHealth = " + MaxHealth);
     }
 
     private void Start()
     {
-        // Âûçûâàåì ñîáûòèå ïîñëå èíèöèàëèçàöèè âñåõ êîìïîíåíòîâ
         OnHealthChanged.Invoke();
     }
 
     private void Update()
     {
-        // Auto-regen if regenRate > 0
         if (config.RegenRate > 0f && currentHealth < MaxHealth)
         {
             Heal(config.RegenRate * Time.deltaTime);
@@ -45,7 +46,6 @@ public class HealthManager : MonoBehaviour, IHealth {
     {
         if (hitXP <= config.DamageThreshold)
         {
-            Debug.Log("HealthManager: Damage below threshold, ignored");
             return;
         }
 
@@ -54,11 +54,9 @@ public class HealthManager : MonoBehaviour, IHealth {
         {
             currentHealth = 0;
             OnDeath.Invoke();
-            Debug.Log("HealthManager: Character died!");
         }
 
         OnHealthChanged.Invoke();
-        Debug.Log("HealthManager: Damage taken, currentHealth = " + currentHealth);
     }
 
     public void Heal(float amount)
@@ -73,11 +71,9 @@ public class HealthManager : MonoBehaviour, IHealth {
             currentHealth = MaxHealth;
         }
 
-        // Âûçûâàåì ñîáûòèå òîëüêî åñëè çäîðîâüå äåéñòâèòåëüíî èçìåíèëîñü
         if (currentHealth != oldHealth)
         {
             OnHealthChanged.Invoke();
-            Debug.Log("HealthManager: Health restored, currentHealth = " + currentHealth);
         }
     }
 }

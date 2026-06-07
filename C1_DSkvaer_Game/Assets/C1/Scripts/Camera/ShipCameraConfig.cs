@@ -1,14 +1,17 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
-// Настройки камеры для следования за кораблём
 [CreateAssetMenu(fileName = "ShipCameraConfig", menuName = "Configs/ShipCameraConfig", order = 4)]
 public class ShipCameraConfig : ScriptableObject {
-    // Скорость следования камеры (чем выше, тем быстрее, 0-1 для Lerp)
+    [Header("РЎР»РµРґРѕРІР°РЅРёРµ РєР°РјРµСЂС‹")]
+    [InspectorLabel("РџР»Р°РІРЅРѕСЃС‚СЊ СЃР»РµРґРѕРІР°РЅРёСЏ")]
+    [Tooltip("РЎРєРѕСЂРѕСЃС‚СЊ СЃРіР»Р°Р¶РёРІР°РЅРёСЏ РґРІРёР¶РµРЅРёСЏ РєР°РјРµСЂС‹ Рє С†РµР»Рё. РњРµРЅСЊС€Рµ Р·РЅР°С‡РµРЅРёРµ - РїР»Р°РІРЅРµРµ Рё РјРµРґР»РµРЅРЅРµРµ.")]
     public float FollowSpeed = 0.125f;
 
-    // Смещение камеры относительно корабля (x, y)
+    [InspectorLabel("РЎРјРµС‰РµРЅРёРµ")]
+    [Tooltip("РЎРјРµС‰РµРЅРёРµ РєР°РјРµСЂС‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С†РµР»Рё РїРѕ X Рё Y.")]
     public Vector2 Offset = Vector2.zero;
 
-    // Позиция камеры по оси Z (обычно -10 для 2D)
+    [InspectorLabel("РџРѕР·РёС†РёСЏ Z")]
+    [Tooltip("Р“Р»СѓР±РёРЅР° РєР°РјРµСЂС‹ РїРѕ РѕСЃРё Z. Р”Р»СЏ 2D РѕР±С‹С‡РЅРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ -10.")]
     public float ZPosition = -10f;
 }

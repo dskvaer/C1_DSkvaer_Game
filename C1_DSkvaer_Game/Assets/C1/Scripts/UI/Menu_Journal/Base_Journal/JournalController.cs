@@ -1,35 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem; // Подключаем пространство имен новой системы ввода
+using UnityEngine.InputSystem;
 
 namespace Menu_Journal {
     public class JournalController : MonoBehaviour {
         [Header("Input Settings")]
-        // Сюда в инспекторе нужно перетащить Action "OpenJournal" из твоего файла Input Actions
         [SerializeField] private InputActionReference _toggleMenuAction;
 
         [Header("UI Elements")]
-        [SerializeField] private GameObject _menuRoot; // Весь визуальный объект меню
+        [SerializeField] private GameObject _menuRoot;
         [SerializeField] private JournalTabType _defaultTab = JournalTabType.Info;
 
-        // Список всех вкладок, которые мы нашли внутри меню
         private List<IJournalTab> _allTabs = new List<IJournalTab>();
         private IJournalTab _currentTab;
         private bool _isOpen = false;
 
         private void Awake()
         {
-            // Автоматически находим все вкладки внутри этого объекта при старте игры
+            // Находим все вкладки (даже выключенные)
             _allTabs.AddRange(GetComponentsInChildren<IJournalTab>(true));
 
-            // Скрываем меню при старте
+            // ВАЖНОЕ ИСПРАВЛЕНИЕ:
+            // Сразу выключаем все вкладки визуально, чтобы они не накладывались друг на друга
+            foreach (var tab in _allTabs)
+            {
+                // Трюк: приводим интерфейс к MonoBehaviour, чтобы выключить GameObject
+                if (tab is MonoBehaviour tabMono)
+                {
+                    tabMono.gameObject.SetActive(false);
+                }
+            }
+
             CloseMenu();
         }
 
-        // --- БЛОК НОВОЙ СИСТЕМЫ ВВОДА ---
         private void OnEnable()
         {
-            // Включаем прослушивание кнопки при активации объекта
             if (_toggleMenuAction != null)
             {
                 _toggleMenuAction.action.Enable();
@@ -39,7 +45,6 @@ namespace Menu_Journal {
 
         private void OnDisable()
         {
-            // Выключаем прослушивание, чтобы не было утечек памяти
             if (_toggleMenuAction != null)
             {
                 _toggleMenuAction.action.performed -= OnToggleInput;
@@ -47,21 +52,15 @@ namespace Menu_Journal {
             }
         }
 
-        // Этот метод вызывается автоматически системой ввода при нажатии J
         private void OnToggleInput(InputAction.CallbackContext context)
         {
             ToggleMenu();
         }
-        // --------------------------------
 
-        // Переключить состояние (Открыть/Закрыть)
-        // Этот метод PUBLIC, поэтому его можно вызвать и с кнопки на экране Android
         public void ToggleMenu()
         {
-            if (_isOpen)
-                CloseMenu();
-            else
-                OpenMenu();
+            if (_isOpen) CloseMenu();
+            else OpenMenu();
         }
 
         public void OpenMenu()
@@ -69,13 +68,14 @@ namespace Menu_Journal {
             _isOpen = true;
             if (_menuRoot != null) _menuRoot.SetActive(true);
 
-            // При открытии сразу показываем вкладку по умолчанию (или последнюю открытую)
+            // Если вкладка еще не выбрана, открываем дефолтную
             if (_currentTab == null)
             {
                 SwitchTab(_defaultTab);
             }
             else
             {
+                // Если была выбрана, открываем её снова
                 _currentTab.OnOpen();
             }
         }
@@ -85,22 +85,23 @@ namespace Menu_Journal {
             _isOpen = false;
             if (_menuRoot != null) _menuRoot.SetActive(false);
 
-            // Сообщаем текущей вкладке, что она закрылась
             if (_currentTab != null)
                 _currentTab.OnClose();
         }
 
-        // ГЛАВНЫЙ МЕТОД: Переключение вкладок
         public void SwitchTab(JournalTabType targetType)
         {
             // 1. Закрываем старую вкладку
             if (_currentTab != null)
             {
-                if (_currentTab.TabType == targetType) return; // Уже открыта
+                // Если нажали на ту же самую кнопку, ничего не делаем
+                if (_currentTab.TabType == targetType && _currentTab is MonoBehaviour mono && mono.gameObject.activeSelf)
+                    return;
+
                 _currentTab.OnClose();
             }
 
-            // 2. Ищем новую вкладку в списке
+            // 2. Ищем новую
             IJournalTab newTab = _allTabs.Find(t => t.TabType == targetType);
 
             if (newTab != null)
@@ -110,12 +111,11 @@ namespace Menu_Journal {
             }
             else
             {
-                // Пока у нас нет реальных вкладок, эта ошибка нормальна, мы её игнорируем на этом этапе
-                // Debug.LogWarning($"Вкладка {targetType} не найдена!");
+                Debug.LogWarning($"Вкладка {targetType} не найдена в списке дочерних объектов JournalController!");
             }
         }
 
-        // Метод-обертка для кнопок Unity UI (вкладок)
+        // Этот метод нужно назначить кнопкам вкладок в Inspector (OnClick)
         public void SwitchTabByIndex(int tabIndex)
         {
             SwitchTab((JournalTabType)tabIndex);

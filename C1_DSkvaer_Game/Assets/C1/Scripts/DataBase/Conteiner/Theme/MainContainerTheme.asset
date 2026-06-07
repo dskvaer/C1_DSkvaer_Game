@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14949a7fbd8ff0b42aaf24e759a5061b, type: 3}
+  m_Name: MainContainerTheme
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_Journal.Data.ContainerThemeSO
+  IDPrefix: Player_Conteiner_LVL_0
+  DisplayName: "\u041A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440"
+  SmallSprite: {fileID: -8764751350937181507, guid: 2c7d82f315dd1ed4396279e2ef7fafa6, type: 3}
+  MediumSprite: {fileID: 8096548591700132772, guid: 2c7d82f315dd1ed4396279e2ef7fafa6, type: 3}
+  LargeSprite: {fileID: 68665615435901383, guid: 2c7d82f315dd1ed4396279e2ef7fafa6, type: 3}

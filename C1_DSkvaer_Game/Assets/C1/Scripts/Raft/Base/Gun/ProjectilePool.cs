@@ -1,20 +1,22 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Простой пул для префабов снарядов.
-    /// Реализован как Singleton для быстрого доступа из GunWeaponSystem/Projectile.
-    /// В инспекторе можно зарегистрировать префабы, чтобы пул заранее их подготовил.
+    /// РџСЂРѕСЃС‚РѕР№ РїСѓР» РґР»СЏ СЃРЅР°СЂСЏРґРѕРІ, С‡С‚РѕР±С‹ РїРµСЂРµРёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕР±СЉРµРєС‚С‹ РІРјРµСЃС‚Рѕ РїРѕСЃС‚РѕСЏРЅРЅРѕРіРѕ СЃРѕР·РґР°РЅРёСЏ.
     /// </summary>
     public class ProjectilePool : MonoBehaviour {
         public static ProjectilePool Instance { get; private set; }
 
-        [Header("Optional: register prefabs to warm the pool")]
+        [Header("РџСЂРµРґР·Р°РіСЂСѓР·РєР° СЃРЅР°СЂСЏРґРѕРІ")]
+        [InspectorLabel("РџСЂРµС„Р°Р±С‹ СЃРЅР°СЂСЏРґРѕРІ")]
+        [Tooltip("РџСЂРµС„Р°Р±С‹, РєРѕС‚РѕСЂС‹Рµ РїСѓР» СЃРѕР·РґР°СЃС‚ Р·Р°СЂР°РЅРµРµ РїСЂРё СЃС‚Р°СЂС‚Рµ.")]
         public GameObject[] registeredPrefabs;
+
+        [InspectorLabel("РљРѕР»РёС‡РµСЃС‚РІРѕ РЅР° РїСЂРµС„Р°Р±")]
+        [Tooltip("РЎРєРѕР»СЊРєРѕ СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР°Р¶РґРѕРіРѕ РїСЂРµС„Р°Р±Р° СЃРѕР·РґР°С‚СЊ Р·Р°СЂР°РЅРµРµ.")]
         [SerializeField, Min(0)] private int warmCountPerPrefab = 0;
 
-        // очередь по префабу (ключ — original prefab)
         private readonly Dictionary<GameObject, Queue<GameObject>> pool = new Dictionary<GameObject, Queue<GameObject>>();
 
         private void Awake()
@@ -46,14 +48,12 @@ namespace Ship {
         {
             var go = Instantiate(prefab, transform);
             go.SetActive(false);
-            // помечаем экземпляр, чтобы понимать, к какому префабу он относится
             var meta = go.GetComponent<PoolMeta>();
             if (meta == null) meta = go.AddComponent<PoolMeta>();
             meta.originalPrefab = prefab;
             return go;
         }
 
-        /// <summary>Взять снаряд из пула или создать новый экземпляр.</summary>
         public GameObject GetProjectile(GameObject prefab, Vector3 position, Quaternion rotation)
         {
             if (prefab == null) return null;
@@ -82,7 +82,6 @@ namespace Ship {
             return instance;
         }
 
-        /// <summary>Возвращает снаряд в пул (дизактивирует и кладёт в очередь).</summary>
         public void ReturnProjectile(GameObject projectile)
         {
             if (projectile == null) return;
@@ -90,7 +89,6 @@ namespace Ship {
             var meta = projectile.GetComponent<PoolMeta>();
             if (meta == null || meta.originalPrefab == null)
             {
-                // если у объекта нет меты — уничтожаем, чтобы не держать неопределённые объекты
                 Destroy(projectile);
                 return;
             }
@@ -107,7 +105,6 @@ namespace Ship {
             q.Enqueue(projectile);
         }
 
-        // простой компонент-маркер
         private class PoolMeta : MonoBehaviour {
             public GameObject originalPrefab;
         }

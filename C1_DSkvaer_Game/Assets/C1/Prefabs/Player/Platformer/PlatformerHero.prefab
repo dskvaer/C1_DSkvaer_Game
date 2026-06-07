@@ -1,0 +1,718 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &752658361739433200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2797372439092359559}
+  m_Layer: 0
+  m_Name: ProjectileOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2797372439092359559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752658361739433200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55, y: 1.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &951224849556454391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5704907337164504020}
+  - component: {fileID: 6520978485643323993}
+  - component: {fileID: 49586530795838070}
+  - component: {fileID: 4773209880190442980}
+  - component: {fileID: 3622719826664388905}
+  m_Layer: 0
+  m_Name: Visual_Spine_4_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5704907337164504020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951224849556454391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &6520978485643323993
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951224849556454391}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 85b6dd3627912a1428207c812c6fd53b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &49586530795838070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951224849556454391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonAnimation
+  skeletonDataAsset: {fileID: 11400000, guid: 1aeb815ffc480ab4aa78dbfaa53ede7d, type: 2}
+  initialSkinName: default
+  fixPrefabOverrideViaMeshFilter: 2
+  initialFlipX: 0
+  initialFlipY: 0
+  updateWhenInvisible: 3
+  separatorSlotNames: []
+  zSpacing: 0
+  useClipping: 1
+  immutableTriangles: 0
+  pmaVertexColors: 1
+  clearStateOnDisable: 0
+  tintBlack: 0
+  singleSubmesh: 0
+  fixDrawOrder: 0
+  addNormals: 0
+  calculateTangents: 0
+  maskInteraction: 0
+  maskMaterials:
+    materialsMaskDisabled: []
+    materialsInsideMask: []
+    materialsOutsideMask: []
+  disableRenderingOnOverride: 1
+  physicsPositionInheritanceFactor: {x: 1, y: 1}
+  physicsRotationInheritanceFactor: 1
+  physicsMovementRelativeTo: {fileID: 0}
+  updateTiming: 1
+  unscaledTime: 0
+  _animationName: Standart_Idle
+  loop: 0
+  timeScale: 1
+--- !u!33 &4773209880190442980
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951224849556454391}
+  m_Mesh: {fileID: 0}
+--- !u!114 &3622719826664388905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951224849556454391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0380642153eb314191c00126de7aa8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerSpineAnimator
+  inspectorDescription: "\u041C\u043E\u0441\u0442 \u043C\u0435\u0436\u0434\u0443
+    PlatformerCharacterMotor \u0438 Spine. \u041F\u043E \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u044E
+    \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0442
+    \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044E, \u0440\u0430\u0437\u0432\u043E\u0440\u0430\u0447\u0438\u0432\u0430\u0435\u0442
+    Skeleton \u0438 \u0441\u043B\u0443\u0448\u0430\u0435\u0442 Spine Events. \u0414\u043B\u044F
+    Spine 4.3 \u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0442\u0435 \u0436\u0435
+    \u0438\u043C\u0435\u043D\u0430 \u0441\u043E\u0431\u044B\u0442\u0438\u0439: ControlLock,
+    ControlUnlock, MotorStep, LedgeClimbComplete."
+  motor: {fileID: 5874027802086734700}
+  weaponController: {fileID: 6109114178636913882}
+  skeletonAnimation: {fileID: 49586530795838070}
+  flipWithMotor: 1
+  idle: Standart_Idle
+  walk: Standart_Run
+  run: Standart_Run
+  crouch: Crouch
+  lookUp: LookUp
+  jumpRise: Jump_Jump
+  jumpFall: Jump_Jump2
+  push: Standart_Push
+  ledgeHang: Jump_Hanging_on_a_cliff
+  ladder: Ladder
+  swimSurface: SwimSurface
+  swimUnderwater: SwimUnderwater
+  armedIdle: Attack_Idle_Armed
+  armedWalk: Attack_Run_Armed
+  controlLockEvent: ControlLock
+  controlUnlockEvent: ControlUnlock
+  motorStepEvent: MotorStep
+  ledgeClimbCompleteEvent: LedgeClimbComplete
+  controlTrackIndex: 0
+--- !u!1 &2742927640866117860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5568766358665251933}
+  - component: {fileID: 387994905109150975}
+  - component: {fileID: 8191594677461375033}
+  - component: {fileID: 6349757319198033819}
+  - component: {fileID: 3354944446496435402}
+  - component: {fileID: 5247781519860026211}
+  - component: {fileID: 5874027802086734700}
+  - component: {fileID: 6254363125880289609}
+  - component: {fileID: 5367444417045959418}
+  - component: {fileID: 7808699256438821226}
+  - component: {fileID: 6109114178636913882}
+  - component: {fileID: 4693462365873643944}
+  m_Layer: 3
+  m_Name: PlatformerHero
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5568766358665251933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6624330840093404793}
+  - {fileID: 5489015650775106620}
+  - {fileID: 3528010037534278441}
+  - {fileID: 1368124046024287215}
+  - {fileID: 2797372439092359559}
+  - {fileID: 5704907337164504020}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &387994905109150975
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!70 &8191594677461375033
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.9}
+  m_Size: {x: 0.7, y: 1.8}
+  m_Direction: 0
+--- !u!114 &6349757319198033819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &3354944446496435402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46ff44cef912a048a9b31fde7f09402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlayerPlatformerInputSource
+  inspectorDescription: "\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u0432\u0432\u043E\u0434\u0430
+    \u0434\u043B\u044F \u0438\u0433\u0440\u043E\u043A\u0430 \u0447\u0435\u0440\u0435\u0437
+    Unity Input System. \u041F\u043E\u0434\u0445\u043E\u0434\u0438\u0442 \u0434\u043B\u044F
+    \u043A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u044B, \u0433\u0435\u0439\u043C\u043F\u0430\u0434\u0430
+    \u0438 Android, \u0435\u0441\u043B\u0438 \u044D\u043A\u0440\u0430\u043D\u043D\u044B\u0435
+    \u043A\u043D\u043E\u043F\u043A\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u044E\u0442
+    \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0432 PlayerInput. \u0414\u043B\u044F
+    \u0440\u0443\u0447\u043D\u043E\u0439 \u043F\u0440\u0438\u0432\u044F\u0437\u043A\u0438
+    UI-\u043A\u043D\u043E\u043F\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
+    PlatformerTouchInputSource."
+  playerInput: {fileID: 0}
+  enableActionsOnEnable: 1
+  moveActionName: Move
+  lookActionName: Look
+  runActionName: Sprint
+  jumpActionName: Jump
+  crouchActionName: Crouch
+  interactActionName: Interact
+  armActionName: Arm
+  attackActionName: Attack
+  fireActionName: Fire
+  throwActionName: Throw
+  blockActionName: Block
+  diveActionName: Dive
+--- !u!114 &5247781519860026211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a10239ca36f48e4aa79fc1258c5b874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerTouchInputSource
+  inspectorDescription: "\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u0432\u0432\u043E\u0434\u0430
+    \u0434\u043B\u044F Android \u0438 UI-\u043A\u043D\u043E\u043F\u043E\u043A. \u041F\u0440\u0438\u0432\u044F\u0436\u0438\u0442\u0435
+    \u043C\u0435\u0442\u043E\u0434\u044B SetMove, PressJump, SetRun, SetCrouch, PressAttack
+    \u0438 \u0434\u0440\u0443\u0433\u0438\u0435 \u043A \u0432\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u043E\u043C\u0443
+    \u0441\u0442\u0438\u043A\u0443/\u043A\u043D\u043E\u043F\u043A\u0430\u043C Canvas.
+    \u041A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442 \u0432\u044B\u0434\u0430\u0451\u0442
+    \u0442\u0435 \u0436\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u044B, \u0447\u0442\u043E
+    \u0438 PlayerPlatformerInputSource, \u043F\u043E\u044D\u0442\u043E\u043C\u0443
+    \u043C\u043E\u0442\u043E\u0440 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430
+    \u043D\u0435 \u0437\u0430\u0432\u0438\u0441\u0438\u0442 \u043E\u0442 \u0442\u0438\u043F\u0430
+    \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F."
+  moveDeadZone: 0.12
+  clearOneFrameButtonsInLateUpdate: 1
+--- !u!114 &5874027802086734700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2d6b513f669d04591bfe92fa626005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerCharacterMotor
+  inspectorDescription: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435 \u0442\u0435\u043B\u043E
+    \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435\u0440\u043D\u043E\u0433\u043E
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430. \u041A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442
+    \u0447\u0438\u0442\u0430\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B
+    \u0438\u0437 Input Source \u0438 \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0435\u0442
+    Rigidbody2D: \u0445\u043E\u0434\u044C\u0431\u0430, \u0431\u0435\u0433, \u043F\u0440\u044B\u0436\u043E\u043A,
+    \u043F\u0440\u0438\u0441\u0435\u0434, \u0442\u043E\u043B\u043A\u0430\u043D\u0438\u0435,
+    \u043A\u0440\u0430\u044F \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C, \u043B\u0435\u0441\u0442\u043D\u0438\u0446\u044B
+    \u0438 \u0432\u043E\u0434\u0430. \u0414\u043B\u044F \u0438\u0433\u0440\u043E\u043A\u0430
+    \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 PlayerPlatformerInputSource
+    \u0438\u043B\u0438 PlatformerTouchInputSource, \u0434\u043B\u044F NPC - ScriptedPlatformerInputSource."
+  profile: {fileID: 11400000, guid: b59f55ee7ecda3b4dbbb6a3582ce21d1, type: 2}
+  inputSourceComponent: {fileID: 3354944446496435402}
+  bodyCollider: {fileID: 8191594677461375033}
+  feetProbe: {fileID: 6624330840093404793}
+  chestProbe: {fileID: 5489015650775106620}
+  headProbe: {fileID: 3528010037534278441}
+  drawDebugGizmos: 1
+--- !u!114 &6254363125880289609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ec1bc9439026642ae8ab05f6396628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerCharacterVitals
+  inspectorDescription: "\u0411\u0430\u0437\u043E\u0432\u044B\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u044B
+    \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435\u0440\u043D\u043E\u0433\u043E
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430: \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435,
+    \u0441\u0442\u0430\u043C\u0438\u043D\u0430, \u043F\u0430\u0442\u0440\u043E\u043D\u044B
+    \u0438 \u043C\u0435\u0442\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B.
+    \u041A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442 \u0440\u0435\u0430\u043B\u0438\u0437\u0443\u0435\u0442
+    IHealth \u0438 IEnergy, \u043F\u043E\u044D\u0442\u043E\u043C\u0443 \u0435\u0433\u043E
+    \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0430\u0442\u044C
+    \u043A \u0442\u0435\u043A\u0443\u0449\u0438\u043C UI-\u043F\u043E\u043B\u043E\u0441\u043A\u0430\u043C."
+  maxHealth: 100
+  currentHealth: 100
+  damageThreshold: 0
+  maxEnergy: 100
+  currentEnergy: 100
+  energyRegenPerSecond: 12
+  regenDelayAfterSpend: 0.8
+  ammo: 0
+  maxAmmo: 30
+  throwables: 0
+  maxThrowables: 6
+--- !u!114 &5367444417045959418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3176547069818b84aa29ef347e1ac3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.RPG.PlatformerCharacterProgression
+  inspectorDescription: "\u0411\u0430\u0437\u0430 RPG-\u0440\u0430\u0437\u0432\u0438\u0442\u0438\u044F
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430. \u0425\u0440\u0430\u043D\u0438\u0442
+    \u043A\u043B\u0430\u0441\u0441, \u0443\u0440\u043E\u0432\u0435\u043D\u044C, \u043E\u043F\u044B\u0442,
+    \u043E\u0447\u043A\u0438 \u043D\u0430\u0432\u044B\u043A\u043E\u0432, \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B
+    \u0438 \u043E\u0442\u043A\u0440\u044B\u0442\u044B\u0435 \u043D\u0430\u0432\u044B\u043A\u0438.
+    \u0421\u0442\u0430\u0440\u043E\u0435 \u043E\u043A\u043D\u043E \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430 \u043C\u043E\u0436\u043D\u043E
+    \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0447\u0435\u0440\u0435\u0437
+    ApplyLegacyCharacterCreationPrefs."
+  characterClass: {fileID: 11400000, guid: 96a013d76ddaea74caf476787a26163f, type: 2}
+  skillTrees:
+  - {fileID: 11400000, guid: e478376782d964f4ea814875e54af381, type: 2}
+  level: 1
+  experience: 0
+  skillPoints: 0
+  baseStats: []
+  unlockedSkillIds: []
+--- !u!114 &7808699256438821226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00be8b38bcae4484094184cc18ff8ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerInteractionSensor
+  inspectorDescription: "\u0421\u0435\u043D\u0441\u043E\u0440 \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F.
+    \u0418\u0449\u0435\u0442 \u0431\u043B\u0438\u0436\u0430\u0439\u0448\u0438\u0439
+    \u043E\u0431\u044A\u0435\u043A\u0442 \u0441 IPlatformerInteractable \u0438 \u0432\u044B\u0437\u044B\u0432\u0430\u0435\u0442
+    Interact \u043F\u043E \u043A\u043D\u043E\u043F\u043A\u0435 \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F.
+    \u041F\u043E\u0434\u0445\u043E\u0434\u0438\u0442 \u0434\u043B\u044F \u0434\u0432\u0435\u0440\u0435\u0439,
+    \u043A\u043D\u043E\u043F\u043E\u043A, \u0440\u044B\u0447\u0430\u0433\u043E\u0432,
+    \u0441\u0443\u043D\u0434\u0443\u043A\u043E\u0432 \u0438 NPC."
+  motor: {fileID: 5874027802086734700}
+  inputSourceComponent: {fileID: 3354944446496435402}
+  origin: {fileID: 0}
+  radius: 0.75
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreWhilePushing: 1
+--- !u!114 &6109114178636913882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a6f95beb0d02642b66aeb691555ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerWeaponController
+  inspectorDescription: "\u041A\u043E\u043D\u0442\u0440\u043E\u043B\u043B\u0435\u0440
+    \u043E\u0440\u0443\u0436\u0438\u044F \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435\u0440\u043D\u043E\u0433\u043E
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430. \u041E\u0440\u0443\u0436\u0438\u0435
+    \u0438 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0437\u0430\u0434\u0430\u044E\u0442\u0441\u044F
+    prefab-\u0441\u043B\u043E\u0442\u0430\u043C\u0438. Prefab \u043C\u043E\u0436\u0435\u0442
+    \u0440\u0435\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u0442\u044C IPlatformerWeapon
+    \u0438\u043B\u0438 \u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u044F
+    OnPlatformerEquip/Fire/Throw."
+  motor: {fileID: 5874027802086734700}
+  vitals: {fileID: 6254363125880289609}
+  inputSourceComponent: {fileID: 3354944446496435402}
+  defaultWeaponSocket: {fileID: 1368124046024287215}
+  projectileOrigin: {fileID: 2797372439092359559}
+  throwablePrefab: {fileID: 0}
+  throwVelocity: 11
+  weaponSlots: []
+--- !u!114 &4693462365873643944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742927640866117860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47787410f68bc6d4f814eca24a063a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C1.Platformer.Characters.PlatformerCharacterRigNotes
+  notes: "1. Rigidbody2D: Dynamic, Freeze Rotation Z, Continuous Collision.\n2. Body
+    Collider: \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u043E\u043B\u043B\u0430\u0439\u0434\u0435\u0440
+    \u0442\u0435\u043B\u0430. \u041E\u043D \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F
+    \u0434\u043B\u044F \u0437\u0435\u043C\u043B\u0438, \u043F\u0440\u0438\u0441\u0435\u0434\u0430
+    \u0438 \u043A\u0440\u0430\u0451\u0432 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C.\n3.
+    Movement Profile: \u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432 Assets/C1/Scripts/Platformer/Characters/Settings.\n4.
+    Android: \u0434\u043B\u044F \u044D\u043A\u0440\u0430\u043D\u043D\u044B\u0445
+    \u043A\u043D\u043E\u043F\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
+    PlatformerTouchInputSource \u0438 \u043F\u0440\u0438\u0432\u044F\u0436\u0438\u0442\u0435
+    \u0435\u0433\u043E \u043C\u0435\u0442\u043E\u0434\u044B \u043A UI.\n5. Spine
+    4.3: \u0441\u043E\u0431\u044B\u0442\u0438\u044F ControlLock/ControlUnlock \u0431\u043B\u043E\u043A\u0438\u0440\u0443\u044E\u0442
+    \u0438 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u044E\u0442 \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435;
+    MotorStep \u0434\u0430\u0451\u0442 \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439
+    \u0448\u0430\u0433; LedgeClimbComplete \u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0435\u0442
+    \u0437\u0430\u043B\u0435\u0437\u0430\u043D\u0438\u0435.\n6. \u041E\u0440\u0443\u0436\u0438\u0435:
+    \u043A\u0430\u0436\u0434\u044B\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442/\u043E\u0440\u0443\u0436\u0438\u0435
+    \u043B\u0443\u0447\u0448\u0435 \u0434\u0435\u043B\u0430\u0442\u044C \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u043C
+    prefab \u0438 \u0432\u0441\u0442\u0430\u0432\u043B\u044F\u0442\u044C \u0432 PlatformerWeaponController.\n7.
+    RPG: PlatformerCharacterProgression \u0445\u0440\u0430\u043D\u0438\u0442 \u0443\u0440\u043E\u0432\u0435\u043D\u044C,
+    \u043E\u043F\u044B\u0442, \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0435
+    \u043E\u0447\u043A\u0438 \u0438 \u043E\u0442\u043A\u0440\u044B\u0442\u044B\u0435
+    \u043D\u0430\u0432\u044B\u043A\u0438."
+--- !u!1 &3428317076506869972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1368124046024287215}
+  m_Layer: 0
+  m_Name: WeaponSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1368124046024287215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428317076506869972}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.35, y: 1.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5905544764333547127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3528010037534278441}
+  m_Layer: 0
+  m_Name: HeadProbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3528010037534278441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905544764333547127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7811570549102341118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5489015650775106620}
+  m_Layer: 0
+  m_Name: ChestProbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5489015650775106620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811570549102341118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8596172113119870081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6624330840093404793}
+  m_Layer: 0
+  m_Name: FeetProbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6624330840093404793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596172113119870081}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5568766358665251933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

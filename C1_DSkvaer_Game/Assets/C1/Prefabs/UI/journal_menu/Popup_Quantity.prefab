@@ -751,7 +751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4034912546004649670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -795,9 +795,9 @@ MonoBehaviour:
   _amountSlider: {fileID: 895649539916024777}
   _btnMinus: {fileID: 2318751127156543556}
   _btnPlus: {fileID: 7969026515829744283}
+  _btnMax: {fileID: 7448914993527233387}
   _btnConfirm: {fileID: 1532262036986304832}
   _btnCancel: {fileID: 3017756068837170699}
-  _btnMax: {fileID: 7448914993527233387}
   _titleText: {fileID: 9164260192696504901}
   _amountText: {fileID: 169383865188549033}
   _infoText: {fileID: 9157509042178836651}

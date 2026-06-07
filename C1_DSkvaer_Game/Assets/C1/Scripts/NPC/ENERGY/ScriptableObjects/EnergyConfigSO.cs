@@ -1,14 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NPC.Characters.Player.Energy {
-    [CreateAssetMenu(fileName = "EnergyConfig", menuName = "Player/EnergyConfig", order = 2)]
+    [CreateAssetMenu(fileName = "EnergyConfig", menuName = "UI/EnergyConfig", order = 2)]
     public class EnergyConfigSO : ScriptableObject {
-        [Header("Energy Settings")]
+        [Header("Энергия")]
+        [InspectorLabel("Максимальная энергия")]
+        [Tooltip("Максимальный запас энергии персонажа.")]
         [SerializeField] private int maxEnergy = 100;
-        [SerializeField] private float regenRate = 5f; // Energy per second
 
-        [Header("Thresholds")]
-        [SerializeField] private float lowEnergyThreshold = 20f; // For events
+        [InspectorLabel("Регенерация")]
+        [Tooltip("Сколько энергии восстанавливается за секунду.")]
+        [SerializeField] private float regenRate = 5f;
+
+        [Header("Пороги")]
+        [InspectorLabel("Порог низкой энергии")]
+        [Tooltip("Если энергия опускается до этого значения или ниже, срабатывают события низкой энергии.")]
+        [SerializeField] private float lowEnergyThreshold = 20f;
 
         public int MaxEnergy => maxEnergy;
         public float RegenRate => regenRate;

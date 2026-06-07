@@ -1,19 +1,34 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NPC.Characters.Player.Energy {
-    [CreateAssetMenu(fileName = "ActionCost", menuName = "Player/ActionCost", order = 3)]
+    [CreateAssetMenu(fileName = "ActionCost", menuName = "Character/ActionCost", order = 3)]
     public class ActionCostSO : ScriptableObject {
-        [Header("Held Actions (per second)")]
+        [Header("Удерживаемые действия")]
+        [InspectorLabel("Блок в секунду")]
+        [Tooltip("Расход энергии за каждую секунду удержания блока.")]
         [SerializeField] private float blockCostPerSecond = 3f;
+
+        [InspectorLabel("Движение в секунду")]
+        [Tooltip("Расход энергии за каждую секунду активного движения.")]
         [SerializeField] private float moveCostPerSecond = 2f;
+
+        [InspectorLabel("Толкание в секунду")]
+        [Tooltip("Расход энергии за каждую секунду толкания объекта.")]
         [SerializeField] private float pushCostPerSecond = 4f;
 
-        [Header("Single Actions")]
+        [Header("Разовые действия")]
+        [InspectorLabel("Атака")]
+        [Tooltip("Разовый расход энергии при атаке.")]
         [SerializeField] private float attackSingleCost = 10f;
+
+        [InspectorLabel("Прыжок")]
+        [Tooltip("Разовый расход энергии при прыжке.")]
         [SerializeField] private float jumpSingleCost = 10f;
 
-        [Header("Special Costs")]
-        [SerializeField] private float blockHitCost = 5f; // Additional cost when hit during block
+        [Header("Особые расходы")]
+        [InspectorLabel("Удар по блоку")]
+        [Tooltip("Дополнительный расход энергии, когда персонаж получает удар во время блока.")]
+        [SerializeField] private float blockHitCost = 5f;
 
         public float BlockCostPerSecond => blockCostPerSecond;
         public float BlockHitCost => blockHitCost;

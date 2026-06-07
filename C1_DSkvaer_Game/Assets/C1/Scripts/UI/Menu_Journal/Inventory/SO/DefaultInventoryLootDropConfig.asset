@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44ee7a46dc6b534a801d18fd2f30918, type: 3}
+  m_Name: DefaultInventoryLootDropConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_Journal.Data.InventoryLootDropConfigSO
+  dropMode: 0
+  clearSourceInventoryAfterDrop: 1
+  lootProfile: {fileID: 0}
+  containerDropChance: 100
+  containerTheme: {fileID: 0}
+  spawnOffset: {x: 0, y: 0, z: 0}

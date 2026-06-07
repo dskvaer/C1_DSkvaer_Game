@@ -1,12 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Ship {
     [RequireComponent(typeof(SpriteRenderer))]
     public class GunVisualStates : MonoBehaviour {
-        [Header("Sprites")]
-        [SerializeField] private Sprite readySprite;      // ��������� ������ (����� � ��������)
-        [SerializeField] private Sprite reloadingSprite;  // ��������� ������ (�����������)
-        [SerializeField] private Sprite emptySprite;      // ������ ����� (��� �����������)
+        [Header("Спрайты состояний")]
+        [InspectorLabel("Готова к выстрелу")]
+        [Tooltip("Спрайт пушки, когда она заряжена и готова стрелять.")]
+        [SerializeField] private Sprite readySprite;
+
+        [InspectorLabel("Перезарядка")]
+        [Tooltip("Спрайт пушки во время перезарядки.")]
+        [SerializeField] private Sprite reloadingSprite;
+
+        [InspectorLabel("Нет боеприпасов")]
+        [Tooltip("Спрайт пустой пушки, если в будущем появится режим без боеприпасов.")]
+        [SerializeField] private Sprite emptySprite;
 
         private SpriteRenderer spriteRenderer;
 
@@ -15,14 +23,14 @@ namespace Ship {
             spriteRenderer = GetComponent<SpriteRenderer>();
             if (spriteRenderer == null)
             {
-                Debug.LogError($"[GunVisualStates] SpriteRenderer �� ������ � {name}");
+                Debug.LogError($"[GunVisualStates] SpriteRenderer не найден на {name}");
                 enabled = false;
                 return;
             }
 
             if (readySprite == null || reloadingSprite == null)
             {
-                Debug.LogError($"[GunVisualStates] �� ��������� ��� ������� � {name}");
+                Debug.LogError($"[GunVisualStates] Не назначены основные спрайты на {name}");
                 enabled = false;
                 return;
             }

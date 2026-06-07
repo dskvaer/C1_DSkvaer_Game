@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfaf18f7096cd545b7242a62db1c826, type: 3}
+  m_Name: DefaultPlatformerMovementProfile
+  m_EditorClassIdentifier: 
+  inspectorDescription: "\u041E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438
+    \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435\u0440\u043D\u043E\u0433\u043E
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430. \u041E\u0434\u0438\u043D
+    \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043C\u043E\u0436\u043D\u043E \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C
+    \u0434\u043B\u044F \u0433\u0435\u0440\u043E\u044F, NPC \u0438\u043B\u0438 \u0442\u0435\u0441\u0442\u043E\u0432\u043E\u0433\u043E
+    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430. \u0421\u043B\u043E\u0438
+    Ladder \u0438 Interactable \u043D\u0443\u0436\u043D\u043E \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C
+    \u0432 Project Settings/Tags and Layers, \u0435\u0441\u043B\u0438 \u0432\u044B
+    \u0445\u043E\u0442\u0438\u0442\u0435 \u043B\u0435\u0441\u0442\u043D\u0438\u0446\u044B
+    \u0438 \u0438\u043D\u0442\u0435\u0440\u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0435
+    \u043E\u0431\u044A\u0435\u043A\u0442\u044B."
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  oneWayPlatformLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  pushableLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  ladderLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  waterLayers:
+    serializedVersion: 2
+    m_Bits: 16
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  walkSpeed: 4.5
+  runSpeed: 7.25
+  crouchSpeed: 2.1
+  acceleration: 70
+  deceleration: 90
+  airAcceleration: 35
+  airDeceleration: 30
+  jumpVelocity: 12.5
+  coyoteTime: 0.12
+  jumpBufferTime: 0.12
+  jumpCutMultiplier: 0.45
+  gravityScale: 3
+  fallGravityMultiplier: 1.65
+  lowJumpGravityMultiplier: 1.25
+  maxFallSpeed: 18
+  probeSkin: 0.03
+  groundProbeRadius: 0.14
+  groundProbeDistance: 0.08
+  chestProbeHeight: 0.6
+  headProbeInset: 0.08
+  crouchColliderHeightMultiplier: 0.55
+  pushSpeed: 2.1
+  pushAcceleration: 18
+  pushCheckDistance: 0.45
+  pushCheckHeight: 0.35
+  allowLedgeGrab: 1
+  ledgeForwardDistance: 0.42
+  ledgeLowerHeight: 0.25
+  ledgeUpperHeight: 1.05
+  ledgeDownProbeDistance: 1.1
+  ledgeHangHorizontalOffset: 0.24
+  ledgeHangVerticalOffset: 0.52
+  ledgeClimbForwardOffset: 0.38
+  climbSpeed: 3.25
+  ladderHorizontalSpeed: 1.3
+  ladderSnapSpeed: 12
+  surfaceSwimSpeed: 3.25
+  underwaterSwimSpeed: 3.6
+  swimAcceleration: 22
+  waterGravityScale: 0.35
+  waterJumpVelocity: 8

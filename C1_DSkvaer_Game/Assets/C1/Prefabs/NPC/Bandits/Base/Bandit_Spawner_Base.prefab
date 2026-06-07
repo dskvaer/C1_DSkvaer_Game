@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4567602293858869566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6864002884002361704}
+  - component: {fileID: 2476980250713258825}
+  - component: {fileID: 5064812610081161579}
+  m_Layer: 0
+  m_Name: Bandit_Spawner_Base
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6864002884002361704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567602293858869566}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2476980250713258825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567602293858869566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b2c7314782f824695d92a7c7a77ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.NPCPatrolZone
+  size: {x: 12, y: 12}
+  offset: {x: 0, y: 0}
+  clampToWaterTilemap: 1
+--- !u!114 &5064812610081161579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567602293858869566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24285fc2c77a7db4fa0efa226867468d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.EnemySpawner
+  config: {fileID: 11400000, guid: 95e03954c3e0a45408d33095a8bab541, type: 2}
+  idConfig: {fileID: 0}
+  enemyPrefab: {fileID: 9116376450987575823, guid: 3cabc67e856eba346b6382f0b6785d2b, type: 3}
+  spawnZone: {fileID: 2476980250713258825}
+  waterTilemap: {fileID: 0}
+  healthBarCanvas: {fileID: 0}
+  healthBarPrefab: {fileID: 0}

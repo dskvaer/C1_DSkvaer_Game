@@ -1,4 +1,4 @@
-﻿// ====================================================================================================
+// ====================================================================================================
 // ShipHealth.cs – УДАЛЁН ВИЗУАЛ ЖЕЛЕЗНОГО НОСА (перенесён в ShipVisualUpgrade)
 // ====================================================================================================
 
@@ -23,14 +23,31 @@ namespace Ship {
     /// </remarks>
     [RequireComponent(typeof(Rigidbody2D))]
     public class ShipHealth : MonoBehaviour, IShipHealth, IShipDamageable, IHealth {
+        [Header("Настройки здоровья")]
+        [InspectorLabel("Конфиг здоровья")]
+        [Tooltip("ScriptableObject с базовым запасом прочности корабля.")]
         [SerializeField] private ShipHealthConfig config;
+
+        [InspectorLabel("Конфиг улучшений")]
+        [Tooltip("Дополнительное здоровье и боевые модификаторы корабля. Можно оставить пустым, если улучшений нет.")]
         [SerializeField] private ShipUpgradeConfig upgradeConfig;
+
+        [InspectorLabel("Конфиг тарана")]
+        [Tooltip("Настройки ответного урона и модификаторов, которые используются при таране.")]
         [SerializeField] private ShipRamConfig ramConfig;
+
+        [Header("Связанные компоненты")]
+        [InspectorLabel("Компонент движения")]
+        [Tooltip("Компонент, который реализует IShipMovable и IShipDamageable. Обычно это ShipMovement на этом же корабле.")]
         [SerializeField] private MonoBehaviour shipMovement;
-        [SerializeField] private SpriteRenderer shipSpriteRenderer; // для затопления
+
+        [InspectorLabel("Спрайт корабля")]
+        [Tooltip("SpriteRenderer визуала корабля. Используется для будущих эффектов повреждения и затопления.")]
+        [SerializeField] private SpriteRenderer shipSpriteRenderer;
 
         private Rigidbody2D rb;
         private int currentHealth;
+        private int? maxHealthOverride;
         private bool isDead;
         private IShipDamageable shipDamageable;
         private IShipMovable shipMovementInterface;
@@ -50,15 +67,15 @@ namespace Ship {
             shipMovementInterface = shipMovement as IShipMovable;
             shipDamageable = shipMovement as IShipDamageable;
             if (shipMovement != null && (shipMovementInterface == null || shipDamageable == null)) {
-                Debug.LogWarning($"ShipMovement не реализует нужные интерфейсы у {gameObject.name}.", this);
+                ;
             }
 
             if (shipSpriteRenderer == null) {
-                Debug.LogWarning($"SpriteRenderer не привязан (эффекты затопления отключены) у {gameObject.name}.", this);
+                ;
             }
 
             ResetHealth();
-            Debug.Log($"ShipHealth инициализирован: {gameObject.name}");
+            ;
         }
 
         public void ResetHealth() {
@@ -67,7 +84,7 @@ namespace Ship {
             gameObject.SetActive(true);
             if (shipMovement != null) shipMovement.enabled = true;
             OnHealthChanged.Invoke();
-            Debug.Log($"Здоровье сброшено: {currentHealth}/{GetMaxShipHealth()}");
+            ;
         }
 
         public void TakeShipDamage(int amount) => TakeShipDamage(amount, false);
@@ -80,12 +97,11 @@ namespace Ship {
             if (isRam && ramConfig != null) {
                 int selfDamage = Mathf.RoundToInt(amount * ramConfig.SelfDamagePercentage * (upgradeConfig?.RamSelfDamageReduction ?? 1f));
                 currentHealth = Mathf.Max(0, currentHealth - selfDamage);
-                Debug.Log($"Урон от тарана: {selfDamage}");
+                ;
             }
 
             OnHealthChanged.Invoke();
-            Debug.Log($"Урон: {amount}, Здоровье: {currentHealth}/{GetMaxShipHealth()}");
-
+            ;
             if (currentHealth <= 0) HandleShipDestruction();
         }
 
@@ -97,7 +113,29 @@ namespace Ship {
         }
 
         public int GetCurrentShipHealth() => currentHealth;
-        public int GetMaxShipHealth() => config != null ? config.MaxHealth + (upgradeConfig?.AdditionalHealth ?? 0) : 100;
+        public int GetMaxShipHealth() => maxHealthOverride ?? (config != null ? config.MaxHealth + (upgradeConfig?.AdditionalHealth ?? 0) : 100);
+
+        public void SetMaxShipHealthOverride(int maxHealth, bool refillHealth = true) {
+            maxHealthOverride = Mathf.Max(1, maxHealth);
+            if (refillHealth) {
+                currentHealth = maxHealthOverride.Value;
+                isDead = false;
+                OnHealthChanged.Invoke();
+            } else {
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealthOverride.Value);
+                OnHealthChanged.Invoke();
+            }
+        }
+
+        public void ClearMaxShipHealthOverride(bool refillHealth = true) {
+            maxHealthOverride = null;
+            if (refillHealth) {
+                ResetHealth();
+            } else {
+                currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxShipHealth());
+                OnHealthChanged.Invoke();
+            }
+        }
 
         // IHealth
         public int CurrentHealth => GetCurrentShipHealth();

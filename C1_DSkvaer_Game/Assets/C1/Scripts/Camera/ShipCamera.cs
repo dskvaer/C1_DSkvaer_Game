@@ -1,45 +1,38 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
-// Компонент для управления камерой, следующей за кораблём
 public class ShipCamera : MonoBehaviour {
-    [SerializeField] private ShipCameraConfig config; // Настройки камеры
-    [SerializeField] private Transform target; // Цель (Player_Ship)
+    [Header("РЎР»РµРґРѕРІР°РЅРёРµ")]
+    [InspectorLabel("РљРѕРЅС„РёРі РєР°РјРµСЂС‹")]
+    [Tooltip("ScriptableObject СЃ РїР»Р°РІРЅРѕСЃС‚СЊСЋ, СЃРјРµС‰РµРЅРёРµРј Рё Z-РїРѕР·РёС†РёРµР№ РєР°РјРµСЂС‹.")]
+    [SerializeField] private ShipCameraConfig config;
 
-    // Инициализация при старте
+    [InspectorLabel("Р¦РµР»СЊ")]
+    [Tooltip("Transform РєРѕСЂР°Р±Р»СЏ РёР»Рё РґСЂСѓРіРѕРіРѕ РѕР±СЉРµРєС‚Р°, Р·Р° РєРѕС‚РѕСЂС‹Рј РґРѕР»Р¶РЅР° СЃР»РµРґРѕРІР°С‚СЊ РєР°РјРµСЂР°.")]
+    [SerializeField] private Transform target;
+
     private void Awake()
     {
-        // Проверка привязки компонентов
         if (config == null)
         {
-            Debug.LogError("ShipCameraConfig не привязан в Inspector!");
+            Debug.LogError("ShipCameraConfig РЅРµ РЅР°Р·РЅР°С‡РµРЅ РІ РёРЅСЃРїРµРєС‚РѕСЂРµ!", this);
             return;
         }
         if (target == null)
         {
-            Debug.LogError("Цель (Player_Ship) не привязана в Inspector!");
+            Debug.LogError("Р¦РµР»СЊ РєР°РјРµСЂС‹ РЅРµ РЅР°Р·РЅР°С‡РµРЅР° РІ РёРЅСЃРїРµРєС‚РѕСЂРµ!", this);
             return;
         }
 
-        // Устанавливаем начальную позицию камеры
         transform.position = new Vector3(target.position.x + config.Offset.x, target.position.y + config.Offset.y, config.ZPosition);
-        transform.rotation = Quaternion.identity; // Фиксируем вращение (z=0)
-        Debug.Log($"Камера инициализирована: Позиция={transform.position}, Вращение={transform.rotation.eulerAngles}");
+        transform.rotation = Quaternion.identity;
     }
 
-    // Обновление позиции камеры каждый кадр
     private void LateUpdate()
     {
         if (config == null || target == null) return;
 
-        // Целевая позиция с учётом смещения
         Vector3 targetPosition = new Vector3(target.position.x + config.Offset.x, target.position.y + config.Offset.y, config.ZPosition);
-
-        // Плавное следование с помощью Lerp
         transform.position = Vector3.Lerp(transform.position, targetPosition, config.FollowSpeed);
-
-        // Фиксируем вращение камеры (z=0)
         transform.rotation = Quaternion.identity;
-
-        Debug.Log($"Камера: Позиция={transform.position}, Цель={targetPosition}");
     }
 }

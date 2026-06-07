@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ship.ProjectileConfig
   damage: 10
   range: 5
-  projectileSpeed: 3
+  projectileSpeed: 10.08
   areaOfEffectRadius: 0

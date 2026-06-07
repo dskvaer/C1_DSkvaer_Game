@@ -1,0 +1,456 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.3/staging' branch; Version is '6000.3.14f1 (d68c3f99a318) revision 14060607'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'ru' Physical Memory: 32677 MB
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-DSkvaer" at "2026-06-07T21:59:25.1275194Z"
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-06-07T21:59:25Z
+
+COMMAND LINE ARGUMENTS:
+H:\Unity\6.1\6000.3.14f1\Editor\Unity.exe
+-batchmode
+-projectPath
+H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game
+-quit
+-logFile
+H:\Unity\Project\C1_DSkvaer_Game\unity-player-system-full.log
+Successfully changed project path to: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game
+H:/Unity/Project/C1_DSkvaer_Game/C1_DSkvaer_Game
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+Player connection [9028]  Target information:
+
+Player connection [9028]  * "[IP] 192.168.31.115 [Port] 55504 [Flags] 2 [Guid] 94780391 [EditorId] 94780391 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-CQA9PKC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [9028] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [9028] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-7700" after 0.4 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::Client] Error: HandshakeResponse reported an error:
+	ResponseCode: 505
+	ResponseStatus: Unsupported protocol version '1.18.1'.
+[Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-DSkvaer"
+[Licensing::IpcConnector] LicenseClient-DSkvaer channel disconnected successfully.
+[Licensing::IpcConnector] Channel LicenseClient-DSkvaer-6000.3.14 doesn't exist
+[Licensing::Module] Successfully launched the LicensingClient (PId: 19136)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-DSkvaer-6000.3.14" at "2026-06-07T21:59:26.7590796Z"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              946e9ec8246544afbd6db2f28319d6f4
+  Correlation Id:          157212bd648c8c2bcbaac061827d2abe
+  External correlation Id: 4504107623459746745
+  Machine Id:              1BZhsaqfCEPia+won1Da4r0w1vE=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-DSkvaer-6000.3.14" (connect: 0.25s, validation: 0.05s, handshake: 1.45s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-DSkvaer-6000.3.14-notifications" at "2026-06-07T21:59:28.2643074Z"
+[Licensing::Module] Connected to LicensingClient (PId: 19136, launch time: 0.00, total connection time: 1.75s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 7972077664244-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 3.18s
+[Licensing::Module] Licensing is initialized (took 2.65s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 0.52 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 6000.3.14f1 (d68c3f99a318)
+[Subsystems] Discovering subsystems at path H:/Unity/6.1/6000.3.14f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path H:/Unity/Project/C1_DSkvaer_Game/C1_DSkvaer_Game/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1b81)
+    Vendor:   NVIDIA
+    VRAM:     8067 MB
+    Driver:   32.0.15.8157
+Initialize mono
+Mono path[0] = 'H:/Unity/6.1/6000.3.14f1/Editor/Data/Managed'
+Mono path[1] = 'H:/Unity/6.1/6000.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'H:/Unity/6.1/6000.3.14f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56700
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: H:/Unity/6.1/6000.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001290 seconds.
+- Loaded All Assemblies, in  0.476 seconds
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.489 seconds
+Domain Reload Profiling: 965ms
+	BeginReloadAssembly (156ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (16ms)
+	RebuildCommonClasses (43ms)
+	RebuildNativeTypeToScriptingClass (21ms)
+	initialDomainReloadingComplete (48ms)
+	LoadAllAssembliesAndSetupDomain (208ms)
+		LoadAssemblies (139ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (205ms)
+			TypeCache.Refresh (203ms)
+				TypeCache.ScanAssembly (187ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (490ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (435ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (58ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (104ms)
+			ProcessInitializeOnLoadAttributes (158ms)
+			ProcessInitializeOnLoadMethodAttributes (109ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 67 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.2d.animation@13.0.4 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.animation@7396d8477ca9)
+    com.unity.2d.aseprite@3.0.1 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.aseprite@809e3a168ff7)
+    com.unity.2d.psdimporter@12.0.1 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.psdimporter@9abe0f7cac7e)
+    com.unity.2d.spriteshape@13.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.spriteshape@0738bab11647)
+    com.unity.2d.tilemap.extras@6.0.1 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.tilemap.extras@3dde84bf3867)
+    com.unity.collab-proxy@2.12.4 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.collab-proxy@0b1559bcd34e)
+    com.unity.ide.rider@3.0.39 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.ide.rider@4504839d03f7)
+    com.unity.ide.visualstudio@2.0.26 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.19.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.inputsystem@21a28c3a6c83)
+    com.unity.timeline@1.8.12 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.11 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.visualscripting@8bed5ad90189)
+    com.unity.2d.common@12.0.2 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.common@800085e896ad)
+    com.unity.mathematics@1.3.3 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.mathematics@19a9377c4ffa)
+    com.unity.collections@2.6.5 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.collections@12999e356c23)
+    com.unity.searcher@4.9.4 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.searcher@d45a78918735)
+    com.unity.burst@1.8.29 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.nuget.mono-cecil@1.11.6 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.4.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.test-framework.performance@aa81a99c4a75)
+  Built-in packages:
+    com.unity.2d.sprite@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.sprite@d14b9d497a24)
+    com.unity.2d.tilemap@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.2d.tilemap@43eb9b2da17d)
+    com.unity.multiplayer.center@1.0.1 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.multiplayer.center@f01f4ba8d00a)
+    com.unity.render-pipelines.universal@17.3.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.render-pipelines.universal@3b809f23691d)
+    com.unity.test-framework@1.6.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.test-framework@aebcb98460c6)
+    com.unity.ugui@2.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.ugui@8ccc29d23a79)
+    com.unity.modules.accessibility@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.0.5 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.ext.nunit@d8c07649098d)
+    com.unity.render-pipelines.core@17.3.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.render-pipelines.core@02dfbe8e43de)
+    com.unity.shadergraph@17.3.0 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.shadergraph@28ee1cc75774)
+    com.unity.render-pipelines.universal-config@17.0.3 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.unity.render-pipelines.universal-config@8dc1aab4af1d)
+  Git packages:
+    com.esotericsoftware.spine.spine-csharp@https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-csharp/src#4.2 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.esotericsoftware.spine.spine-csharp@37cd8452689e)
+    com.esotericsoftware.spine.spine-unity@https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Assets/Spine#4.2 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.esotericsoftware.spine.spine-unity@40ef011498d2)
+    com.esotericsoftware.spine.urp-shaders@https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.urp-shaders#4.2 (location: H:\Unity\Project\C1_DSkvaer_Game\C1_DSkvaer_Game\Library\PackageCache\com.esotericsoftware.spine.urp-shaders@775af2d7ea49)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.02 seconds
+[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
+Starting: H:\Unity\6.1\6000.3.14f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aEDbg.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: H:/Unity/Project/C1_DSkvaer_Game/C1_DSkvaer_Game
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 3s392ms
+[ 821/1061  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1053/1061  1s] Csc Library/Bee/artifacts/1900b0aEDbg.dag/Assembly-CSharp.dll (+2 others)
+Assets\LeanTween\Examples\Scripts\TestingUnitTests.cs(526,35): warning CS0618: 'Object.FindObjectsOfType(Type)' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID, but if you do not need this using FindObjectSortMode.None is considerably faster.'
+[1054/1061  0s] Csc Library/Bee/artifacts/1900b0aEDbg.dag/Assembly-CSharp-Editor.dll (+2 others)
+[1055/1061  0s] ILPostProcess Library/Bee/artifacts/1900b0aEDbg.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aEDbg.dag/Assembly-CSharp-Editor.dll, with 135 defines and 353 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[1056/1061  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1057/1061  0s] ILPostProcess Library/Bee/artifacts/1900b0aEDbg.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aEDbg.dag/Assembly-CSharp.dll, with 137 defines and 331 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[1058/1061  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[1059/1061  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+[1060/1061  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+*** Tundra build success (3.36 seconds), 9 items updated, 1061 evaluated
+Assets\LeanTween\Examples\Scripts\TestingUnitTests.cs(526,35): warning CS0618: 'Object.FindObjectsOfType(Type)' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID, but if you do not need this using FindObjectSortMode.None is considerably faster.'
+AssetDatabase: script compilation time: 3.986378s
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  1.682 seconds
+Refreshing native plugins compatible for Editor in 1.69 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 2.26 ms, found 5 plugins.
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  6.798 seconds
+Domain Reload Profiling: 8477ms
+	BeginReloadAssembly (357ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (22ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (154ms)
+	RebuildCommonClasses (53ms)
+	RebuildNativeTypeToScriptingClass (21ms)
+	initialDomainReloadingComplete (30ms)
+	LoadAllAssembliesAndSetupDomain (1219ms)
+		LoadAssemblies (995ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (355ms)
+			TypeCache.Refresh (233ms)
+				TypeCache.ScanAssembly (219ms)
+			BuildScriptInfoCaches (100ms)
+			ResolveRequiredComponents (16ms)
+	FinalizeReload (6798ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (6559ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (21ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (292ms)
+			ProcessInitializeOnLoadAttributes (6057ms)
+			ProcessInitializeOnLoadMethodAttributes (178ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (31ms)
+Start importing Assets/C1/Prefabs/Spawner/Enemy/Bandits/Spawner_Bandits_Junior.prefab using Guid(d0330835a9853c24d8038075a7d55280) (PrefabImporter) -> (artifact id: 'a82b9845268abe3599ff8a9108ca0a7e') in 0.0679964 seconds
+Start importing Assets/C1/Prefabs/NPC/Bandits/Base/Bandit_Spawner_Base.prefab using Guid(94f88348d4ee57f48b12263686cbf7ea) (PrefabImporter) -> (artifact id: '073748f55a9062fb1c14a896f8c0d1d5') in 0.0057253 seconds
+Refreshing native plugins compatible for Editor in 1.69 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=528adbe2766b6314b8a44aa7ae238575): Total: 13.954 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=2 (actual=2, local cache=0, cache server=0)
+		Asset DB Process Time: managed=18 ms, native=7595 ms
+		Asset DB Callback time: managed=422 ms, native=29 ms
+		Scripting: domain reloads=1, domain reload time=1682 ms, compile time=3988 ms, other=218 ms
+		Project Asset Count: scripts=1744, non-scripts=3894
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeCustomDependenciesCallbacks: 0.001ms
+	InvokePackagesCallback: 25.178ms
+	ApplyChangesToAssetFolders: 0.764ms
+	Scan: 185.678ms
+	OnSourceAssetsModified: 0.864ms
+	CategorizeAssetsWithTransientArtifact: 75.112ms
+	ProcessAssetsWithTransientArtifactChanges: 110.163ms
+	CategorizeAssets: 80.719ms
+	ImportOutOfDateAssets: 6891.546ms (2822.157ms without children)
+		ImportManagerImport: 77.910ms (3.512ms without children)
+			ImportInProcess: 74.346ms
+			UpdateCategorizedAssets: 0.052ms
+		CompileScripts: 3988.219ms
+		ReloadNativeAssets: 0.030ms
+		UnloadImportedAssets: 0.707ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.392ms
+		InitializingProgressBar: 0.006ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.001ms
+		OnDemandSchedulerStart: 1.125ms
+	PostProcessAllAssets: 423.313ms
+	Hotreload: 3.986ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.002ms
+	UnloadStreamsBegin: 3.734ms
+	PersistCurrentRevisions: 0.294ms
+	UnloadStreamsEnd: 0.002ms
+	GenerateScriptTypeHashes: 5.480ms
+	Untracked: 6152.901ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Scanning for USB devices : 1.810ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-С1.0
+GetVirtualKey: Could not map char: z (122) to any virtual key
+GetVirtualKey: Could not map char: y (121) to any virtual key
+GetVirtualKey: Could not map char: x (120) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: v (118) to any virtual key
+GetVirtualKey: Could not map char: V (86) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: i (105) to any virtual key
+GetVirtualKey: Could not map char: l (108) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: k (107) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: P (80) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: g (103) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: o (111) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: u (117) to any virtual key
+Unloading 35 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7513 unused Assets / (8.7 MB). Loaded Objects now: 8424.
+Memory consumption went from 251.1 MB to 242.4 MB.
+Total: 15.091500 ms (FindLiveObjects: 0.886200 ms CreateObjectMapping: 1.624700 ms MarkObjects: 7.839600 ms  DeleteObjects: 4.739900 ms)
+
+GetVirtualKey: Could not map char: z (122) to any virtual key
+GetVirtualKey: Could not map char: y (121) to any virtual key
+GetVirtualKey: Could not map char: x (120) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: v (118) to any virtual key
+GetVirtualKey: Could not map char: V (86) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: i (105) to any virtual key
+GetVirtualKey: Could not map char: l (108) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: k (107) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: P (80) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: g (103) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: o (111) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: u (117) to any virtual key
+Batchmode quit successfully invoked - shutting down!
+Curl error 42: Callback aborted
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-DSkvaer-6000.3.14-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-DSkvaer-6000.3.14 channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

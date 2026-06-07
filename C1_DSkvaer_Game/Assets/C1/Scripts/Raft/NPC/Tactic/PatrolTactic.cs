@@ -1,86 +1,84 @@
-using Ship;
-using UnityEngine;
-using UnityEngine.Tilemaps;
+п»їusing UnityEngine;
 
 namespace Ship {
     /// <summary>
-    /// Тактика патрулирования для NPC.
-    /// Двигает NPC к случайным точкам в пределах водного тайлмапа.
+    /// РџР°С‚СЂСѓР»РёСЂРѕРІР°РЅРёРµ NPC: РІС‹Р±РёСЂР°РµС‚ СЃР»СѓС‡Р°Р№РЅС‹Рµ С‚РѕС‡РєРё РІРЅСѓС‚СЂРё РЅР°Р·РЅР°С‡РµРЅРЅРѕР№ Р·РѕРЅС‹ РёР»Рё water tilemap.
     /// </summary>
-    /// <remarks>
-    /// Привязка в Unity Inspector:
-    /// - Привязать к объекту Enemy_Ship как дочерний компонент NPCAI.
-    /// - PatrolTacticConfig: Настройки патрулирования (PatrolSpeed, MinPatrolTime, MaxPatrolTime, SmoothTurnSpeed).
-    /// - Требуется NPCAI на родительском объекте.
-    /// Настройка сцены:
-    /// - Убедитесь, что объект Enemy_Ship имеет компоненты NPCAI, ShipHealth, ShipMovement, ShipHitArea (на HitArea).
-    /// - Требуется Rigidbody2D на Enemy_Ship и Tilemap для WaterTilemap в NPCAI.
-    /// Логика работы:
-    /// - CanExecute: Проверяет, что игрок не обнаружен (context.Player == null) или здоровье выше порога побега.
-    /// - Execute: Двигается к случайной точке в пределах WaterTilemap с PatrolSpeed, меняет точку через случайный интервал (MinPatrolTime–MaxPatrolTime).
-    /// </remarks>
     public class PatrolTactic : MonoBehaviour, IEnemyTactic {
-        [SerializeField] private PatrolTacticConfig config; // Настройки патрулирования
-        private Vector2 targetPosition; // Целевая позиция патруля
-        private float patrolTimer; // Таймер патрулирования
-        private NPCAI npcAI; // Компонент NPCAI
-        private bool isInitialized; // Флаг инициализации
+        [Header("РќР°СЃС‚СЂРѕР№РєРё РїР°С‚СЂСѓР»СЏ")]
+        [InspectorLabel("РљРѕРЅС„РёРі РїР°С‚СЂСѓР»СЏ")]
+        [Tooltip("ScriptableObject СЃ РЅР°СЃС‚СЂРѕР№РєР°РјРё СЃРєРѕСЂРѕСЃС‚Рё, РІСЂРµРјРµРЅРё РїР°С‚СЂСѓР»СЏ Рё РїР»Р°РІРЅРѕСЃС‚Рё РїРѕРІРѕСЂРѕС‚Р°.")]
+        [SerializeField] private PatrolTacticConfig config;
 
-        // Инициализация при старте
+        [InspectorLabel("Р—РѕРЅР° РїР°С‚СЂСѓР»СЏ")]
+        [Tooltip("Р—РѕРЅР°, РІРЅСѓС‚СЂРё РєРѕС‚РѕСЂРѕР№ NPC РІС‹Р±РёСЂР°РµС‚ С‚РѕС‡РєРё РїР°С‚СЂСѓР»СЏ. Р•СЃР»Рё РїСѓСЃС‚Рѕ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р·РѕРЅР° СЃРїР°РІРЅР° РёР»Рё РІРµСЃСЊ water tilemap.")]
+        [SerializeField] private NPCPatrolZone patrolZone;
+
+        private Vector2 targetPosition;
+        private float patrolTimer;
+        private NPCAI npcAI;
+        private bool isInitialized;
+
         private void Awake()
         {
-            if (config == null) // Проверяем наличие конфига
-            {
-                Debug.LogError($"PatrolTacticConfig не привязан для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                enabled = false; // Отключаем компонент
+            if (config == null) {
+                Debug.LogError($"PatrolTacticConfig РЅРµ РЅР°Р·РЅР°С‡РµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}).", this);
+                enabled = false;
                 return;
             }
-            npcAI = GetComponentInParent<NPCAI>(); // Получаем NPCAI
-            if (npcAI == null) // Проверяем наличие NPCAI
-            {
-                Debug.LogError($"NPCAI не найден для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
-                enabled = false; // Отключаем компонент
-                return;
+
+            npcAI = GetComponentInParent<NPCAI>();
+            if (npcAI == null) {
+                Debug.LogError($"NPCAI РЅРµ РЅР°Р№РґРµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}).", this);
+                enabled = false;
             }
-            Debug.Log($"PatrolTactic инициализирован для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})"); // Логируем инициализацию
         }
 
-        // Проверка возможности выполнения тактики
         public bool CanExecute(EnemyAIContext context)
         {
-            bool canExecute = context.Player == null || context.ShipHealth.GetCurrentShipHealth() > context.ShipHealth.GetMaxShipHealth() * 0.2f; // Проверяем игрока и здоровье
-            Debug.Log($"PatrolTactic CanExecute для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}): {canExecute}, Player={(context.Player != null ? "Detected" : "Not Detected")}, Health={context.ShipHealth.GetCurrentShipHealth()}/{context.ShipHealth.GetMaxShipHealth()}"); // Логируем проверку
-            return canExecute;
+            return context.Player == null;
         }
 
-        // Выполнение тактики
+        public void SetPatrolZone(NPCPatrolZone zone)
+        {
+            patrolZone = zone;
+            isInitialized = false;
+            patrolTimer = 0f;
+        }
+
         public void Execute(EnemyAIContext context, float deltaTime)
         {
-            patrolTimer -= deltaTime; // Уменьшаем таймер
-            if (!isInitialized || patrolTimer <= 0 || Vector2.Distance(context.Rigidbody.position, targetPosition) < 0.5f) // Проверяем необходимость новой точки
-            {
-                SetPatrolTarget(context); // Устанавливаем новую точку
-                isInitialized = true; // Устанавливаем флаг инициализации
+            patrolTimer -= deltaTime;
+            if (!isInitialized || patrolTimer <= 0f || Vector2.Distance(context.Rigidbody.position, targetPosition) < config.PointReachDistance) {
+                SetPatrolTarget(context);
+                isInitialized = true;
             }
-            npcAI.MoveToSmooth(context, targetPosition, config.PatrolSpeed, config.SmoothTurnSpeed); // Двигаемся к цели
+
+            npcAI.MoveToSmooth(context, targetPosition, config.PatrolSpeed, config.SmoothTurnSpeed);
         }
 
-        // Установка случайной точки патрулирования
         private void SetPatrolTarget(EnemyAIContext context)
         {
-            if (context.WaterTilemap == null) // Проверяем наличие тайлмапа
-            {
-                Debug.LogError($"WaterTilemap не найден для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"})!", this); // Логируем ошибку
+            if (patrolZone != null) {
+                targetPosition = patrolZone.GetRandomPoint(context.WaterTilemap);
+                patrolTimer = Random.Range(config.MinPatrolTime, config.MaxPatrolTime);
                 return;
             }
-            Bounds bounds = context.WaterTilemap.localBounds; // Получаем границы тайлмапа
+
+            if (context.WaterTilemap == null) {
+                Debug.LogError($"WaterTilemap РЅРµ РЅР°Р·РЅР°С‡РµРЅ РґР»СЏ {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}).", this);
+                targetPosition = context.Rigidbody.position;
+                return;
+            }
+
+            Bounds bounds = context.WaterTilemap.localBounds;
             Vector2 randomPoint = new Vector2(
-                Random.Range(bounds.min.x, bounds.max.x), // Случайная X-координата
-                Random.Range(bounds.min.y, bounds.max.y) // Случайная Y-координата
+                Random.Range(bounds.min.x, bounds.max.x),
+                Random.Range(bounds.min.y, bounds.max.y)
             );
-            targetPosition = context.WaterTilemap.transform.TransformPoint(randomPoint); // Преобразуем в мировые координаты
-            patrolTimer = Random.Range(config.MinPatrolTime, config.MaxPatrolTime); // Устанавливаем таймер
-            Debug.Log($"PatrolTactic: Новая точка патрулирования для {gameObject.name} (ID={GetComponentInParent<ShipID>()?.ID ?? "Unknown"}) на {targetPosition}"); // Логируем новую точку
+
+            targetPosition = context.WaterTilemap.transform.TransformPoint(randomPoint);
+            patrolTimer = Random.Range(config.MinPatrolTime, config.MaxPatrolTime);
         }
     }
 }

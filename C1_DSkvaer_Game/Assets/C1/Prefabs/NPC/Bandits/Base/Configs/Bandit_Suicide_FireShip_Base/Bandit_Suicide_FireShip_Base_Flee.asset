@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf5140cfa68dab4e8325958acc77937, type: 3}
+  m_Name: Bandit_Suicide_FireShip_Base_Flee
+  m_EditorClassIdentifier: Assembly-CSharp::Ship.FleeTacticConfig
+  healthThreshold: 0.15
+  playerLastStandHealthThreshold: 0.3
+  fleeSpeed: 1.95
+  exhaustedSpeedMultiplier: 0.25
+  exhaustionTime: 10
+  fleeDistance: 8
+  allySearchRadius: 16
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  allowLastStandRam: 1
+  lastStandRamSpeed: 1.8
+  lastStandRamDuration: 1.25
+  lastStandContactDistance: 1.2
+  lastStandDamage: 25
+  smoothTurnSpeed: 0.3

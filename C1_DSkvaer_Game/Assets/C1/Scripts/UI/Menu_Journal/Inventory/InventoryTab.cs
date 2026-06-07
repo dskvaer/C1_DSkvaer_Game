@@ -1,140 +1,142 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using System.Text;
+using Menu_Journal.Systems;
+using Menu_Journal.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Menu_Journal {
     public class InventoryTab : JournalTabBase {
-        [Header("Inventory Grid")]
-        [SerializeField] private Transform _slotsContainer;   // Контейнер для ячеек (Scroll View Content)
-        [SerializeField] private InventorySlotUI _slotPrefab; // Префаб кнопки-ячейки
+        [Header("РЎРІСЏР·Рё")]
+        [InspectorLabel("РћРєРЅРѕ РґСЂРѕРїР°")]
+        [Tooltip("РћРєРЅРѕ, РєРѕС‚РѕСЂРѕРµ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РґР»СЏ СЃР±СЂРѕСЃР° РІС‹Р±СЂР°РЅРЅРѕРіРѕ РіСЂСѓР·Р° РёР· РёРЅРІРµРЅС‚Р°СЂСЏ.")]
+        [SerializeField] private LootWindowManager _lootWindowManager;
 
-        [Header("Info Panel")]
-        [SerializeField] private TextMeshProUGUI _infoTitleText;       // Заголовок (Название предмета или "Трюм")
-        [SerializeField] private TextMeshProUGUI _infoDescriptionText; // Основной текст (внутри Scroll View)
+        [Header("РЎРµС‚РєР°")]
+        [InspectorLabel("РљРѕРЅС‚РµР№РЅРµСЂ СЃР»РѕС‚РѕРІ")]
+        [Tooltip("Transform, РІРЅСѓС‚СЂСЊ РєРѕС‚РѕСЂРѕРіРѕ СЃРѕР·РґР°СЋС‚СЃСЏ UI-СЃР»РѕС‚С‹ РёРЅРІРµРЅС‚Р°СЂСЏ.")]
+        [SerializeField] private Transform _slotsContainer;
+        [InspectorLabel("РџСЂРµС„Р°Р± СЃР»РѕС‚Р°")]
+        [Tooltip("UI-РїСЂРµС„Р°Р± РѕРґРЅРѕР№ СЏС‡РµР№РєРё РёРЅРІРµРЅС‚Р°СЂСЏ.")]
+        [SerializeField] private InventorySlotUI _slotPrefab;
 
-        [Header("Actions")]
-        [SerializeField] private Button _dropButton; // Кнопка "Сброс"
+        [Header("РРЅС„РѕСЂРјР°С†РёСЏ")]
+        [InspectorLabel("Р—Р°РіРѕР»РѕРІРѕРє РёРЅС„РѕСЂРјР°С†РёРё")]
+        [Tooltip("РўРµРєСЃС‚ РЅР°Р·РІР°РЅРёСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїСЂРµРґРјРµС‚Р° РёР»Рё РѕР±С‰РµР№ РёРЅС„РѕСЂРјР°С†РёРё С‚СЂСЋРјР°.")]
+        [SerializeField] private TextMeshProUGUI _infoTitleText;
+        [InspectorLabel("РћРїРёСЃР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё")]
+        [Tooltip("РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїСЂРµРґРјРµС‚Р° РёР»Рё СЃРїРёСЃРєР° РіСЂСѓР·Р°.")]
+        [SerializeField] private TextMeshProUGUI _infoDescriptionText;
+
+        [Header("РљРЅРѕРїРєРё")]
+        [InspectorLabel("РљРЅРѕРїРєР° СЃР±СЂРѕСЃР°")]
+        [Tooltip("РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ СЃР±СЂРѕСЃР° РіСЂСѓР·Р°.")]
+        [SerializeField] private Button _dropButton;
 
         private IItemContainer _connectedContainer;
-        private InventorySlot _selectedSlot; // Текущая выбранная ячейка (null, если ничего не выбрано)
-        private List<InventorySlotUI> _spawnedSlots = new List<InventorySlotUI>();
+        private InventorySlot _selectedSlot;
+        private readonly List<InventorySlotUI> _spawnedSlots = new();
 
         private void Start()
         {
-            // Исправлено предупреждение CS0618: используем FindFirstObjectByType
-            var playerInventory = FindFirstObjectByType<ShipInventory>();
-
-            if (playerInventory != null)
-            {
+            ShipInventory playerInventory = FindPlayerInventory();
+            if (playerInventory != null) {
                 ConnectToContainer(playerInventory);
             }
-            else
-            {
-                Debug.LogError("InventoryTab не нашла ShipInventory на сцене!");
+            else {
+                Debug.LogError("[InventoryTab] Player cargo inventory was not found.", this);
             }
 
-            // Настройка кнопки дропа (логику добавим позже)
-            if (_dropButton != null)
-            {
+            if (_dropButton != null) {
                 _dropButton.onClick.AddListener(OnDropButtonClicked);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_connectedContainer != null) {
+                _connectedContainer.OnInventoryUpdated -= RefreshUI;
             }
         }
 
         public void ConnectToContainer(IItemContainer container)
         {
-            _connectedContainer = container;
-            _connectedContainer.OnInventoryUpdated += RefreshUI;
-        }
-
-        private void OnDestroy()
-        {
-            if (_connectedContainer != null)
-            {
+            if (_connectedContainer != null) {
                 _connectedContainer.OnInventoryUpdated -= RefreshUI;
+            }
+
+            _connectedContainer = container;
+            if (_connectedContainer != null) {
+                _connectedContainer.OnInventoryUpdated += RefreshUI;
             }
         }
 
         public override void OnOpen()
         {
             base.OnOpen();
-            // При открытии сбрасываем выделение, чтобы показать общую сводку
             _selectedSlot = null;
             RefreshUI();
         }
 
-        // Этот метод вызывается при клике на любую ячейку в сетке
         private void OnSlotClicked(InventorySlot slot)
         {
-            if (slot == null || slot.IsEmpty) return;
+            if (slot == null || slot.IsEmpty) {
+                return;
+            }
 
-            _selectedSlot = slot; // Запоминаем выбор
-            UpdateInfoPanel();    // Обновляем только правую панель
+            _selectedSlot = slot;
+            UpdateInfoPanel();
         }
 
         private void OnDropButtonClicked()
         {
-            Debug.Log("Открыть окно сброса (Drop Window)");
-            // Тут позже будет вызов JournalController.SwitchTab(JournalTabType.Drop);
+            if (_lootWindowManager == null) {
+                Debug.LogError("[InventoryTab] LootWindowManager is not assigned.", this);
+                return;
+            }
+
+            _lootWindowManager.OpenForDropping();
         }
 
         private void RefreshUI()
         {
-            if (_connectedContainer == null) return;
+            if (_connectedContainer == null || _slotsContainer == null || _slotPrefab == null) {
+                return;
+            }
 
-            // 1. Очистка сетки
-            foreach (Transform child in _slotsContainer)
-            {
+            foreach (Transform child in _slotsContainer) {
                 Destroy(child.gameObject);
             }
+
             _spawnedSlots.Clear();
 
-            // 2. Генерация ячеек
-            // Мы проходим по всем слотам в "бэкенде" инвентаря
-            for (int i = 0; i < _connectedContainer.SlotCount; i++)
-            {
+            for (int i = 0; i < _connectedContainer.SlotCount; i++) {
                 InventorySlot slotData = _connectedContainer.GetSlot(i);
+                InventorySlotUI slotUI = Instantiate(_slotPrefab, _slotsContainer);
+                slotUI.Setup(slotData);
 
-                // ВАЖНО: Если это валюта, мы не показываем её в сетке как предмет (она в кошельке)
-                // Но если слот пустой - мы его показываем (чтобы видеть свободное место)
-                if (!slotData.IsEmpty && slotData.Item.IsCurrency)
-                {
-                    continue; // Пропускаем визуализацию монет в сетке
+                Button button = slotUI.GetComponent<Button>();
+                if (button != null) {
+                    button.onClick.AddListener(() => OnSlotClicked(slotData));
                 }
 
-                // Создаем кнопку ячейки
-                InventorySlotUI newSlotUI = Instantiate(_slotPrefab, _slotsContainer);
-                newSlotUI.Setup(slotData);
-
-                // Добавляем слушатель клика. 
-                // Важно: создаем локальную копию переменной для замыкания, если нужно, но здесь slotData ссылочный.
-                Button btn = newSlotUI.GetComponent<Button>();
-                if (btn != null)
-                {
-                    btn.onClick.AddListener(() => OnSlotClicked(slotData));
-                }
-
-                _spawnedSlots.Add(newSlotUI);
+                _spawnedSlots.Add(slotUI);
             }
 
-            // 3. Обновляем правую панель (Инфо)
             UpdateInfoPanel();
         }
 
-        // Логика отображения информации (Правый столбец)
         private void UpdateInfoPanel()
         {
-            if (_infoTitleText == null || _infoDescriptionText == null) return;
+            if (_infoTitleText == null || _infoDescriptionText == null) {
+                return;
+            }
 
-            if (_selectedSlot != null && !_selectedSlot.IsEmpty)
-            {
-                // ВАРИАНТ А: ВЫБРАН ПРЕДМЕТ
+            if (_selectedSlot != null && !_selectedSlot.IsEmpty) {
                 ShowItemDetails(_selectedSlot);
             }
-            else
-            {
-                // ВАРИАНТ Б: НИЧЕГО НЕ ВЫБРАНО (ОБЩАЯ СВОДКА)
+            else {
                 ShowGeneralShipInfo();
             }
         }
@@ -142,85 +144,74 @@ namespace Menu_Journal {
         private void ShowItemDetails(InventorySlot slot)
         {
             _infoTitleText.text = slot.Item.Name;
+            var builder = new StringBuilder();
+            string rarityColor = slot.Item.IsCurrency ? "<color=yellow>" : "";
+            string rarityEnd = slot.Item.IsCurrency ? "</color>" : "";
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"<i>{slot.Item.Category.CategoryName} | {slot.Item.Rarity}</i>");
-            sb.AppendLine();
-            sb.AppendLine(slot.Item.Description);
-            sb.AppendLine();
-            sb.AppendLine($"<b>Вес:</b> {slot.Item.Weight} кг");
-            sb.AppendLine($"<b>Кол-во:</b> {slot.Quantity} шт");
-            sb.AppendLine($"<b>Цена за шт:</b> {FormatMoney(slot.Item.BasePrice)}");
+            builder.AppendLine($"<i>{slot.Item.Category.CategoryName} | {rarityColor}{slot.Item.Rarity}{rarityEnd}</i>");
+            builder.AppendLine();
+            builder.AppendLine(slot.Item.Description);
+            builder.AppendLine();
+            builder.AppendLine($"<b>Р’РµСЃ РІСЃРµРіРѕ:</b> {slot.Item.Weight * slot.Quantity:F1} РєРі");
+            builder.AppendLine($"<b>РљРѕР»-РІРѕ:</b> {slot.Quantity} С€С‚");
 
-            _infoDescriptionText.text = sb.ToString();
+            if (!slot.Item.IsCurrency) {
+                builder.AppendLine($"<b>Р¦РµРЅР° Р·Р° С€С‚:</b> {slot.Item.BasePrice}");
+            }
+
+            _infoDescriptionText.text = builder.ToString();
         }
 
         private void ShowGeneralShipInfo()
         {
-            _infoTitleText.text = "Статус Трюма";
+            if (_connectedContainer == null) {
+                return;
+            }
 
-            StringBuilder sb = new StringBuilder();
+            _infoTitleText.text = "РўСЂСЋРј РєРѕСЂР°Р±Р»СЏ";
+            var builder = new StringBuilder();
+            builder.AppendLine($"<b>Р—Р°РіСЂСѓР·РєР°:</b> {_connectedContainer.CurrentWeight:F1} / {_connectedContainer.MaxWeight:F1} РєРі");
+            builder.AppendLine("----------------");
+            builder.AppendLine("<b>РљРѕС€РµР»РµРє:</b>");
 
-            // 1. Вес
-            float currentWeight = _connectedContainer.CurrentWeight;
-            float maxWeight = _connectedContainer.MaxWeight;
-            sb.AppendLine($"<b>Загрузка:</b> {currentWeight:F1} / {maxWeight:F1} кг");
+            var wallet = new Dictionary<ItemDataSO, int>();
+            for (int i = 0; i < _connectedContainer.SlotCount; i++) {
+                InventorySlot slot = _connectedContainer.GetSlot(i);
+                if (slot != null && !slot.IsEmpty && slot.Item.IsCurrency) {
+                    wallet[slot.Item] = wallet.TryGetValue(slot.Item, out int count) ? count + slot.Quantity : slot.Quantity;
+                }
+            }
 
-            // 2. Деньги (Считаем сумму всех валют в инвентаре)
-            int totalMoney = CalculateTotalMoney();
-            sb.AppendLine($"<b>Кошелек:</b> {FormatMoney(totalMoney)}");
-            sb.AppendLine("----------------");
-            sb.AppendLine("<b>Груз на борту:</b>");
+            if (wallet.Count == 0) {
+                builder.AppendLine("<i>РџСѓСЃС‚Рѕ</i>");
+            }
+            else {
+                foreach (KeyValuePair<ItemDataSO, int> pair in wallet) {
+                    builder.AppendLine($"{pair.Key.Name}: {pair.Value}");
+                }
+            }
 
-            // 3. Список товаров списком
+            builder.AppendLine("----------------");
+            builder.AppendLine("<b>Р“СЂСѓР·:</b>");
             bool hasGoods = false;
-            for (int i = 0; i < _connectedContainer.SlotCount; i++)
-            {
-                var slot = _connectedContainer.GetSlot(i);
-                if (!slot.IsEmpty && !slot.Item.IsCurrency)
-                {
-                    sb.AppendLine($"- {slot.Item.Name}: {slot.Quantity} шт.");
+            for (int i = 0; i < _connectedContainer.SlotCount; i++) {
+                InventorySlot slot = _connectedContainer.GetSlot(i);
+                if (slot != null && !slot.IsEmpty && !slot.Item.IsCurrency) {
+                    builder.AppendLine($"- {slot.Item.Name}: {slot.Quantity}");
                     hasGoods = true;
                 }
             }
 
-            if (!hasGoods)
-            {
-                sb.AppendLine("<i>Трюм пуст</i>");
+            if (!hasGoods) {
+                builder.AppendLine("<i>РќРµС‚ С‚РѕРІР°СЂРѕРІ</i>");
             }
 
-            _infoDescriptionText.text = sb.ToString();
+            _infoDescriptionText.text = builder.ToString();
         }
 
-        private int CalculateTotalMoney()
+        private ShipInventory FindPlayerInventory()
         {
-            int total = 0;
-            for (int i = 0; i < _connectedContainer.SlotCount; i++)
-            {
-                var slot = _connectedContainer.GetSlot(i);
-                // Если предмет помечен как Валюта, считаем его цену * количество
-                if (!slot.IsEmpty && slot.Item.IsCurrency)
-                {
-                    total += slot.Item.BasePrice * slot.Quantity;
-                }
-            }
-            return total;
-        }
-
-        // Конвертер цены (10050 -> 1 Gold, 0 Silver, 50 Copper)
-        private string FormatMoney(int totalCopper)
-        {
-            int gold = totalCopper / 10000;
-            int remainder = totalCopper % 10000;
-            int silver = remainder / 100;
-            int copper = remainder % 100;
-
-            string result = "";
-            if (gold > 0) result += $"{gold} <color=yellow>G</color> ";
-            if (silver > 0) result += $"{silver} <color=grey>S</color> ";
-            if (copper > 0 || result == "") result += $"{copper} <color=orange>C</color>";
-
-            return result;
+            return PlayerInventorySystem.FindCargoInventory();
         }
     }
 }

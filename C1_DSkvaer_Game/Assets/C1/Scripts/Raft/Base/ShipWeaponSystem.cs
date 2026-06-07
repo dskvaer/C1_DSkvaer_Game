@@ -1,71 +1,151 @@
-// ====================================================================================================
-// ShipWeaponSystem.cs
-// ====================================================================================================
-
+п»їusing System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ship {
-    /// <summary>
-    /// Управление всеми пушками корабля (левый/правый борт). Вызывает Fire() у GunWeaponSystem.
-    /// </summary>
-    /// <remarks>
-    /// Inspector:
-    /// • <b>Left Guns</b> – массив пушек левого борта.
-    /// • <b>Right Guns</b> – массив пушек правого борта.
-    /// 
-    /// Логика:
-    /// • Хранит таймеры перезарядки для каждой пушки.
-    /// • FireLeft/Right – стреляет первой готовой пушкой на борту.
-    /// </remarks>
     public sealed class ShipWeaponSystem : MonoBehaviour {
+        [Header("РћСЂСѓРґРёСЏ")]
+        [InspectorLabel("Р›РµРІС‹Рµ РїСѓС€РєРё")]
+        [Tooltip("РџСѓС€РєРё Р»РµРІРѕРіРѕ Р±РѕСЂС‚Р°. РџСЂРё СѓРґРµСЂР¶Р°РЅРёРё Р»РµРІРѕР№ РєРЅРѕРїРєРё РІСЃРµ РѕРЅРё РїРѕРєР°Р·С‹РІР°СЋС‚ РїСЂРёС†РµР»РёРІР°РЅРёРµ Рё СЃС‚СЂРµР»СЏСЋС‚ РѕС‡РµСЂРµРґСЊСЋ.")]
         [SerializeField] private GameObject[] leftGuns;
+
+        [InspectorLabel("РџСЂР°РІС‹Рµ РїСѓС€РєРё")]
+        [Tooltip("РџСѓС€РєРё РїСЂР°РІРѕРіРѕ Р±РѕСЂС‚Р°. РџСЂРё СѓРґРµСЂР¶Р°РЅРёРё РїСЂР°РІРѕР№ РєРЅРѕРїРєРё РІСЃРµ РѕРЅРё РїРѕРєР°Р·С‹РІР°СЋС‚ РїСЂРёС†РµР»РёРІР°РЅРёРµ Рё СЃС‚СЂРµР»СЏСЋС‚ РѕС‡РµСЂРµРґСЊСЋ.")]
         [SerializeField] private GameObject[] rightGuns;
 
-        private float[] leftGunTimers;
-        private float[] rightGunTimers;
+        [Header("РћС‡РµСЂРµРґСЊ РІС‹СЃС‚СЂРµР»РѕРІ")]
+        [InspectorLabel("Р—Р°РґРµСЂР¶РєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ")]
+        [Tooltip("РџР°СѓР·Р° РјРµР¶РґСѓ РІС‹СЃС‚СЂРµР»Р°РјРё РЅРµСЃРєРѕР»СЊРєРёС… РїСѓС€РµРє, РµСЃР»Рё Сѓ СЃР°РјРѕР№ РїСѓС€РєРё РЅРµС‚ СЃРІРѕРµРіРѕ GunConfig.")]
+        [SerializeField, Min(0f)] private float defaultSequentialFireDelay = 0.12f;
 
-        private void Awake()
-        {
-            leftGunTimers = new float[leftGuns?.Length ?? 0];
-            rightGunTimers = new float[rightGuns?.Length ?? 0];
-            Debug.Log($"[ShipWeaponSystem] Инициализирован {name}. Left={leftGuns?.Length ?? 0}, Right={rightGuns?.Length ?? 0}", this);
+        private readonly AimState leftAim = new();
+        private readonly AimState rightAim = new();
+        private Coroutine leftFireRoutine;
+        private Coroutine rightFireRoutine;
+
+        private sealed class AimState {
+            public bool IsAiming;
+            public float HoldTime;
         }
 
         private void Update()
         {
-            for (int i = 0; i < leftGunTimers.Length; i++)
-                if (leftGunTimers[i] > 0f) leftGunTimers[i] -= Time.deltaTime;
-            for (int i = 0; i < rightGunTimers.Length; i++)
-                if (rightGunTimers[i] > 0f) rightGunTimers[i] -= Time.deltaTime;
+            UpdateAim(leftGuns, leftAim);
+            UpdateAim(rightGuns, rightAim);
         }
 
-        public void FireLeft() => FireGuns(leftGuns, leftGunTimers);
-        public void FireRight() => FireGuns(rightGuns, rightGunTimers);
+        public void BeginAimingLeft() => BeginAiming(leftGuns, leftAim);
+        public void BeginAimingRight() => BeginAiming(rightGuns, rightAim);
+        public void ReleaseFireLeft() => ReleaseFire(leftGuns, leftAim, ref leftFireRoutine);
+        public void ReleaseFireRight() => ReleaseFire(rightGuns, rightAim, ref rightFireRoutine);
 
-        private void FireGuns(GameObject[] guns, float[] timers)
+        public void FireLeft()
         {
-            if (guns == null || guns.Length == 0) return;
+            BeginAimingLeft();
+            ReleaseFireLeft();
+        }
 
-            bool anyFired = false;
-            for (int i = 0; i < guns.Length; i++)
-            {
-                if (guns[i] == null) continue;
-                if (timers[i] > 0f) continue;
+        public void FireRight()
+        {
+            BeginAimingRight();
+            ReleaseFireRight();
+        }
 
-                var gw = guns[i].GetComponent<GunWeaponSystem>();
-                if (gw == null) continue;
+        private void BeginAiming(GameObject[] guns, AimState state)
+        {
+            state.IsAiming = true;
+            state.HoldTime = 0f;
+            UpdateAimPreview(guns, state, true);
+        }
 
-                var cfg = gw.GetGunConfig();
-                var proj = gw.Fire();
-                if (proj != null)
-                {
-                    if (cfg != null) timers[i] = 1f / Mathf.Max(0.0001f, cfg.FireRate);
-                    anyFired = true;
+        private void ReleaseFire(GameObject[] guns, AimState state, ref Coroutine routine)
+        {
+            float holdTime = Mathf.Max(0f, state.HoldTime);
+            state.IsAiming = false;
+            UpdateAimPreview(guns, state, false);
+
+            if (routine != null) {
+                StopCoroutine(routine);
+            }
+
+            routine = StartCoroutine(FireSequentially(guns, holdTime));
+        }
+
+        private void UpdateAim(GameObject[] guns, AimState state)
+        {
+            if (!state.IsAiming) {
+                return;
+            }
+
+            state.HoldTime += Time.deltaTime;
+            UpdateAimPreview(guns, state, true);
+        }
+
+        private IEnumerator FireSequentially(GameObject[] guns, float holdTime)
+        {
+            List<GunWeaponSystem> readyGuns = CollectReadyGuns(guns);
+            for (int i = 0; i < readyGuns.Count; i++) {
+                GunWeaponSystem gun = readyGuns[i];
+                if (gun == null) {
+                    continue;
+                }
+
+                float spread = gun.GetCurrentSpreadForHold(holdTime);
+                gun.FireWithSpread(spread);
+
+                if (i < readyGuns.Count - 1) {
+                    yield return new WaitForSeconds(GetDelay(gun));
+                }
+            }
+        }
+
+        private List<GunWeaponSystem> CollectReadyGuns(GameObject[] gunObjects)
+        {
+            var result = new List<GunWeaponSystem>();
+            if (gunObjects == null) {
+                return result;
+            }
+
+            foreach (GameObject gunObject in gunObjects) {
+                if (gunObject == null) {
+                    continue;
+                }
+
+                GunWeaponSystem gun = gunObject.GetComponent<GunWeaponSystem>();
+                if (gun != null && gun.CanFire()) {
+                    result.Add(gun);
                 }
             }
 
-            if (!anyFired)
-                Debug.Log($"[ShipWeaponSystem] Все пушки {name} на перезарядке.", this);
+            return result;
+        }
+
+        private void UpdateAimPreview(GameObject[] gunObjects, AimState state, bool visible)
+        {
+            if (gunObjects == null) {
+                return;
+            }
+
+            foreach (GameObject gunObject in gunObjects) {
+                if (gunObject == null) {
+                    continue;
+                }
+
+                GunWeaponSystem gun = gunObject.GetComponent<GunWeaponSystem>();
+                GunAimZone aimZone = gunObject.GetComponentInChildren<GunAimZone>(true);
+                if (gun == null || aimZone == null) {
+                    continue;
+                }
+
+                float maxSpread = gun.GetMaxAimSpread();
+                float currentSpread = gun.GetCurrentSpreadForHold(state.HoldTime);
+                aimZone.SetAimPreview(visible, maxSpread, currentSpread, aimZone.GetAimRange());
+            }
+        }
+
+        private float GetDelay(GunWeaponSystem gun)
+        {
+            return gun != null ? Mathf.Max(defaultSequentialFireDelay, gun.GetSequentialFireDelay()) : defaultSequentialFireDelay;
         }
     }
 }
